@@ -1,0 +1,85 @@
+body {
+  margin: 0;
+  background: #000;
+}
+
+.main-navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 24px 32px 0 32px;
+}
+
+.nav-left, .nav-right {
+  display: flex;
+  gap: 80px;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.nav-right {
+  gap: 16px;
+}
+
+.nav-left li a {
+  color: #fff;
+  text-decoration: none;
+  font-size: 1.3rem;
+  font-family: 'Inter', Arial, sans-serif;
+  font-weight: 400;
+  transition: color 0.2s;
+}
+
+.nav-left li a:hover {
+  color: #e6c97a;
+}
+
+.btn {
+  display: inline-block;
+  font-size: 1.3rem;
+  font-family: 'Inter', Arial, sans-serif;
+  font-weight: 400;
+  padding: 16px 40px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  text-decoration: none;
+  transition: background 0.2s, color 0.2s, box-shadow 0.2s;
+  box-shadow: none;
+}
+
+.btn.gold {
+  background: #e6c97a;
+  color: #222;
+}
+
+.btn.gold:hover {
+  background: #d4b44c;
+}
+
+.btn.white {
+  background: #fff;
+  color: #222;
+  border: 2px solid #fff;
+}
+
+.btn.white:hover {
+  background: #f3f3f3;
+}
+
+@media (max-width: 900px) {
+  .main-navbar {
+    flex-direction: column;
+    align-items: stretch;
+    padding: 16px 8px 0 8px;
+  }
+  .nav-left, .nav-right {
+    gap: 24px;
+    justify-content: center;
+  }
+  .btn {
+    padding: 12px 20px;
+    font-size: 1rem;
+  }
+}

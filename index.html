@@ -9,15 +9,23 @@
 <body>
     <header>
       <nav class="main-navbar">
-        <ul class="nav-left">
-          <li><a href="#home">Home</a></li>
-          <li><a href="#chef">Chef</a></li>
-          <li><a href="#gallery">Gallery</a></li>
-        </ul>
-        <ul class="nav-right">
-          <li><a href="#menu" class="btn gold">Menu</a></li>
-          <li><a href="#contact" class="btn white">Contact us</a></li>
-        </ul>
+        <input type="checkbox" id="nav-toggle" class="nav-toggle" aria-label="Toggle menu" />
+        <label for="nav-toggle" class="hamburger" aria-hidden="true">
+          <span></span>
+          <span></span>
+          <span></span>
+        </label>
+        <div class="nav-menus">
+          <ul class="nav-left">
+            <li><a href="#home">Home</a></li>
+            <li><a href="#chef">Chef</a></li>
+            <li><a href="#gallery">Gallery</a></li>
+          </ul>
+          <ul class="nav-right">
+            <li><a href="#menu" class="btn gold">Menu</a></li>
+            <li><a href="#contact" class="btn white">Contact us</a></li>
+          </ul>
+        </div>
       </nav>
     </header>
 </body>

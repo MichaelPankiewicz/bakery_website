@@ -1,14 +1,26 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="/css/style.css">
-    <title>Document</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <link rel="stylesheet" href="/css/style.css" />
+  <title>Bistro Bakery</title>
 </head>
 <body>
-    <header>
-      <nav class="main-navbar">
+  <header>
+    <nav class="main-navbar">
+      <a href="#" class="logo">
+        <img src="logo.png" alt="Logo" />
+      </a>
+
+      <input type="checkbox" id="nav-toggle" class="nav-toggle" />
+      <label for="nav-toggle" class="hamburger" aria-label="Toggle menu">
+        <span></span>
+        <span></span>
+        <span></span>
+      </label>
+
+      <div class="nav-menus">
         <ul class="nav-left">
           <li><a href="#home">Home</a></li>
           <li><a href="#chef">Chef</a></li>
@@ -18,7 +30,8 @@
           <li><a href="#menu" class="btn gold">Menu</a></li>
           <li><a href="#contact" class="btn white">Contact us</a></li>
         </ul>
-      </nav>
-    </header>
+      </div>
+    </nav>
+  </header>
 </body>
 </html>

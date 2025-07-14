@@ -1,37 +1,70 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <link rel="stylesheet" href="/css/style.css" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Bistro Bakery</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/style.css" />
+  <link rel="stylesheet" href="css/navbar.css" />
+  <link rel="stylesheet" href="css/hero.css" />
 </head>
+
 <body>
   <header>
-    <nav class="main-navbar">
-      <a href="#" class="logo">
-        <img src="logo.png" alt="Logo" />
-      </a>
+        <div class="nav-logo">
+            <a href="#"><img class="logo-image" src="/images/logo.png" alt="Logo"></a>
+        </div>
+        <input type="checkbox" id="nav-toggle" class="nav-toggle" />
+        <label for="nav-toggle" class="nav-burger">
+            <span></span>
+            <span></span>
+            <span></span>
+        </label>
+        <nav>
+            <ul class="nav-links">
+                <li><a class="nav-link" href="#">Home</a></li>
+                <li><a class="nav-link" href="#">Chef</a></li>
+                <li><a class="nav-link" href="#">Gallery</a></li>
+            </ul>
+            <div class="nav-buttons">
+                <a class="main-button" href="#">Menu</a>
+                <a class="contact" href="#">Contact Us</a>
+            </div>
+        </nav>
+    </header>
 
-      <input type="checkbox" id="nav-toggle" class="nav-toggle" />
-      <label for="nav-toggle" class="hamburger" aria-label="Toggle menu">
-        <span></span>
-        <span></span>
-        <span></span>
-      </label>
 
-      <div class="nav-menus">
-        <ul class="nav-left">
-          <li><a href="#home">Home</a></li>
-          <li><a href="#chef">Chef</a></li>
-          <li><a href="#gallery">Gallery</a></li>
-        </ul>
-        <ul class="nav-right">
-          <li><a href="#menu" class="btn gold">Menu</a></li>
-          <li><a href="#contact" class="btn white">Contact us</a></li>
-        </ul>
+  <section class="hero">
+    <h1 class="hero-title"><span>Bistro</span> | <span>Bakery</span></h1>
+    <div class="hero-inner">
+      <div class="hero-text">
+        <p>
+          Pulling on influence from around the globe, with the chef’s talents, pedigrees and passions,
+          6 Bistro + Bakery features freshly made morning pastries, including Danish, brioche,
+          and a variety of flaky croissants; signature desserts such as macaroons, petit gateaux
+          (small cakes) and tarts.
+        </p>
+        <a href="#gallery" class="hero-btn-alt">Explore more</a>
       </div>
-    </nav>
-  </header>
+      <div class="hero-menu-card">
+        <img src="images/logo.png" alt="hero menu icon" class="menu-icon" />
+        <a href="#menu" class="open-menu-btn">
+          Open Menu <span class="arrow">→</span>
+        </a>
+      </div>
+    </div>
+    <div class="hero-scroll-button" aria-label="Scroll down">
+      <svg class="mouse-icon" viewBox="0 0 24 34" xmlns="http://www.w3.org/2000/svg">
+        <rect x="1" y="1" width="22" height="32" rx="11" stroke="#e6c97a" fill="none" />
+        <line x1="12" y1="6" x2="12" y2="12" stroke="#e6c97a" stroke-width="2" />
+        <polyline points="8,20 12,24 16,20" stroke="#e6c97a" fill="none" stroke-width="2" />
+      </svg>
+      <span class="scroll-text">Scroll down</span>
+    </div>
+  </section>
 </body>
+
 </html>

@@ -91,7 +91,7 @@
 @media (max-width: 768px) {
   .about {
     flex-direction: column;
-    padding: 0 8vw; 
+    padding: 40px 40px; 
     gap: 48px; 
     height: auto;
   }

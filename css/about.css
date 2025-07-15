@@ -1,0 +1,136 @@
+.about {
+  background-color: rgb(29, 40, 39);
+  display: flex;
+  flex-direction: row;
+  padding: 110px 80px 120px 80px;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 40px;
+  flex-wrap: nowrap;
+  min-height: 650px;
+}
+
+
+.about-left {
+    display: flex;
+    flex-direction: row;
+    gap: 50px;
+}
+
+.about-text {
+    padding-top: 50px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: center;
+    margin-right: 100px;
+    gap: 20px;
+}
+
+.about-text h2 {
+    font-size: 70px;
+    font-weight: 700;
+    margin-bottom: 30px;
+    gap: 40px;
+}
+
+.container-title {
+    font-size: 26px;
+    justify-content: center;
+}
+
+@media (max-width: 1279px) {
+        .about {
+        padding: 80px 40px;
+        height: auto;
+        flex-direction: column;
+    }
+
+    .about-left {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 100%;
+    }
+
+    .about-text {
+        margin-right: 0;
+        text-align: left;
+    }
+
+    .about-text h2 {
+        font-size: 50px;
+    }
+
+}
+
+@media (max-width: 1065px) {
+    .about {
+        padding: 80px 40px;
+        height: auto;
+        flex-direction: column;
+    }
+
+    .about-left {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 100%;
+    }
+
+    .about-text {
+        margin-right: 0;
+        text-align: left;
+    }
+
+    .about-text h2 {
+        font-size: 50px;
+    }
+}
+
+@media (max-width: 768px) {
+  .about {
+    flex-direction: column;
+    padding: 40px 40px; 
+    gap: 48px; 
+    height: auto;
+  }
+
+  .about-left {
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    gap: 32px;
+  }
+
+  .about-photo img,
+  .card img {
+    width: 100%;
+    height: auto;
+    max-width: 100%;
+    object-fit: cover;
+    border-radius: 8px;
+  }
+
+  .about-text {
+    margin: 0 auto;
+    text-align: left;
+    width: 100%;
+    font-size: 1rem;
+    line-height: 1.8;
+  }
+
+  .about-text h2 {
+    font-size: 2.2rem;
+    margin-bottom: 16px;
+  }
+
+  .container-title {
+    font-size: 18px;
+    text-align: center;
+  }
+}
+
+@media (max-width: 480px) {
+
+}

@@ -64,8 +64,11 @@
   width: 100%;
   height: 150px;
   object-fit: contain;
-  filter: grayscale(100%) brightness(90%) contrast(110%);
+  object-position: left;
+  filter: invert(52%) sepia(74%) saturate(1000%) hue-rotate(2deg) brightness(90%) contrast(105%);
+  margin-bottom: 20px;
 }
+
 
 .menu-card h4 {
   font-size: 20px;
@@ -163,3 +166,107 @@ section.test > div {
   background-color: lightblue;
   margin: 10px;   
 }
+
+
+section#featured-meals {
+  background-color: white;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  text-align: center;
+  padding: 0 50px;
+  min-height: 750px;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.featured-header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+}
+
+.featured-header h2 {
+  font-size: 80px;
+  font-weight: bold;
+  font-family: 'Playfair Display', serif;
+  color: black;
+  margin: 0;
+}
+
+.featured-header p {
+  font-size: 24px;
+  color: black;
+  max-width: 800px;
+  margin-top: 20px;
+  text-align: center;
+}
+
+.featured-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+}
+
+.feature-card {
+  width: 400px;
+  height: 600px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: flex-start;
+  background-color: transparent;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.feature-card img {
+  width: 100%;
+  height: 100%;
+  min-height: 500px;
+  object-fit: cover;
+  object-position: center;
+}
+
+.feature-card h3 {
+  font-size: 24px;
+  font-weight: 900;
+  color: black;
+  margin-top: 20px;
+}
+
+/* Responsive Adjustments */
+@media (max-width: 1760px) {
+  .featured-grid {
+    justify-content: space-around;
+  }
+}
+
+@media (max-width: 1025px), (max-width: 768px) {
+  .feature-card {
+    max-width: 100%;
+    align-items: center;
+    text-align: left;
+  }
+
+  .featured-header {
+    text-align: left;
+  }
+
+  .featured-header p {
+    width: 100%;
+    max-width: none;
+    text-align: left;
+  }
+
+  .featured-grid {
+    justify-content: center;
+  }
+}
+
+

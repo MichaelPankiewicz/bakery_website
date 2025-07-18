@@ -2,7 +2,7 @@
    HERO SECTION
 =================== */
 .hero {
-    background: url('/images/hero.png');
+    background: url('/images/hero.webp');
     background-repeat: no-repeat;
     background-position: center center;
     background-size: cover;

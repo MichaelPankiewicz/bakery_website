@@ -1,0 +1,63 @@
+/* Footer section styles */
+.footer {
+  background-color: #d3d3d3; /* Light gray background */
+  padding: 30px 50px;
+  font-family: Arial, sans-serif;
+  font-size: 14px;
+  color: #333;
+}
+
+/* Top part of footer with three columns */
+.footer-top {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+
+/* Each section style */
+.footer-section {
+  flex: 1;
+  min-width: 200px;
+  margin: 10px;
+  padding: 10px;
+}
+
+/* Logo styling */
+.logo {
+  font-weight: bold;
+  font-size: 36px;
+  margin-bottom: 10px;
+}
+
+/* Headings for sections */
+.footer-section h4 {
+  margin-bottom: 10px;
+  font-weight: bold;
+  border-bottom: 2px solid #999;
+  padding-bottom: 5px;
+}
+
+/* Icons for contact info */
+.icon {
+  margin-right: 8px;
+}
+
+/* Divider line styling */
+.footer-divider {
+  border: none;
+  border-top: 2px solid #999;
+  margin: 20px 0;
+}
+
+/* Bottom line styles */
+.footer-bottom {
+  text-align: center;
+  font-size: 12px;
+  padding: 10px 0;
+  color: #555;
+}
+
+/* Optional: hover effect for links or text */
+.footer-section p:hover {
+  text-decoration: underline;
+}

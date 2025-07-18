@@ -1,0 +1,94 @@
+#subscribe-section {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  align-items: end;
+  gap: 20px;
+  padding: 150px 50px 50px 50px;
+  box-sizing: border-box;
+  width: 100%;
+}
+
+.newsletter-left h2 {
+  font-size: 65px;
+  font-family: 'Playfair Display', serif;
+  color: black;
+  margin: 0;
+}
+
+.newsletter-center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.newsletter-center p {
+  font-size: 18px;
+  line-height: 1.6;
+  max-width: 400px;
+  color: black;
+  text-align: center;
+  margin: 0; /* <- THIS is the fix */
+}
+
+.newsletter-right {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+}
+
+.subscribe-form {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  border: 2px solid rgba(116, 116, 116, 0.568);
+  padding: 5px 0;
+  width: 100%;
+  max-width: 350px;
+}
+
+.subscribe-form input {
+  border: none;
+  padding: 15px;
+  font-size: 16px;
+  margin-left: 10px;
+}
+
+.subscribe-form input:focus {
+  outline: none;
+}
+
+.subscribe-form button {
+  background-color: #ffd86b;
+  border: none;
+  font-weight: bold;
+  padding: 15px;
+  margin-right: 5px;
+  cursor: pointer;
+}
+
+/* Responsive layout */
+@media (max-width: 1279px) {
+  #subscribe-section {
+    grid-template-columns: 1fr;
+    text-align: center;
+    gap: 30px;
+    padding: 100px 50px;
+  }
+
+  .newsletter-left,
+  .newsletter-center,
+  .newsletter-right {
+    justify-content: center;
+    display: flex;
+    text-align: center;
+  }
+
+  .subscribe-form {
+    grid-template-columns: 1fr;
+  }
+
+  .subscribe-form input,
+  .subscribe-form button {
+    width: 100%;
+    margin: 0;
+  }
+}

@@ -123,8 +123,8 @@
 
   .menu-text {
     order: 0;
-    align-items: center;
-    text-align: center;
+    align-items: flex-start;
+    text-align: left;
   }
 
   .menu-text h2 {
@@ -143,8 +143,8 @@
 /* Mobile Layout */
 @media (max-width: 600px) {
   .menu-text h2 {
-    font-size: 2rem;
-   }
+    font-size: 32px;
+  }
 
   .menu-card {
     width: 100%;
@@ -153,6 +153,12 @@
 
   .menu-video {
     height: 250px;
+  }
+
+  .menu-text {
+    width: 100%;
+    align-items: flex-start;
+    text-align: left;
   }
 }
 
@@ -257,6 +263,10 @@ section#featured-meals {
   .featured-header {
     text-align: left;
   }
+
+  .featured-header h2 {
+    font-size: 32px;
+   }
 
   .featured-header p {
     width: 100%;

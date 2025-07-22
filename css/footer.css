@@ -1,92 +1,99 @@
 @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600;700&display=swap');
 
-#footer-section {
+body {
+  margin: 0;
+  padding: 0;
+  background: #EAEAEA;
+}
+
+/* Footer grid */
+#links-footer {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   padding: 100px 50px 50px;
-  background-color: #eaeaea;
-  gap: 0 30px;
+  background-color: #EAEAEA;
 }
 
-#footer-section > div:not(:first-child),
-#footer-section > nav:not(:first-child) {
-  border-left: 2px solid rgba(0, 0, 0, 0.23);
-  padding-left: 30px;
+/* Each section */
+#links-footer > div {
+  padding: 0 30px;
+  position: relative;
 }
 
-.brand-info {
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
+/* Vertical line between columns (desktop only) */
+#links-footer > div:not(:first-child)::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0;
+  height: 100%;
+  width: 1px;
+  background: rgba(0, 0, 0, 0.2);
 }
 
-.brand-info img {
-  margin-bottom: 30px;
+.footer-logo-container {
+  display: grid;
+  justify-items: start;
 }
 
-.brand-info address,
-.brand-info p,
-.brand-info small {
-  font-family: sans-serif;
+.footer-logo-container p,
+.footer-logo-container p a {
+  margin: 5px 0;
   font-weight: 700;
-  color: #24232396;
-  margin: 0;
-}
-
-.brand-info a {
+  font-family: sans-serif;
   color: #24232396;
   text-decoration: none;
 }
 
-.footer-menu,
-.footer-links,
-.business-hours {
-  display: flex;
-  flex-direction: column;
+/* Section content */
+.footer-nav-links,
+.footer-quick-links,
+.operational {
+  display: grid;
+  justify-items: start;
 }
 
-.nav-group {
+.inner {
   text-align: left;
 }
 
-.nav-group strong {
-  font-size: 25px;
-  font-family: 'Playfair Display', serif;
-  color: black;
-  display: block;
-  margin-bottom: 20px;
-}
-
-.nav-group ul {
+ul {
   list-style: none;
   padding: 0;
   margin: 0 0 20px 0;
 }
 
-.nav-group li {
+ul li {
   margin-bottom: 15px;
 }
 
-.nav-group li a,
-.business-hours span {
+ul li h1 {
+  font-family: 'Playfair Display', serif;
+  font-size: 25px;
+  font-weight: 700;
+  margin-bottom: 20px;
+  color: black;
+}
+
+ul li a {
   font-family: 'IBM Plex Mono', monospace;
+  font-size: 18px;
   font-weight: 600;
   color: #24232396;
   text-decoration: none;
-  font-size: 18px;
 }
 
-/* Footer bottom section */
-#footer-bottom {
+/* Bottom footer section */
+#main-footer {
   display: grid;
   grid-template-columns: 1fr 3fr;
   padding: 10px 50px 50px;
+  background-color: #EAEAEA;
   align-items: center;
-  background-color: #eaeaea;
 }
 
-.social-icons ul {
+.footer-socials ul {
   display: flex;
   gap: 20px;
   padding: 0;
@@ -94,63 +101,68 @@
   list-style: none;
 }
 
-.social-icons li a {
+.footer-socials ul li a {
+  text-decoration: none;
   color: #24232396;
   border: 1px solid #24232396;
   border-radius: 50%;
   padding: 10px;
-  text-decoration: none;
 }
 
-.social-icons li a:hover {
-  color: #fff;
+.footer-socials ul li a:hover {
   background-color: #8a8a8a96;
+  color: white;
   border-color: #8a8a8a96;
 }
 
-.legal-text {
-  color: #24232396;
+.copy-rights {
   font-family: 'IBM Plex Mono', monospace;
   font-size: 18px;
-  padding-left: 100px;
+  font-weight: 600;
+  color: #24232396;
+  text-align: left;
+  padding-left: 50px;
 }
 
-/* Responsive layout */
+/* Mobile styles */
 @media (max-width: 1279px) {
-  #footer-section {
+  #links-footer {
     display: flex;
     flex-direction: column;
     gap: 50px;
     padding: 50px;
   }
 
-  #footer-section > * {
-    border: none !important;
-    border-bottom: 2px solid rgba(0, 0, 0, 0.23);
-    padding-bottom: 30px;
+  #links-footer > div {
+    padding: 0;
     margin-bottom: 30px;
+    position: relative;
   }
 
-  #footer-section > *:last-child {
-    border-bottom: none;
-    margin-bottom: 0;
-    padding-bottom: 0;
-  }
-
-  .nav-group,
-  .brand-info {
+  /* Horizontal line between sections (mobile only) */
+  #links-footer > div:not(:last-child)::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
     width: 100%;
+    height: 1px;
+    background: rgba(0, 0, 0, 0.2);
   }
 
-  #footer-bottom {
+  /* Remove vertical lines */
+  #links-footer > div::before {
+    display: none !important;
+  }
+
+  #main-footer {
     grid-template-columns: 1fr;
     grid-template-rows: auto auto;
+    padding: 20px 50px;
     gap: 20px;
-    padding-top: 20px;
   }
 
-  .legal-text {
+  .copy-rights {
     padding-left: 0;
-    text-align: left;
   }
 }

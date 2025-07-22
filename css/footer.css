@@ -160,16 +160,17 @@ white-space: nowrap;
   }
 
   .footer-nav-links,
-.footer-quick-links,
-.operational {
-  justify-items: start;
-}
+  .footer-quick-links,
+  .operational {
+    justify-items: start;
+  }
 
   /* Remove vertical lines */
   #links-footer > div::before {
     display: none !important;
   }
 
+  /* --- THIS IS THE PART YOU NEED --- */
   #main-footer {
     grid-template-columns: 1fr;
     grid-template-rows: auto auto;
@@ -178,13 +179,14 @@ white-space: nowrap;
   }
 
   .copy-rights {
+    grid-column: auto;
+    text-align: left;
     padding-left: 0;
+    white-space: normal;
+  }
+
+  .footer-socials ul {
+    justify-content: flex-start;
   }
 }
 
-
-
-@media (max-width: 768px) {
-
-
-}

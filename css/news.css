@@ -93,3 +93,18 @@
     margin: 0;
   }
 }
+
+@media (max-width: 470px) {
+  .newsletter-left h2 {
+    font-size: 30px;
+  }
+
+  .newsletter-center p {
+    font-size: 16px;
+    max-width: 100%;
+  }
+
+  .subscribe-form {
+    max-width: 100%;
+  }
+}

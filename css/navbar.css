@@ -14,9 +14,9 @@ header {
     gap: 24px;
 }
 
-.logo-image{
+/* .logo-image{
     filter: brightness(0) invert(1);
-}
+} */
 
 nav {
     display: flex;

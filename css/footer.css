@@ -11,7 +11,7 @@ body {
 #links-footer {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-  padding: 100px 50px 50px;
+  padding: 100px 26px 50px;
   background-color: #F6F6F6;
 }
 

@@ -1,11 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600;700&display=swap');
 
-body {
-  margin: 0;
-  padding: 0;
-  background: #EAEAEA;
-}
 
 /* Footer grid */
 #links-footer {
@@ -17,7 +10,7 @@ body {
 
 /* Each section */
 #links-footer > div {
-  padding: 0 30px;
+  padding: 0 26px;
   position: relative;
 }
 
@@ -35,6 +28,12 @@ body {
 .footer-logo-container {
   display: grid;
   justify-items: start;
+}
+
+.footer-logo-container img{
+  width: 140px;
+  height: auto;
+  object-fit: cover;
 }
 
 .footer-logo-container p,
@@ -64,37 +63,19 @@ body {
   text-align: left;
 }
 
-ul {
-  list-style: none;
-  padding: 0;
-  margin: 0 0 20px 0;
-}
 
-ul li {
-  margin-bottom: 15px;
-}
 
-ul li h1 {
-  font-family: 'Playfair Display', serif;
-  font-size: 25px;
-  font-weight: 700;
-  margin-bottom: 20px;
-  color: black;
-}
 
-ul li a {
-  font-family: 'IBM Plex Mono', monospace;
-  font-size: 18px;
-  font-weight: 600;
-  color: #24232396;
-  text-decoration: none;
-}
+
+
+
+
 
 /* Bottom footer section */
 #main-footer {
   display: grid;
   grid-template-columns: 1fr auto 1fr;
-  padding: 10px 50px 50px;
+  padding: 10px 50px;
   background-color: #F6F6F6;
   align-items: center;
 }

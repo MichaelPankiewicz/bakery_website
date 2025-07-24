@@ -1,3 +1,78 @@
+input {
+  border: none;
+  padding: 15px;
+  font-size: 16px;
+}
+
+input:focus {
+  outline: none;
+}
+
+button {
+  background-color: #ffd86b;
+  border: none;
+  font-weight: bold;
+  padding: 15px;
+  cursor: pointer;
+}
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600;700&display=swap');
+
+body {
+  margin: 0;
+  padding: 0;
+  background: transparent;
+}
+
+ul {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 20px 0;
+}
+
+ul li {
+  margin-bottom: 15px;
+}
+
+ul li h1 {
+  font-family: 'Playfair Display', serif;
+  font-size: 25px;
+  font-weight: 700;
+  margin-bottom: 20px;
+  color: black;
+}
+
+ul li a {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 18px;
+  font-weight: 600;
+  color: #24232396;
+  text-decoration: none;
+}
+/* Global button styles moved from navbar.css for reuse */
+.main-button {
+    text-decoration: none;
+    color: black;
+    background: #F0D67F;
+    padding: 10px 28px;
+    border-radius: 2px;
+    font-weight: 600;
+    font-size: 16px;
+    box-shadow: 0 2px 8px rgba(184, 107, 43, 0.08);
+    transition: background 0.2s, color 0.2s;
+}
+
+.nav-buttons .contact {
+    text-decoration: none;
+    color: black;
+    background: #ffffff;
+    padding: 10px 28px;
+    border-radius: 2px;
+    font-weight: 600;
+    font-size: 16px;
+    box-shadow: 0 2px 8px rgba(184, 107, 43, 0.08);
+    transition: background 0.2s, color 0.2s;
+}
 /* ===================
    GENERAL STYLES
 =================== */

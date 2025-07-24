@@ -30,6 +30,12 @@
   justify-items: start;
 }
 
+.footer-logo-container img{
+  width: 140px;
+  height: auto;
+  object-fit: cover;
+}
+
 .footer-logo-container p,
 .footer-logo-container p a {
   margin: 5px 0;

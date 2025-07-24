@@ -24,6 +24,16 @@ body {
   background: transparent;
 }
 
+img {
+  will-change: transform, opacity;
+  object-fit: cover;
+  transition: transform 0.3s ease;
+}
+
+img:active{
+  transform: scale(1.1);
+}
+
 ul {
   list-style: none;
   padding: 0;

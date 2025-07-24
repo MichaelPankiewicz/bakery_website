@@ -10,7 +10,15 @@
   min-height: 650px;
 }
 
+.chef-photo {
+  width: 450px;
+  object-fit: cover;
+}
 
+.chef-photo-right {
+  width: 250px;
+  object-fit: cover;
+}
 .about-left {
     display: flex;
     flex-direction: row;

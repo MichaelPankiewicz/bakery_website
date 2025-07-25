@@ -107,6 +107,11 @@ body {
 .btn.gold,
 .btn.white,
 .hero-menu-card,
-.hero-menu-card * {
+.hero-menu-card *,
+.hero-text,
+.hero-text p,
+.menu-text p,
+.featured-header p,
+.newsletter-center p {
   font-family: 'Inter', sans-serif !important;
 }

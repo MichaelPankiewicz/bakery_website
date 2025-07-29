@@ -1,0 +1,34 @@
+{
+  "bakeryItems": [
+    {
+      "id": 1,
+      "name": "Rustic Baguette",
+      "description": "Crispy on the outside, soft on the inside.",
+      "image": "https://source.unsplash.com/400x300/?baguette"
+    },
+    {
+      "id": 2,
+      "name": "Chocolate Croissant",
+      "description": "Flaky pastry with rich chocolate filling.",
+      "image": "https://source.unsplash.com/400x300/?croissant"
+    },
+    {
+      "id": 3,
+      "name": "Cinnamon Roll",
+      "description": "Sweet, gooey, and loaded with cinnamon.",
+      "image": "https://source.unsplash.com/400x300/?cinnamon-roll"
+    },
+    {
+      "id": 4,
+      "name": "Sourdough Loaf",
+      "description": "Fermented to perfection, great for sandwiches.",
+      "image": "https://source.unsplash.com/400x300/?sourdough"
+    },
+    {
+      "id": 5,
+      "name": "Blueberry Muffin",
+      "description": "Soft muffin with juicy blueberries.",
+      "image": "https://source.unsplash.com/400x300/?muffin"
+    }
+  ]
+}

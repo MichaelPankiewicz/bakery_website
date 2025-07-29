@@ -8,3 +8,4 @@ import './css/news.css';
 import './css/footer.css';
 // JS
 import './js/main.js';
+

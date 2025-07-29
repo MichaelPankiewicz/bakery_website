@@ -115,3 +115,55 @@ body {
 .newsletter-center p {
   font-family: 'Inter', sans-serif !important;
 }
+
+
+.dynamic-menu {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 9999;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+  background: rgba(255, 255, 255, 0.95);
+  padding: 30px;
+  border-radius: 16px;
+  box-shadow: 0 10px 50px rgba(0, 0, 0, 0.3);
+  max-width: 90vw;
+  max-height: 80vh;
+  overflow-y: auto;
+}
+
+.dynamic-menu.hidden {
+  display: none;
+}
+
+.dynamic-card {
+  background: white;
+  color: black;
+  padding: 16px;
+  border-radius: 10px;
+  text-align: center;
+  width: 220px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  transition: transform 0.3s ease;
+}
+
+.dynamic-card img {
+  width: 100%;
+  border-radius: 8px;
+  object-fit: cover;
+}
+
+.dynamic-card h4 {
+  margin: 12px 0 6px;
+  font-size: 18px;
+}
+
+.dynamic-card p {
+  font-size: 14px;
+  color: #444;
+}

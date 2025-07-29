@@ -4,31 +4,31 @@
       "id": 1,
       "name": "Rustic Baguette",
       "description": "Crispy on the outside, soft on the inside.",
-      "image": "https://source.unsplash.com/400x300/?baguette"
+      "image": "https://plus.unsplash.com/premium_photo-1668772632888-906d12e932c4?q=80&w=687&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
     },
     {
       "id": 2,
       "name": "Chocolate Croissant",
       "description": "Flaky pastry with rich chocolate filling.",
-      "image": "https://source.unsplash.com/400x300/?croissant"
+      "image": "https://images.unsplash.com/photo-1718897266472-5b7229ebdd3d?q=80&w=764&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
     },
     {
       "id": 3,
       "name": "Cinnamon Roll",
       "description": "Sweet, gooey, and loaded with cinnamon.",
-      "image": "https://source.unsplash.com/400x300/?cinnamon-roll"
+      "image": "https://images.unsplash.com/photo-1694632288834-17d86b340745?q=80&w=687&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
     },
     {
       "id": 4,
       "name": "Sourdough Loaf",
       "description": "Fermented to perfection, great for sandwiches.",
-      "image": "https://source.unsplash.com/400x300/?sourdough"
+      "image": "https://images.unsplash.com/photo-1664339030082-f93aa0cf00a7?q=80&w=1444&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
     },
     {
       "id": 5,
       "name": "Blueberry Muffin",
       "description": "Soft muffin with juicy blueberries.",
-      "image": "https://source.unsplash.com/400x300/?muffin"
+      "image": "https://plus.unsplash.com/premium_photo-1711684804216-4ad043c102d3?q=80&w=688&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
     }
   ]
 }

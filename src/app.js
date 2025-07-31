@@ -9,7 +9,7 @@ import './js/main.js';
 
 document.addEventListener('DOMContentLoaded', () => {
   const menuButton = document.querySelector('.open-menu-btn');
-  const menuContainer = document.getElementById('dynamic-menu-section');
+  const menuContainer = document.querySelector('#dynamic-menu-section');
 
   if (!menuButton || !menuContainer) return;
 

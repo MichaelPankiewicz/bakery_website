@@ -151,8 +151,11 @@ body {
   box-shadow: 0 6px 14px rgba(0, 0, 0, 0.2);
   transition: transform 0.3s ease;
   position: relative;
-  animation: floatIn 0.3s ease forwards;
+  opacity: 0; /* voor animatie effect */
+  animation-duration: 0.5s;
+  animation-fill-mode: forwards;
 }
+
 
 .dynamic-card img {
   width: 100%;
@@ -171,6 +174,34 @@ body {
   color: #555;
 }
 
+.close-menu-btn {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  background-color: #f0d67f;
+  border: none;
+  padding: 10px 14px;
+  font-size: 18px;
+  font-weight: bold;
+  border-radius: 6px;
+  cursor: pointer;
+  z-index: 10000;
+}
+
+
+.fallback-msg {
+  color: #b94a48;
+  background: #fff5f5;
+  border: 1px solid #f5c6cb;
+  padding: 20px;
+  border-radius: 10px;
+  text-align: center;
+  margin: 30px auto;
+  font-size: 18px;
+  max-width: 400px;
+}
+
+
 /* Animation Keyframes */
 @keyframes floatIn {
   from {
@@ -181,4 +212,23 @@ body {
     transform: translateY(0) scale(1);
     opacity: 1;
   }
+}
+@keyframes slideInLeft {
+  from { transform: translateX(-50px); opacity: 0; }
+  to { transform: translateX(0); opacity: 1; }
+}
+
+@keyframes slideInRight {
+  from { transform: translateX(50px); opacity: 0; }
+  to { transform: translateX(0); opacity: 1; }
+}
+
+@keyframes scaleIn {
+  from { transform: scale(0.7); opacity: 0; }
+  to { transform: scale(1); opacity: 1; }
+}
+
+@keyframes floatIn {
+  from { transform: translateY(50px) scale(0.95); opacity: 0; }
+  to { transform: translateY(0) scale(1); opacity: 1; }
 }

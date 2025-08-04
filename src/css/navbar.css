@@ -1,196 +1,196 @@
 /* Header desktop */
 header {
-    background: transparent;
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    padding: 20px 50px;
-    z-index: 1000;
-    box-sizing: border-box;
-    display: flex;
-    align-items: center;
-    justify-content: flex-start;
-    gap: 24px;
+  background: transparent;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  padding: 20px 50px;
+  z-index: 1000;
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 24px;
+  transition: background-color 0.3s ease;
+}
+
+/* When mobile nav is open or scrolled */
+header.mobile-nav-open,
+header.scrolled {
+  background-color: rgb(29, 40, 39);
 }
 
 /* Navigation */
 nav {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    width: 100%;
-    margin: 0 auto;
-    height: 80px;
-    box-sizing: border-box;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  margin: 0 auto;
+  height: 80px;
+  box-sizing: border-box;
 }
 
-/* Logo */
 .nav-logo {
-    display: flex;
-    align-items: center;
-    margin-right: 60px;
+  display: flex;
+  align-items: center;
+  margin-right: 60px;
 }
 
 .nav-logo img {
-    height: 48px;
-    width: 48px;
-    object-fit: cover;
+  height: 48px;
+  width: 48px;
+  object-fit: cover;
 }
 
 /* Nav Links */
 .nav-links {
-    display: flex;
-    gap: 80px;
-    list-style: none;
-    margin: 0;
-    padding: 0;
-    justify-content: center;
-    align-items: center;
+  display: flex;
+  gap: 80px;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  justify-content: center;
+  align-items: center;
 }
 
 .nav-link {
-    text-decoration: none;
-    color: white;
-    font-size: 18px;
-    transition: color 0.2s;
-    padding: 8px 0;
-    border-bottom: 2px solid transparent;
+  text-decoration: none;
+  color: white;
+  font-size: 18px;
+  transition: color 0.2s;
+  padding: 8px 0;
+  border-bottom: 2px solid transparent;
 }
 
 .nav-link.active,
 .nav-link:hover {
-    color: #ffffff;
-    border-bottom: 2px solid #ffffff;
+  color: #ffffff;
+  border-bottom: 2px solid #ffffff;
 }
 
-/* Buttons on nav */
+/* Nav Buttons */
 .nav-buttons {
-    display: flex;
-    font-family: Arial, Helvetica, sans-serif;
-    font-size: 18px;
-    letter-spacing: 0.5px;
-    font-weight: 400;
-    gap: 16px;
+  display: flex;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 18px;
+  letter-spacing: 0.5px;
+  font-weight: 400;
+  gap: 16px;
 }
 
 .nav-buttons a:hover {
-    background: #ff8800;
-    color: #fff8f0;
+  background: #ff8800;
+  color: #fff8f0;
 }
 
-/* Burger styles - hidden by default */
+/* Burger icon hidden by default */
 .nav-toggle {
-    display: none;
+  display: none;
 }
 
 .nav-burger {
-    display: none;
-    flex-direction: column;
-    gap: 5px;
-    cursor: pointer;
-    position: static;
-    margin-left: auto;
-    z-index: 1100;
+  display: none;
+  flex-direction: column;
+  gap: 5px;
+  cursor: pointer;
+  position: static;
+  margin-left: auto;
+  z-index: 1100;
 }
 
 .nav-burger span {
-    width: 28px;
-    height: 3px;
-    background: white;
-    display: block;
-    border-radius: 2px;
-    transition: all 0.3s ease;
-    transform-origin: center;
+  width: 28px;
+  height: 3px;
+  background: white;
+  display: block;
+  border-radius: 2px;
+  transition: all 0.3s ease;
+  transform-origin: center;
 }
-
-/* Media Queries */
 
 /* Tablet and smaller */
 @media (max-width: 900px) {
-    nav {
-        padding: 0 16px;
-    }
+  nav {
+    padding: 0 16px;
+  }
 
-    .nav-links {
-        gap: 20px;
-    }
+  .nav-links {
+    gap: 20px;
+  }
 
-    .nav-buttons a {
-        padding: 10px 16px;
-    }
+  .nav-buttons a {
+    padding: 10px 16px;
+  }
 }
 
 /* Mobile and smaller */
 @media (max-width: 768px) {
-    header {
-        flex-direction: row;
-        justify-content: flex-start;
-        align-items: center;
-        gap: 0;
-    }
+  header {
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 0;
+  }
 
-    .nav-burger {
-        display: flex;
-        margin-left: auto;
-        position: static;
-        z-index: 1100;
-    }
+  .nav-burger {
+    display: flex;
+    margin-left: auto;
+    position: static;
+    z-index: 1100;
+  }
 
-    /* Hide nav by default on mobile */
-    nav {
-        display: none;
-        flex-direction: column;
-        align-items: center;
-        background: rgba(0, 0, 0, 0.8);
-        padding: 100px 20px 20px;
-        height: auto;
-        position: absolute;
-        top: 80px;
-        left: 0;
-        width: 100%;
-        z-index: 999;
-        box-sizing: border-box;
-        transition: all 0.3s ease;
-    }
+  /* Hide nav by default on mobile */
+  nav {
+    display: none;
+    flex-direction: column;
+    align-items: center;
+    background: rgba(0, 0, 0, 0.8);
+    padding: 100px 20px 20px;
+    height: auto;
+    position: absolute;
+    top: 80px;
+    left: 0;
+    width: 100%;
+    z-index: 999;
+    box-sizing: border-box;
+    transition: all 0.3s ease;
+  }
 
-    /* Show nav when active */
-    nav.active {
-        display: flex;
-    }
+  nav.active {
+    display: flex;
+  }
 
-    /* Nav links vertical on mobile */
-    .nav-links {
-        flex-direction: column;
-        align-items: center;
-        gap: 30px;
-        width: 100%;
-        margin-bottom: 10px;
-    }
+  .nav-links {
+    flex-direction: column;
+    align-items: center;
+    gap: 30px;
+    width: 100%;
+    margin-bottom: 10px;
+  }
 
-    .nav-link {
-        text-shadow: black 3px 1px 2px;
-    }
+  .nav-link {
+    text-shadow: black 3px 1px 2px;
+  }
 
-    /* Buttons vertical on mobile */
-    .nav-buttons {
-        flex-direction: column;
-        align-items: center;
-        width: 100%;
-        gap: 12px;
-        margin-top: 16px;
-    }
+  .nav-buttons {
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    gap: 12px;
+    margin-top: 16px;
+  }
 
-    /* Burger to cross animation when active */
-    .nav-burger.active span:nth-child(1) {
-        transform: rotate(45deg) translate(5px, 5px);
-    }
+  .nav-burger.active span:nth-child(1) {
+    transform: rotate(45deg) translate(5px, 5px);
+  }
 
-    .nav-burger.active span:nth-child(2) {
-        opacity: 0;
-    }
+  .nav-burger.active span:nth-child(2) {
+    opacity: 0;
+  }
 
-    .nav-burger.active span:nth-child(3) {
-        transform: rotate(-45deg) translate(6px, -6px);
-    }
+  .nav-burger.active span:nth-child(3) {
+    transform: rotate(-45deg) translate(6px, -6px);
+  }
 }

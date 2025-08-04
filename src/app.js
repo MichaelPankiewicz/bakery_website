@@ -26,25 +26,35 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  // JS-controlled Hamburger Menu toggle
-const burger = document.querySelector('#burger-toggle');
+  // Hamburger menu toggle
+  const burger = document.querySelector('#burger-toggle');
   const nav = document.querySelector('header nav');
+  const headerScroll = document.querySelector('header');
 
-  if (burger && nav) {
-    burger.addEventListener('click', () => {
+  if (burger && nav && headerScroll) {
+    const toggleMenu = () => {
       const expanded = burger.getAttribute('aria-expanded') === 'true';
       burger.setAttribute('aria-expanded', String(!expanded));
       burger.classList.toggle('active');
       nav.classList.toggle('active');
-    });
+      headerScroll.classList.toggle('mobile-nav-open');
+    };
+
+    burger.addEventListener('click', toggleMenu);
 
     burger.addEventListener('keydown', (e) => {
       if (e.key === 'Enter' || e.key === ' ') {
         e.preventDefault();
-        const expanded = burger.getAttribute('aria-expanded') === 'true';
-        burger.setAttribute('aria-expanded', String(!expanded));
-        burger.classList.toggle('active');
-        nav.classList.toggle('active');
+        toggleMenu();
+      }
+    });
+
+    // Scroll-triggered header background
+    window.addEventListener('scroll', () => {
+      if (window.scrollY > 10) {
+        headerScroll.classList.add('scrolled');
+      } else {
+        headerScroll.classList.remove('scrolled');
       }
     });
   }
@@ -53,7 +63,6 @@ const burger = document.querySelector('#burger-toggle');
 function fetchMenuItems(container) {
   container.innerHTML = '';
 
-  // Close button for the menu section
   const closeBtn = document.createElement('button');
   closeBtn.className = 'close-menu-btn';
   closeBtn.innerHTML = '✕';
@@ -62,7 +71,6 @@ function fetchMenuItems(container) {
   });
   container.appendChild(closeBtn);
 
-  // Loading fallback message
   const fallback = document.createElement('p');
   fallback.className = 'fallback-msg';
   fallback.textContent = 'Loading menu...';

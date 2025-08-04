@@ -5,7 +5,7 @@ header {
     top: 0;
     left: 0;
     width: 100%;
-    padding: 20px 50px 20px 50px;
+    padding: 20px 50px;
     z-index: 1000;
     box-sizing: border-box;
     display: flex;
@@ -14,8 +14,7 @@ header {
     gap: 24px;
 }
 
-
-
+/* Navigation */
 nav {
     display: flex;
     justify-content: space-between;
@@ -26,6 +25,7 @@ nav {
     box-sizing: border-box;
 }
 
+/* Logo */
 .nav-logo {
     display: flex;
     align-items: center;
@@ -38,6 +38,7 @@ nav {
     object-fit: cover;
 }
 
+/* Nav Links */
 .nav-links {
     display: flex;
     gap: 80px;
@@ -63,6 +64,7 @@ nav {
     border-bottom: 2px solid #ffffff;
 }
 
+/* Buttons on nav */
 .nav-buttons {
     display: flex;
     font-family: Arial, Helvetica, sans-serif;
@@ -77,9 +79,7 @@ nav {
     color: #fff8f0;
 }
 
-/* Button styles moved to style.css for global reuse */
-
-/* Burger styles */
+/* Burger styles - hidden by default */
 .nav-toggle {
     display: none;
 }
@@ -105,6 +105,8 @@ nav {
 }
 
 /* Media Queries */
+
+/* Tablet and smaller */
 @media (max-width: 900px) {
     nav {
         padding: 0 16px;
@@ -119,11 +121,8 @@ nav {
     }
 }
 
+/* Mobile and smaller */
 @media (max-width: 768px) {
-    .nav-burger {
-        display: flex;
-    }
-
     header {
         flex-direction: row;
         justify-content: flex-start;
@@ -131,28 +130,36 @@ nav {
         gap: 0;
     }
 
-   
-
     .nav-burger {
+        display: flex;
         margin-left: auto;
         position: static;
+        z-index: 1100;
     }
 
+    /* Hide nav by default on mobile */
     nav {
         display: none;
         flex-direction: column;
         align-items: center;
-        background: transparent;
+        background: rgba(0, 0, 0, 0.8);
         padding: 100px 20px 20px;
         height: auto;
         position: absolute;
-        backdrop-filter: blur(2px);
-        top: 0;
+        top: 80px;
         left: 0;
-        right: 0;
-        z-index: 1000;
+        width: 100%;
+        z-index: 999;
+        box-sizing: border-box;
+        transition: all 0.3s ease;
     }
 
+    /* Show nav when active */
+    nav.active {
+        display: flex;
+    }
+
+    /* Nav links vertical on mobile */
     .nav-links {
         flex-direction: column;
         align-items: center;
@@ -165,6 +172,7 @@ nav {
         text-shadow: black 3px 1px 2px;
     }
 
+    /* Buttons vertical on mobile */
     .nav-buttons {
         flex-direction: column;
         align-items: center;
@@ -173,21 +181,16 @@ nav {
         margin-top: 16px;
     }
 
-    /* Show nav when checked */
-    .nav-toggle:checked~nav {
-        display: flex;
+    /* Burger to cross animation when active */
+    .nav-burger.active span:nth-child(1) {
+        transform: rotate(45deg) translate(5px, 5px);
     }
 
-    /* Burger to cross animation */
-    .nav-toggle:checked+.nav-burger span:nth-child(1) {
-        transform: rotate(45deg) translateY(10px);
-    }
-
-    .nav-toggle:checked+.nav-burger span:nth-child(2) {
+    .nav-burger.active span:nth-child(2) {
         opacity: 0;
     }
 
-    .nav-toggle:checked+.nav-burger span:nth-child(3) {
-        transform: rotate(-45deg) translateY(-12px);
+    .nav-burger.active span:nth-child(3) {
+        transform: rotate(-45deg) translate(6px, -6px);
     }
 }

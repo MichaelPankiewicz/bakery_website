@@ -8,28 +8,52 @@ import './css/footer.css';
 import './js/main.js';
 
 document.addEventListener('DOMContentLoaded', () => {
+  // Toggle dynamic menu section visibility and fetch menu items
   const menuButton = document.querySelector('.open-menu-btn');
   const menuContainer = document.querySelector('#dynamic-menu-section');
 
-  if (!menuButton || !menuContainer) return;
+  if (menuButton && menuContainer) {
+    let isVisible = false;
 
-  let isVisible = false;
+    menuButton.addEventListener('click', (e) => {
+      e.preventDefault();
+      menuContainer.classList.toggle('hidden');
+      isVisible = !isVisible;
 
-  menuButton.addEventListener('click', (e) => {
-    e.preventDefault();
-    menuContainer.classList.toggle('hidden');
-    isVisible = !isVisible;
+      if (isVisible) {
+        fetchMenuItems(menuContainer);
+      }
+    });
+  }
 
-    if (isVisible) {
-      fetchMenuItems(menuContainer);
-    }
-  });
+  // JS-controlled Hamburger Menu toggle
+const burger = document.querySelector('#burger-toggle');
+  const nav = document.querySelector('header nav');
+
+  if (burger && nav) {
+    burger.addEventListener('click', () => {
+      const expanded = burger.getAttribute('aria-expanded') === 'true';
+      burger.setAttribute('aria-expanded', String(!expanded));
+      burger.classList.toggle('active');
+      nav.classList.toggle('active');
+    });
+
+    burger.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault();
+        const expanded = burger.getAttribute('aria-expanded') === 'true';
+        burger.setAttribute('aria-expanded', String(!expanded));
+        burger.classList.toggle('active');
+        nav.classList.toggle('active');
+      }
+    });
+  }
 });
 
 function fetchMenuItems(container) {
   container.innerHTML = '';
 
-  // Close button
+  // Close button for the menu section
   const closeBtn = document.createElement('button');
   closeBtn.className = 'close-menu-btn';
   closeBtn.innerHTML = '✕';
@@ -38,14 +62,22 @@ function fetchMenuItems(container) {
   });
   container.appendChild(closeBtn);
 
+  // Loading fallback message
+  const fallback = document.createElement('p');
+  fallback.className = 'fallback-msg';
+  fallback.textContent = 'Loading menu...';
+  container.appendChild(fallback);
+
   fetch('http://localhost:3000/bakeryItems')
     .then((res) => res.json())
     .then((items) => {
+      fallback.remove();
+
       if (!Array.isArray(items) || items.length === 0) {
-        const fallback = document.createElement('p');
-        fallback.className = 'fallback-msg';
-        fallback.textContent = 'No menu items available at the moment. Please check back later.';
-        container.appendChild(fallback);
+        const msg = document.createElement('p');
+        msg.className = 'fallback-msg';
+        msg.textContent = 'No menu items available at the moment. Please check back later.';
+        container.appendChild(msg);
         return;
       }
 
@@ -56,7 +88,6 @@ function fetchMenuItems(container) {
         const card = document.createElement('div');
         card.classList.add('dynamic-card');
 
-        // Random animatie
         const animationName = animations[Math.floor(Math.random() * animations.length)];
         card.style.animationName = animationName;
         card.style.animationDelay = `${index * 100}ms`;
@@ -70,9 +101,6 @@ function fetchMenuItems(container) {
       });
     })
     .catch(() => {
-      const fallback = document.createElement('p');
-      fallback.className = 'fallback-msg';
       fallback.textContent = 'Failed to load menu. Please try again later.';
-      container.appendChild(fallback);
     });
 }

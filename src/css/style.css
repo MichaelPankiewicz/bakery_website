@@ -328,3 +328,292 @@ body {
 #subscribe-section {
   background-color: #1c2b27; /* Or whatever dark green you're using */
 }
+
+/* Floating Popup Styles */
+.floating-menu {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0,0,0,0.7);
+  z-index: 10000;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* ================= Popup Overlay and Card ================= */
+
+#floating-menu-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0,0,0,0.6);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 1.5rem;
+  z-index: 10000;
+  overflow-y: auto;
+  transition: opacity 0.3s ease;
+}
+
+#floating-menu-overlay.hidden {
+  pointer-events: none;
+  opacity: 0;
+  visibility: hidden;
+}
+
+.popup-card {
+  background: #fff;
+  border-radius: 12px;
+  max-width: 850px;
+  width: 100%;
+  max-height: 90vh;
+  box-shadow: 0 8px 28px rgba(0,0,0,0.3);
+  padding: 1.5rem 2rem 2rem;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  overflow-y: auto;
+  scroll-behavior: smooth;
+}
+
+/* ================= Popup Close Button ================= */
+
+.popup-close-btn {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  background: transparent;
+  border: none;
+  font-size: 2rem;
+  color: #555;
+  cursor: pointer;
+  transition: color 0.2s ease;
+  line-height: 1;
+}
+
+.popup-close-btn:hover,
+.popup-close-btn:focus {
+  color: #b22222;
+  outline: none;
+}
+
+/* ================= Popup Image ================= */
+
+.popup-image {
+  width: auto;             /* Not full width */
+  max-width: 100%;         /* Max fits container */
+  height: auto;            /* Keep aspect ratio */
+  max-height: 280px;       /* Limit max height */
+  margin: 0 auto 1rem;     /* Center horizontally with margin below */
+  display: block;          /* Make margin auto work */
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+  object-fit: contain;     /* Contain inside box */
+}
+
+
+/* ================= Popup Title and Description ================= */
+
+.popup-title {
+  font-size: 1.8rem;
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+  color: #222;
+}
+
+.popup-description {
+  font-size: 1rem;
+  line-height: 1.5;
+  color: #444;
+  margin-bottom: 1rem;
+}
+
+/* ================= Expand Button ================= */
+
+.popup-expand-btn {
+  background-color: #f76c6c;
+  color: #fff;
+  border: none;
+  border-radius: 25px;
+  padding: 0.5rem 1.5rem;
+  font-size: 1rem;
+  cursor: pointer;
+  margin-bottom: 1rem;
+  align-self: flex-start;
+  transition: background-color 0.3s ease;
+  user-select: none;
+}
+
+.popup-expand-btn:hover,
+.popup-expand-btn:focus {
+  background-color: #d94f4f;
+  outline: none;
+}
+
+.view-products-button {
+  background-color: #FFD966 !important;  /* yellowish background */
+  color: #000000 !important;             /* black font */
+  border: none !important;
+  padding: 0.6rem 1.5rem !important;
+  font-size: 1rem !important;
+  font-weight: 600 !important;
+  border-radius: 30px !important;
+  cursor: pointer !important;
+  box-shadow: 0 4px 8px rgba(255, 217, 102, 0.4) !important; /* subtle yellow shadow */
+  transition: background-color 0.3s ease, box-shadow 0.3s ease !important;
+  display: inline-block !important;
+  text-align: center !important;
+  text-decoration: none !important;
+}
+
+.view-products-button:hover,
+.view-products-button:focus {
+  background-color: #FFEA99 !important;  /* lighter yellow on hover */
+  box-shadow: 0 6px 12px rgba(255, 234, 153, 0.5) !important;
+  outline: none !important;
+}
+
+
+
+/* ================= Expandable List (Ingredients or Partners) ================= */
+
+.popup-expand-list {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.4s ease, padding 0.3s ease;
+  font-size: 0.95rem;
+  color: #333;
+  margin-bottom: 1rem;
+}
+
+.popup-expand-list.hidden {
+  max-height: 0 !important;
+  padding: 0 !important;
+  pointer-events: none;
+}
+
+.popup-expand-list:not(.hidden) {
+  max-height: 1000px; /* big enough to fit content */
+  padding-left: 1rem;
+  pointer-events: auto;
+}
+
+.popup-expand-list li {
+  margin-bottom: 0.5rem;
+  line-height: 1.3;
+}
+
+/* ================= Popup Gallery (Images Grid) ================= */
+
+.popup-gallery {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 12px;
+  max-height: 350px;
+  overflow-y: auto;
+  margin-bottom: 1rem;
+  padding-right: 6px; /* for scrollbar spacing */
+}
+
+.popup-product-image {
+  width: 100%;
+  height: 110px;
+  object-fit: cover;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+  transition: transform 0.25s ease;
+  cursor: pointer;
+}
+
+.popup-product-image:hover,
+.popup-product-image:focus {
+  transform: scale(1.05);
+  outline: none;
+  box-shadow: 0 4px 14px rgba(0,0,0,0.3);
+}
+
+/* ================= Community Partners Links ================= */
+
+.popup-expand-list p {
+  margin-bottom: 0.6rem;
+}
+
+.popup-expand-list a {
+  color: #f76c6c;
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+.popup-expand-list a:hover,
+.popup-expand-list a:focus {
+  color: #b22222;
+  outline: none;
+}
+
+/* ================= Responsive Adjustments ================= */
+
+@media (max-width: 900px) {
+  .popup-card {
+    max-width: 95vw;
+    padding: 1rem 1.5rem 1.5rem;
+  }
+  .popup-gallery {
+    grid-template-columns: repeat(3, 1fr);
+    max-height: 300px;
+  }
+  .popup-product-image {
+    height: 90px;
+  }
+}
+
+@media (max-width: 600px) {
+  .popup-gallery {
+    grid-template-columns: repeat(2, 1fr);
+    max-height: 250px;
+  }
+  .popup-product-image {
+    height: 80px;
+  }
+  .popup-title {
+    font-size: 1.5rem;
+  }
+}
+
+@media (max-width: 400px) {
+  .popup-gallery {
+    grid-template-columns: 1fr;
+    max-height: 200px;
+  }
+  .popup-product-image {
+    height: 150px;
+  }
+  .popup-expand-btn {
+    width: 100%;
+    text-align: center;
+  }
+}
+
+/* ================= Scrollbar Styling for Popup Overlay ================= */
+
+#floating-menu-overlay::-webkit-scrollbar {
+  width: 8px;
+}
+
+#floating-menu-overlay::-webkit-scrollbar-track {
+  background: rgba(255,255,255,0.1);
+}
+
+#floating-menu-overlay::-webkit-scrollbar-thumb {
+  background: rgba(247, 108, 108, 0.7);
+  border-radius: 4px;
+}
+
+#floating-menu-overlay::-webkit-scrollbar-thumb:hover {
+  background: rgba(247, 108, 108, 0.9);
+}

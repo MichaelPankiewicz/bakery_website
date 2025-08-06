@@ -8,29 +8,22 @@ import './css/footer.css';
 import './js/main.js';
 
 document.addEventListener('DOMContentLoaded', () => {
-  // Toggle dynamic menu section visibility and fetch menu items
   const menuButton = document.querySelector('.open-menu-btn');
   const menuContainer = document.querySelector('#dynamic-menu-section');
 
   if (menuButton && menuContainer) {
     let isVisible = false;
-
     menuButton.addEventListener('click', (e) => {
       e.preventDefault();
       menuContainer.classList.toggle('hidden');
       isVisible = !isVisible;
-
-      if (isVisible) {
-        fetchMenuItems(menuContainer);
-      }
+      if (isVisible) fetchMenuItems(menuContainer);
     });
   }
 
-  // Hamburger menu toggle
   const burger = document.querySelector('#burger-toggle');
   const nav = document.querySelector('header nav');
   const headerScroll = document.querySelector('header');
-
   if (burger && nav && headerScroll) {
     const toggleMenu = () => {
       const expanded = burger.getAttribute('aria-expanded') === 'true';
@@ -39,49 +32,101 @@ document.addEventListener('DOMContentLoaded', () => {
       nav.classList.toggle('active');
       headerScroll.classList.toggle('mobile-nav-open');
     };
-
     burger.addEventListener('click', toggleMenu);
-
     burger.addEventListener('keydown', (e) => {
       if (e.key === 'Enter' || e.key === ' ') {
         e.preventDefault();
         toggleMenu();
       }
     });
-
-    // Scroll-triggered header background
     window.addEventListener('scroll', () => {
-      if (window.scrollY > 10) {
-        headerScroll.classList.add('scrolled');
-      } else {
-        headerScroll.classList.remove('scrolled');
-      }
+      headerScroll.classList.toggle('scrolled', window.scrollY > 10);
     });
   }
+
+  const fadeEls = document.querySelectorAll(".scroll-fade");
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry) => {
+      entry.target.classList.toggle("visible", entry.isIntersecting);
+    });
+  }, { threshold: 0.1 });
+  fadeEls.forEach((el) => observer.observe(el));
+
+  // MENU CARDS POPUP
+  const menuCards = document.querySelectorAll(".menu-card");
+  const floatingMenuOverlay = document.querySelector("#floating-menu-overlay");
+
+  menuCards.forEach(card => {
+    card.addEventListener("click", () => {
+      const title = card.querySelector("h4").textContent.trim();
+
+      fetch("http://localhost:3000/menuHighlights")
+        .then(res => res.json())
+        .then(data => {
+          const match = data.find(item => item.title === title);
+          if (match) {
+            let expandableContent = "";
+            let buttonHTML = "";
+
+            if (match.type === "ingredients") {
+              buttonHTML = '<button class="popup-expand-btn">Show Ingredients</button>';
+              expandableContent = `
+                <ul class="popup-expand-list hidden">
+                  ${match.ingredients.map(ing => `<li><strong>${ing.name}:</strong> ${ing.description}</li>`).join("")}
+                </ul>
+              `;
+            } else if (match.type === "products" || match.type === "gallery") {
+              buttonHTML = `<button class="popup-expand-btn">View ${match.type === 'products' ? 'Products' : 'Gallery'}</button>`;
+              expandableContent = `
+                <div class="popup-expand-list popup-gallery hidden">
+                  ${match.products.map(p => `<img src="${p}" class="popup-product-image" alt="Product">`).join("")}
+                </div>
+              `;
+            } else if (match.type === "community") {
+              expandableContent = `
+                <div class="popup-expand-list">
+                  ${match.partners.map(p => `<p><a href="${p.link}" target="_blank">${p.name}</a></p>`).join("")}
+                </div>
+              `;
+            }
+
+            floatingMenuOverlay.innerHTML = `
+              <div class="popup-card">
+                <button class="popup-close-btn">&times;</button>
+                <img src="${match.image}" alt="${match.title}" class="popup-image">
+                <h2 class="popup-title">${match.title}</h2>
+                <p class="popup-description">${match.description}</p>
+                ${buttonHTML}
+                ${expandableContent}
+              </div>
+            `;
+            floatingMenuOverlay.classList.remove("hidden");
+
+            document.querySelector(".popup-close-btn").addEventListener("click", () => {
+              floatingMenuOverlay.classList.add("hidden");
+              floatingMenuOverlay.innerHTML = "";
+            });
+
+            const expandBtn = document.querySelector(".popup-expand-btn");
+            const expandList = document.querySelector(".popup-expand-list");
+            if (expandBtn && expandList) {
+              expandBtn.addEventListener("click", () => {
+                expandList.classList.toggle("hidden");
+              });
+            }
+          }
+        })
+        .catch(err => console.error("Error fetching popup data:", err));
+    });
+  });
 });
-
-
-// STARTUP ANIMATION
-window.addEventListener('load', () => {
-  const overlay = document.getElementById('startup-overlay');
-  if (overlay) {
-    setTimeout(() => {
-      overlay.style.display = 'none';
-    }, 3500); // matches animation delay + fade out
-  }
-});
-
-
 
 function fetchMenuItems(container) {
   container.innerHTML = '';
-
   const closeBtn = document.createElement('button');
   closeBtn.className = 'close-menu-btn';
   closeBtn.innerHTML = '✕';
-  closeBtn.addEventListener('click', () => {
-    container.classList.add('hidden');
-  });
+  closeBtn.addEventListener('click', () => container.classList.add('hidden'));
   container.appendChild(closeBtn);
 
   const fallback = document.createElement('p');
@@ -93,29 +138,18 @@ function fetchMenuItems(container) {
     .then((res) => res.json())
     .then((items) => {
       fallback.remove();
-
       if (!Array.isArray(items) || items.length === 0) {
         const msg = document.createElement('p');
         msg.className = 'fallback-msg';
-        msg.textContent = 'No menu items available at the moment. Please check back later.';
+        msg.textContent = 'No menu items available at the moment.';
         container.appendChild(msg);
         return;
       }
 
       const shuffled = items.sort(() => 0.5 - Math.random());
-      const animations = ['floatIn', 'slideInLeft', 'slideInRight', 'scaleIn'];
-
       shuffled.forEach((item, index) => {
         const card = document.createElement('div');
         card.classList.add('dynamic-card', 'scroll-reveal');
-        const animationDirection = Math.random() > 0.5 ? 'reveal-left' : 'reveal-right';
-        card.classList.add(animationDirection);
-
-
-        const animationName = animations[Math.floor(Math.random() * animations.length)];
-        card.style.animationName = animationName;
-        card.style.animationDelay = `${index * 100}ms`;
-
         card.innerHTML = `
           <img src="${item.image}" alt="${item.name}" />
           <h4>${item.name}</h4>
@@ -124,24 +158,10 @@ function fetchMenuItems(container) {
         container.appendChild(card);
       });
     })
-    .catch(() => {
-      fallback.textContent = 'Failed to load menu. Please try again later.';
-    });
+    .catch(() => fallback.textContent = 'Failed to load menu.');
 }
 
-
-document.addEventListener("DOMContentLoaded", () => {
-  const fadeEls = document.querySelectorAll(".scroll-fade");
-
-  const observer = new IntersectionObserver((entries) => {
-    entries.forEach((entry) => {
-      if (entry.isIntersecting) {
-        entry.target.classList.add("visible");
-      } else {
-        entry.target.classList.remove("visible"); // allows repeat
-      }
-    });
-  }, { threshold: 0.1 });
-
-  fadeEls.forEach((el) => observer.observe(el));
+window.addEventListener('load', () => {
+  const overlay = document.getElementById('startup-overlay');
+  if (overlay) setTimeout(() => overlay.style.display = 'none', 3500);
 });

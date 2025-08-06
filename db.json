@@ -4,33 +4,80 @@
       "id": 1,
       "name": "Rustic Baguette",
       "description": "Crispy on the outside, soft on the inside.",
-      "image": "https://plus.unsplash.com/premium_photo-1668772632888-906d12e932c4?q=80&w=687&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+      "image": "https://plus.unsplash.com/premium_photo-1668772632888-906d12e932c4?q=80&w=687"
     },
     {
       "id": 2,
       "name": "Chocolate Croissant",
       "description": "Flaky pastry with rich chocolate filling.",
-      "image": "https://images.unsplash.com/photo-1718897266472-5b7229ebdd3d?q=80&w=764&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+      "image": "https://images.unsplash.com/photo-1718897266472-5b7229ebdd3d?q=80&w=764"
     },
     {
       "id": 3,
       "name": "Cinnamon Roll",
       "description": "Sweet, gooey, and loaded with cinnamon.",
-      "image": "https://images.unsplash.com/photo-1694632288834-17d86b340745?q=80&w=687&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+      "image": "https://images.unsplash.com/photo-1694632288834-17d86b340745?q=80&w=687"
     },
     {
       "id": 4,
       "name": "Sourdough Loaf",
       "description": "Fermented to perfection, great for sandwiches.",
-      "image": "https://images.unsplash.com/photo-1664339030082-f93aa0cf00a7?q=80&w=1444&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+      "image": "https://images.unsplash.com/photo-1664339030082-f93aa0cf00a7?q=80&w=1444"
     },
     {
       "id": 5,
       "name": "Blueberry Muffin",
       "description": "Soft muffin with juicy blueberries.",
-      "image": "https://plus.unsplash.com/premium_photo-1711684804216-4ad043c102d3?q=80&w=688&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+      "image": "https://plus.unsplash.com/premium_photo-1711684804216-4ad043c102d3?q=80&w=688"
+    }
+  ],
+  "menuHighlights": [
+    {
+      "title": "Fresh, Local Ingredients:",
+      "description": "We use only the freshest ingredients from nearby farms to ensure top flavor and quality in every bite.",
+      "image": "/images/fresh-ingredients.webp",
+      "type": "ingredients",
+      "ingredients": [
+        { "name": "Organic Flour", "description": "Locally milled, full of nutrients." },
+        { "name": "Raw Honey", "description": "From local apiaries, antioxidant-rich." },
+        { "name": "Free-Range Eggs", "description": "Collected daily, cage-free." },
+        { "name": "Seasonal Fruits", "description": "Naturally ripened, high in flavor." }
+      ]
+    },
+    {
+      "title": "Artisan Craftsmanship:",
+      "description": "Each product is handmade using traditional methods passed down through generations.",
+      "image": "/images/logo.webp",
+      "type": "products",
+      "products": [
+        "/images/logo.webp",
+        "/images/logo.webp",
+        "/images/logo.webp",
+        "/images/logo.webp"
+      ]
+    },
+    {
+      "title": "Inviting Atmosphere:",
+      "description": "Our cozy café space is designed for relaxation, conversation, and delicious moments.",
+      "image": "/images/atmosphere.webp",
+      "type": "gallery",
+      "products": [
+        "/images/interior1.webp",
+        "/images/interior2.webp",
+        "/images/interior3.webp",
+        "/images/interior4.webp"
+      ]
+    },
+    {
+      "title": "Community–Oriented:",
+      "description": "We support local events and organizations that bring our neighborhood together.",
+      "image": "/images/community.webp",
+      "type": "community",
+      "partners": [
+        { "name": "Local Farmers Market", "link": "https://farmersmarket.com" },
+        { "name": "Downtown Art Walk", "link": "https://downtownartwalk.org" },
+        { "name": "Food For All Charity", "link": "https://foodforall.org" }
+      ]
     }
   ]
 }
-
-

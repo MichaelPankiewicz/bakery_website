@@ -201,6 +201,47 @@ body {
   max-width: 400px;
 }
 
+#startup-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: #1d2827;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 10000;
+  animation: fadeOut 1.2s ease forwards;
+  animation-delay: 2.5s;
+}
+
+.startup-logo {
+  width: 120px;
+  height: auto;
+  opacity: 0;
+  animation: logoFadeIn 1.5s ease-in forwards;
+}
+
+@keyframes logoFadeIn {
+  0% {
+    transform: scale(0.95);
+    opacity: 0;
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+@keyframes fadeOut {
+  to {
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+  }
+}
+
 
 /* Animation Keyframes */
 @keyframes floatIn {
@@ -231,4 +272,22 @@ body {
 @keyframes floatIn {
   from { transform: translateY(50px) scale(0.95); opacity: 0; }
   to { transform: translateY(0) scale(1); opacity: 1; }
+}
+.scroll-reveal {
+  opacity: 0;
+  transform: translateY(40px);
+  transition: all 0.8s ease-out;
+}
+
+.scroll-reveal.reveal-left {
+  transform: translateX(-40px);
+}
+
+.scroll-reveal.reveal-right {
+  transform: translateX(40px);
+}
+
+.scroll-reveal.visible {
+  opacity: 1;
+  transform: translateX(0) translateY(0);
 }

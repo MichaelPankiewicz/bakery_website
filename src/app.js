@@ -60,6 +60,19 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 });
 
+
+// STARTUP ANIMATION
+window.addEventListener('load', () => {
+  const overlay = document.getElementById('startup-overlay');
+  if (overlay) {
+    setTimeout(() => {
+      overlay.style.display = 'none';
+    }, 3500); // matches animation delay + fade out
+  }
+});
+
+
+
 function fetchMenuItems(container) {
   container.innerHTML = '';
 

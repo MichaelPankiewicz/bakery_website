@@ -107,7 +107,10 @@ function fetchMenuItems(container) {
 
       shuffled.forEach((item, index) => {
         const card = document.createElement('div');
-        card.classList.add('dynamic-card');
+        card.classList.add('dynamic-card', 'scroll-reveal');
+        const animationDirection = Math.random() > 0.5 ? 'reveal-left' : 'reveal-right';
+        card.classList.add(animationDirection);
+
 
         const animationName = animations[Math.floor(Math.random() * animations.length)];
         card.style.animationName = animationName;
@@ -125,3 +128,20 @@ function fetchMenuItems(container) {
       fallback.textContent = 'Failed to load menu. Please try again later.';
     });
 }
+
+
+document.addEventListener("DOMContentLoaded", () => {
+  const fadeEls = document.querySelectorAll(".scroll-fade");
+
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry) => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add("visible");
+      } else {
+        entry.target.classList.remove("visible"); // allows repeat
+      }
+    });
+  }, { threshold: 0.1 });
+
+  fadeEls.forEach((el) => observer.observe(el));
+});

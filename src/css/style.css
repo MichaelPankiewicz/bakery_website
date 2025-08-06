@@ -273,21 +273,58 @@ body {
   from { transform: translateY(50px) scale(0.95); opacity: 0; }
   to { transform: translateY(0) scale(1); opacity: 1; }
 }
+
+
+
+/* Base fade/slide animation from bottom */
 .scroll-reveal {
   opacity: 0;
-  transform: translateY(40px);
-  transition: all 0.8s ease-out;
-}
-
-.scroll-reveal.reveal-left {
-  transform: translateX(-40px);
-}
-
-.scroll-reveal.reveal-right {
-  transform: translateX(40px);
+  transform: translateY(30px);
+  transition: opacity 1.4s ease-out, transform 1.4s ease-out;
+  will-change: opacity, transform;
 }
 
 .scroll-reveal.visible {
   opacity: 1;
-  transform: translateX(0) translateY(0);
+  transform: translateY(0);
+}
+
+/* Slide from left */
+.scroll-reveal.reveal-left {
+  transform: translateX(-40px);
+}
+
+.scroll-reveal.reveal-left.visible {
+  transform: translateX(0);
+}
+
+/* Slide from right */
+.scroll-reveal.reveal-right {
+  transform: translateX(40px);
+}
+
+.scroll-reveal.reveal-right.visible {
+  transform: translateX(0);
+}
+
+/* Scroll fade: content fades and moves slightly up */
+.scroll-fade {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity 1.6s ease-out, transform 1.6s ease-out;
+  will-change: opacity, transform;
+}
+
+.scroll-fade.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+
+/* Ensure section background colors are not hidden */
+.about,
+.menu-section,
+#featured-meals,
+#subscribe-section {
+  background-color: #1c2b27; /* Or whatever dark green you're using */
 }

@@ -1,96 +1,198 @@
 import './css/style.css';
 import './css/navbar.css';
 import './css/hero.css';
+import './css/popup.css';
 import './css/about.css';
 import './css/menu.css';
 import './css/news.css';
 import './css/footer.css';
 import './js/main.js';
 
+
 document.addEventListener('DOMContentLoaded', () => {
-  const menuButton = document.querySelector('.open-menu-btn');
-  const menuContainer = document.querySelector('#dynamic-menu-section');
+    // Toggle dynamic menu section visibility and fetch menu items
+    const menuButton = document.querySelector('.open-menu-btn');
+    const menuContainer = document.querySelector('#dynamic-menu-section');
 
-  if (menuButton && menuContainer) {
-    let isVisible = false;
-    menuButton.addEventListener('click', (e) => {
-      e.preventDefault();
-      menuContainer.classList.toggle('hidden');
-      isVisible = !isVisible;
-      if (isVisible) fetchMenuItems(menuContainer);
+    if (menuButton && menuContainer) {
+        let isVisible = false;
+
+        menuButton.addEventListener('click', (e) => {
+            e.preventDefault();
+            menuContainer.classList.toggle('hidden');
+            isVisible = !isVisible;
+
+            if (isVisible) {
+                fetchMenuItems(menuContainer);
+            }
+        });
+    }
+
+    // Hamburger menu toggle
+    const burger = document.querySelector('#burger-toggle');
+    const nav = document.querySelector('header nav');
+    const headerScroll = document.querySelector('header');
+
+    if (burger && nav && headerScroll) {
+        const toggleMenu = () => {
+            const expanded = burger.getAttribute('aria-expanded') === 'true';
+            burger.setAttribute('aria-expanded', String(!expanded));
+            burger.classList.toggle('active');
+            nav.classList.toggle('active');
+            headerScroll.classList.toggle('mobile-nav-open');
+        };
+
+        burger.addEventListener('click', toggleMenu);
+
+        burger.addEventListener('keydown', (e) => {
+            if (e.key === 'Enter' || e.key === ' ') {
+                e.preventDefault();
+                toggleMenu();
+            }
+        });
+
+        // Scroll-triggered header background
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 10) {
+                headerScroll.classList.add('scrolled');
+            } else {
+                headerScroll.classList.remove('scrolled');
+            }
+        });
+    }
+});
+
+function fetchMenuItems(container) {
+    container.innerHTML = '';
+
+    const closeBtn = document.createElement('button');
+    closeBtn.className = 'close-menu-btn';
+    closeBtn.innerHTML = '✕';
+    closeBtn.addEventListener('click', () => {
+        container.classList.add('hidden');
     });
-  }
+    container.appendChild(closeBtn);
 
-  const burger = document.querySelector('#burger-toggle');
-  const nav = document.querySelector('header nav');
-  const headerScroll = document.querySelector('header');
-  if (burger && nav && headerScroll) {
+    const fallback = document.createElement('p');
+    fallback.className = 'fallback-msg';
+    fallback.textContent = 'Loading menu...';
+    container.appendChild(fallback);
+
+    fetch('http://localhost:3000/bakeryItems')
+        .then((res) => res.json())
+        .then((items) => {
+            fallback.remove();
+
+            if (!Array.isArray(items) || items.length === 0) {
+                const msg = document.createElement('p');
+                msg.className = 'fallback-msg';
+                msg.textContent = 'No menu items available at the moment. Please check back later.';
+                container.appendChild(msg);
+                return;
+            }
+
+            const shuffled = items.sort(() => 0.5 - Math.random());
+            const animations = ['floatIn', 'slideInLeft', 'slideInRight', 'scaleIn'];
+
+            shuffled.forEach((item, index) => {
+                const card = document.createElement('div');
+                card.classList.add('dynamic-card');
+
+                const animationName = animations[Math.floor(Math.random() * animations.length)];
+                card.style.animationName = animationName;
+                card.style.animationDelay = `${index * 100}ms`;
+
+                card.innerHTML = `
+          <img src="${item.image}" alt="${item.name}" />
+          <h4>${item.name}</h4>
+          <p>${item.description}</p>
+        `;
+                container.appendChild(card);
+            });
+        })
+        .catch(() => {
+            fallback.textContent = 'Failed to load menu. Please try again later.';
+        });
+}
+// Startup overlay
+window.addEventListener('load', () => {
+    const overlay = document.getElementById('startup-overlay');
+    if (overlay) setTimeout(() => overlay.style.display = 'none', 3500);
+});
+// Burger menu
+const burger = document.querySelector('#burger-toggle');
+const nav = document.querySelector('header nav');
+const headerScroll = document.querySelector('header');
+if (burger && nav && headerScroll) {
     const toggleMenu = () => {
-      const expanded = burger.getAttribute('aria-expanded') === 'true';
-      burger.setAttribute('aria-expanded', String(!expanded));
-      burger.classList.toggle('active');
-      nav.classList.toggle('active');
-      headerScroll.classList.toggle('mobile-nav-open');
+        const expanded = burger.getAttribute('aria-expanded') === 'true';
+        burger.setAttribute('aria-expanded', String(!expanded));
+        burger.classList.toggle('active');
+        nav.classList.toggle('active');
+        headerScroll.classList.toggle('mobile-nav-open');
     };
     burger.addEventListener('click', toggleMenu);
     burger.addEventListener('keydown', (e) => {
-      if (e.key === 'Enter' || e.key === ' ') {
-        e.preventDefault();
-        toggleMenu();
-      }
+        if (e.key === 'Enter' || e.key === ' ') {
+            e.preventDefault();
+            toggleMenu();
+        }
     });
     window.addEventListener('scroll', () => {
-      headerScroll.classList.toggle('scrolled', window.scrollY > 10);
+        headerScroll.classList.toggle('scrolled', window.scrollY > 10);
     });
-  }
+}
 
-  const fadeEls = document.querySelectorAll(".scroll-fade");
-  const observer = new IntersectionObserver((entries) => {
+
+// Scroll fade animation
+const fadeEls = document.querySelectorAll(".scroll-fade");
+const observer = new IntersectionObserver((entries) => {
     entries.forEach((entry) => {
-      entry.target.classList.toggle("visible", entry.isIntersecting);
+        entry.target.classList.toggle("visible", entry.isIntersecting);
     });
-  }, { threshold: 0.1 });
-  fadeEls.forEach((el) => observer.observe(el));
+}, { threshold: 0.1 });
+fadeEls.forEach((el) => observer.observe(el));
 
-  // MENU CARDS POPUP
-  const menuCards = document.querySelectorAll(".menu-card");
-  const floatingMenuOverlay = document.querySelector("#floating-menu-overlay");
 
-  menuCards.forEach(card => {
+// MENU CARDS POPUP
+const menuCards = document.querySelectorAll(".menu-card");
+const floatingMenuOverlay = document.querySelector("#floating-menu-overlay");
+
+menuCards.forEach(card => {
     card.addEventListener("click", () => {
-      const title = card.querySelector("h4").textContent.trim();
+        const title = card.querySelector("h4").textContent.trim();
 
-      fetch("http://localhost:3000/menuHighlights")
-        .then(res => res.json())
-        .then(data => {
-          const match = data.find(item => item.title === title);
-          if (match) {
-            let expandableContent = "";
-            let buttonHTML = "";
+        fetch("http://localhost:3000/menuHighlights")
+            .then(res => res.json())
+            .then(data => {
+                const match = data.find(item => item.title === title);
+                if (match) {
+                    let expandableContent = "";
+                    let buttonHTML = "";
 
-            if (match.type === "ingredients") {
-              buttonHTML = '<button class="popup-expand-btn">Show Ingredients</button>';
-              expandableContent = `
+                    if (match.type === "ingredients") {
+                        buttonHTML = '<button class="popup-expand-btn">Show Ingredients</button>';
+                        expandableContent = `
                 <ul class="popup-expand-list hidden">
                   ${match.ingredients.map(ing => `<li><strong>${ing.name}:</strong> ${ing.description}</li>`).join("")}
                 </ul>
               `;
-            } else if (match.type === "products" || match.type === "gallery") {
-              buttonHTML = `<button class="popup-expand-btn">View ${match.type === 'products' ? 'Products' : 'Gallery'}</button>`;
-              expandableContent = `
+                    } else if (match.type === "products" || match.type === "gallery") {
+                        buttonHTML = `<button class="popup-expand-btn">View ${match.type === 'products' ? 'Products' : 'Gallery'}</button>`;
+                        expandableContent = `
                 <div class="popup-expand-list popup-gallery hidden">
                   ${match.products.map(p => `<img src="${p}" class="popup-product-image" alt="Product">`).join("")}
                 </div>
               `;
-            } else if (match.type === "community") {
-              expandableContent = `
+                    } else if (match.type === "community") {
+                        expandableContent = `
                 <div class="popup-expand-list">
                   ${match.partners.map(p => `<p><a href="${p.link}" target="_blank">${p.name}</a></p>`).join("")}
                 </div>
               `;
-            }
+                    }
 
-            floatingMenuOverlay.innerHTML = `
+                    floatingMenuOverlay.innerHTML = `
               <div class="popup-card">
                 <button class="popup-close-btn">&times;</button>
                 <img src="${match.image}" alt="${match.title}" class="popup-image">
@@ -100,68 +202,22 @@ document.addEventListener('DOMContentLoaded', () => {
                 ${expandableContent}
               </div>
             `;
-            floatingMenuOverlay.classList.remove("hidden");
+                    floatingMenuOverlay.classList.remove("hidden");
 
-            document.querySelector(".popup-close-btn").addEventListener("click", () => {
-              floatingMenuOverlay.classList.add("hidden");
-              floatingMenuOverlay.innerHTML = "";
-            });
+                    document.querySelector(".popup-close-btn").addEventListener("click", () => {
+                        floatingMenuOverlay.classList.add("hidden");
+                        floatingMenuOverlay.innerHTML = "";
+                    });
 
-            const expandBtn = document.querySelector(".popup-expand-btn");
-            const expandList = document.querySelector(".popup-expand-list");
-            if (expandBtn && expandList) {
-              expandBtn.addEventListener("click", () => {
-                expandList.classList.toggle("hidden");
-              });
-            }
-          }
-        })
-        .catch(err => console.error("Error fetching popup data:", err));
+                    const expandBtn = document.querySelector(".popup-expand-btn");
+                    const expandList = document.querySelector(".popup-expand-list");
+                    if (expandBtn && expandList) {
+                        expandBtn.addEventListener("click", () => {
+                            expandList.classList.toggle("hidden");
+                        });
+                    }
+                }
+            })
+            .catch(err => console.error("Error fetching popup data:", err));
     });
-  });
-});
-
-function fetchMenuItems(container) {
-  container.innerHTML = '';
-  const closeBtn = document.createElement('button');
-  closeBtn.className = 'close-menu-btn';
-  closeBtn.innerHTML = '✕';
-  closeBtn.addEventListener('click', () => container.classList.add('hidden'));
-  container.appendChild(closeBtn);
-
-  const fallback = document.createElement('p');
-  fallback.className = 'fallback-msg';
-  fallback.textContent = 'Loading menu...';
-  container.appendChild(fallback);
-
-  fetch('http://localhost:3000/bakeryItems')
-    .then((res) => res.json())
-    .then((items) => {
-      fallback.remove();
-      if (!Array.isArray(items) || items.length === 0) {
-        const msg = document.createElement('p');
-        msg.className = 'fallback-msg';
-        msg.textContent = 'No menu items available at the moment.';
-        container.appendChild(msg);
-        return;
-      }
-
-      const shuffled = items.sort(() => 0.5 - Math.random());
-      shuffled.forEach((item, index) => {
-        const card = document.createElement('div');
-        card.classList.add('dynamic-card', 'scroll-reveal');
-        card.innerHTML = `
-          <img src="${item.image}" alt="${item.name}" />
-          <h4>${item.name}</h4>
-          <p>${item.description}</p>
-        `;
-        container.appendChild(card);
-      });
-    })
-    .catch(() => fallback.textContent = 'Failed to load menu.');
-}
-
-window.addEventListener('load', () => {
-  const overlay = document.getElementById('startup-overlay');
-  if (overlay) setTimeout(() => overlay.style.display = 'none', 3500);
 });

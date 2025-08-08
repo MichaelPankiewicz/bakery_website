@@ -60,6 +60,70 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         });
     }
+
+    
+      // Explore More popup logic
+  const exploreMoreBtn = document.getElementById('explore-more-btn');
+  const floatingMenuOverlay = document.getElementById('floating-menu-overlay');
+
+  if (exploreMoreBtn && floatingMenuOverlay) {
+    exploreMoreBtn.addEventListener('click', (e) => {
+      e.preventDefault();
+
+      fetch('http://localhost:3000/exploreMore')
+        .then(res => res.json())
+        .then(data => {
+          if (!Array.isArray(data) || data.length === 0) {
+            floatingMenuOverlay.innerHTML = `
+              <div class="popup-card">
+                <button class="popup-close-btn">&times;</button>
+                <p>No content available at the moment. Please check back later.</p>
+              </div>`;
+            floatingMenuOverlay.classList.remove('hidden');
+            attachCloseHandler();
+            return;
+          }
+
+          // Create HTML for each item (you can style as you want)
+          const contentHTML = data.map(item => `
+            <div class="explore-item" style="margin-bottom: 2rem;">
+              <img src="${item.image}" alt="${item.title}" class="popup-image" />
+              <h2 class="popup-title">${item.title}</h2>
+              <p class="popup-description">${item.description}</p>
+            </div>
+          `).join('');
+
+          floatingMenuOverlay.innerHTML = `
+            <div class="popup-card">
+              <button class="popup-close-btn">&times;</button>
+              ${contentHTML}
+            </div>
+          `;
+
+          floatingMenuOverlay.classList.remove('hidden');
+          attachCloseHandler();
+        })
+        .catch(() => {
+          floatingMenuOverlay.innerHTML = `
+            <div class="popup-card">
+              <button class="popup-close-btn">&times;</button>
+              <p>Failed to load content. Please try again later.</p>
+            </div>`;
+          floatingMenuOverlay.classList.remove('hidden');
+          attachCloseHandler();
+        });
+    });
+
+    function attachCloseHandler() {
+      const closeBtn = floatingMenuOverlay.querySelector('.popup-close-btn');
+      if (closeBtn) {
+        closeBtn.addEventListener('click', () => {
+          floatingMenuOverlay.classList.add('hidden');
+          floatingMenuOverlay.innerHTML = '';
+        });
+      }
+    }
+  }
 });
 
 function fetchMenuItems(container) {

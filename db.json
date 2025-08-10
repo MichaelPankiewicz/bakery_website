@@ -101,7 +101,7 @@
   {
     "id": 1,
     "title": "Discover Our Bakery's Story",
-    "description": "Nestled in the heart of the city, Bistro Bakery began as a humble dream to create fresh, handcrafted breads and pastries that bring joy to every table. Our passion lies in blending tradition with creativity, using only the finest local ingredients to bake each item with love and care. From the crackling crust of our sourdough to the rich, buttery layers of our croissants, every bite is a taste of dedication and warmth. Join us and become part of our story — where every loaf tells a tale and every visit feels like coming home.",
+    "description": "Welcome to our bakery, where every morning begins with the comforting aroma of bread fresh from the oven. We open our doors with a smile, ready to share warm pastries, crisp baguettes, and indulgent cakes made with care. Our shelves are filled with flavors that change with the seasons, each recipe crafted to brighten your day. Whether you’re here for a quick coffee, a sweet treat, or a loaf to take home, you’ll always find a friendly face and something freshly baked. Step inside and let the warmth of our bakery become part of your day.",
     "image": "/images/bakery.webp"
   }
   ],
@@ -109,8 +109,9 @@
   "aboutExplore": [
     {
       "title": "Our Story: From Dream to Delight",
-      "image": "/images/bakery-story.webp",
-      "description": "Founded in 2015 by pastry chef Julia Simmons, Sweet Delights Bakery began as a small neighborhood shop. Julia’s passion for creating treats that bring people together quickly turned it into a beloved community hub. Today, we remain committed to artisanal quality and heartfelt service."
+      "image": "/images/aboutusbakery.webp",
+      "description": "Our bakery’s journey began long before the first loaf ever left our ovens. In a small, cozy kitchen, a grandmother’s hands worked magic with nothing but flour, water, and heart. She taught that baking was not just a skill, but a way to share love. Years later, carrying those same values, our founder opened the doors to this bakery with one goal: to create a space where the warmth of home could be felt in every bite. We choose the finest local ingredients, often sourced from farmers we know by name. Every croissant is layered by hand, every cake is frosted with care, and every loaf is given time to rise naturally. Whether you stop by for your morning coffee or linger over a fresh tart in the afternoon, you’re part of the story we’re still baking."
+
     }
   ]
 

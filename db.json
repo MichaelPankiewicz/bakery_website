@@ -90,8 +90,16 @@
     "id": 1,
     "title": "Discover Our Bakery's Story",
     "description": "Nestled in the heart of the city, Bistro Bakery began as a humble dream to create fresh, handcrafted breads and pastries that bring joy to every table. Our passion lies in blending tradition with creativity, using only the finest local ingredients to bake each item with love and care. From the crackling crust of our sourdough to the rich, buttery layers of our croissants, every bite is a taste of dedication and warmth. Join us and become part of our story — where every loaf tells a tale and every visit feels like coming home.",
-    "image": "/images/bakery-story.webp"
+    "image": "/images/bakery.webp"
   }
-]
+  ],
+
+  "aboutExplore": [
+    {
+      "title": "Our Story: From Dream to Delight",
+      "image": "/images/bakery-story.webp",
+      "description": "Founded in 2015 by pastry chef Julia Simmons, Sweet Delights Bakery began as a small neighborhood shop. Julia’s passion for creating treats that bring people together quickly turned it into a beloved community hub. Today, we remain committed to artisanal quality and heartfelt service."
+    }
+  ]
 
 }

@@ -8,7 +8,6 @@ import './css/news.css';
 import './css/footer.css';
 import './js/main.js';
 
-
 document.addEventListener('DOMContentLoaded', () => {
     // Toggle dynamic menu section visibility and fetch menu items
     const menuButton = document.querySelector('.open-menu-btn');
@@ -61,70 +60,133 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    
-      // Explore More popup logic
-  const exploreMoreBtn = document.getElementById('explore-more-btn');
-  const floatingMenuOverlay = document.getElementById('floating-menu-overlay');
+    // ===========================
+    // OLD Explore More popup logic (your existing one, for #explore-more-btn)
+    // ===========================
+    const exploreMoreBtn = document.getElementById('explore-more-btn');
+    const floatingMenuOverlay = document.getElementById('floating-menu-overlay');
 
-  if (exploreMoreBtn && floatingMenuOverlay) {
-    exploreMoreBtn.addEventListener('click', (e) => {
-      e.preventDefault();
+    if (exploreMoreBtn && floatingMenuOverlay) {
+        exploreMoreBtn.addEventListener('click', (e) => {
+            e.preventDefault();
 
-      fetch('http://localhost:3000/exploreMore')
-        .then(res => res.json())
-        .then(data => {
-          if (!Array.isArray(data) || data.length === 0) {
-            floatingMenuOverlay.innerHTML = `
-              <div class="popup-card">
-                <button class="popup-close-btn">&times;</button>
-                <p>No content available at the moment. Please check back later.</p>
-              </div>`;
-            floatingMenuOverlay.classList.remove('hidden');
-            attachCloseHandler();
-            return;
-          }
+            fetch('http://localhost:3000/exploreMore')
+                .then(res => res.json())
+                .then(data => {
+                    if (!Array.isArray(data) || data.length === 0) {
+                        floatingMenuOverlay.innerHTML = `
+                          <div class="popup-card">
+                            <button class="popup-close-btn">&times;</button>
+                            <p>No content available at the moment. Please check back later.</p>
+                          </div>`;
+                        floatingMenuOverlay.classList.remove('hidden');
+                        attachCloseHandler();
+                        return;
+                    }
 
-          // Create HTML for each item (you can style as you want)
-          const contentHTML = data.map(item => `
-            <div class="explore-item" style="margin-bottom: 2rem;">
-              <img src="${item.image}" alt="${item.title}" class="popup-image" />
-              <h2 class="popup-title">${item.title}</h2>
-              <p class="popup-description">${item.description}</p>
-            </div>
-          `).join('');
+                    // Create HTML for each item
+                    const contentHTML = data.map(item => `
+                      <div class="explore-item" style="margin-bottom: 2rem;">
+                        <img src="${item.image}" alt="${item.title}" class="popup-image" />
+                        <h2 class="popup-title">${item.title}</h2>
+                        <p class="popup-description">${item.description}</p>
+                      </div>
+                    `).join('');
 
-          floatingMenuOverlay.innerHTML = `
-            <div class="popup-card">
-              <button class="popup-close-btn">&times;</button>
-              ${contentHTML}
-            </div>
-          `;
+                    floatingMenuOverlay.innerHTML = `
+                      <div class="popup-card">
+                        <button class="popup-close-btn">&times;</button>
+                        ${contentHTML}
+                      </div>
+                    `;
 
-          floatingMenuOverlay.classList.remove('hidden');
-          attachCloseHandler();
-        })
-        .catch(() => {
-          floatingMenuOverlay.innerHTML = `
-            <div class="popup-card">
-              <button class="popup-close-btn">&times;</button>
-              <p>Failed to load content. Please try again later.</p>
-            </div>`;
-          floatingMenuOverlay.classList.remove('hidden');
-          attachCloseHandler();
+                    floatingMenuOverlay.classList.remove('hidden');
+                    attachCloseHandler();
+                })
+                .catch(() => {
+                    floatingMenuOverlay.innerHTML = `
+                      <div class="popup-card">
+                        <button class="popup-close-btn">&times;</button>
+                        <p>Failed to load content. Please try again later.</p>
+                      </div>`;
+                    floatingMenuOverlay.classList.remove('hidden');
+                    attachCloseHandler();
+                });
         });
-    });
 
-    function attachCloseHandler() {
-      const closeBtn = floatingMenuOverlay.querySelector('.popup-close-btn');
-      if (closeBtn) {
-        closeBtn.addEventListener('click', () => {
-          floatingMenuOverlay.classList.add('hidden');
-          floatingMenuOverlay.innerHTML = '';
-        });
-      }
+        function attachCloseHandler() {
+            const closeBtn = floatingMenuOverlay.querySelector('.popup-close-btn');
+            if (closeBtn) {
+                closeBtn.addEventListener('click', () => {
+                    floatingMenuOverlay.classList.add('hidden');
+                    floatingMenuOverlay.innerHTML = '';
+                });
+            }
+        }
     }
-  }
-});
+
+    // ===========================
+    // FIXED About Us Explore More popup logic (#explore-more-about)
+    // ===========================
+    const aboutExploreBtn = document.getElementById('explore-more-about');
+
+    if (aboutExploreBtn && floatingMenuOverlay) {
+        aboutExploreBtn.addEventListener('click', (e) => {
+            e.preventDefault();
+
+            fetch('http://localhost:3000/aboutExplore')
+                .then(res => res.json())
+                .then(data => {
+                    if (!Array.isArray(data) || data.length === 0) {
+                        floatingMenuOverlay.innerHTML = `
+                          <div class="popup-card">
+                            <button class="popup-close-btn">&times;</button>
+                            <p>No content available at the moment. Please check back later.</p>
+                          </div>`;
+                        floatingMenuOverlay.classList.remove('hidden');
+                        attachAboutCloseHandler();
+                        return;
+                    }
+
+                    // Show only first aboutExplore item for now
+                    const item = data[0];
+
+                    // Use exactly the same popup markup and CSS classes as other popups
+                    floatingMenuOverlay.innerHTML = `
+                      <div class="popup-card">
+                        <button class="popup-close-btn">&times;</button>
+                        <img src="${item.image}" alt="${item.title}" class="popup-image" />
+                        <h2 class="popup-title">${item.title}</h2>
+                        <p class="popup-description">${item.description}</p>
+                      </div>
+                    `;
+
+                    floatingMenuOverlay.classList.remove('hidden');
+                    attachAboutCloseHandler();
+                })
+                .catch(() => {
+                    floatingMenuOverlay.innerHTML = `
+                      <div class="popup-card">
+                        <button class="popup-close-btn">&times;</button>
+                        <p>Failed to load content. Please try again later.</p>
+                      </div>`;
+                    floatingMenuOverlay.classList.remove('hidden');
+                    attachAboutCloseHandler();
+                });
+        });
+
+        function attachAboutCloseHandler() {
+            const closeBtn = floatingMenuOverlay.querySelector('.popup-close-btn');
+            if (closeBtn) {
+                closeBtn.addEventListener('click', () => {
+                    floatingMenuOverlay.classList.add('hidden');
+                    floatingMenuOverlay.innerHTML = '';
+                });
+            }
+        }
+    }
+
+}); // end DOMContentLoaded
 
 function fetchMenuItems(container) {
     container.innerHTML = '';
@@ -203,19 +265,11 @@ if (burger && nav && headerScroll) {
         }
     });
     window.addEventListener('scroll', () => {
-        headerScroll.classList.toggle('scrolled', window.scrollY > 10);
+        if (window.scrollY > 10) headerScroll.classList.add('scrolled');
+        else headerScroll.classList.remove('scrolled');
     });
 }
 
-
-// Scroll fade animation
-const fadeEls = document.querySelectorAll(".scroll-fade");
-const observer = new IntersectionObserver((entries) => {
-    entries.forEach((entry) => {
-        entry.target.classList.toggle("visible", entry.isIntersecting);
-    });
-}, { threshold: 0.1 });
-fadeEls.forEach((el) => observer.observe(el));
 
 
 // MENU CARDS POPUP

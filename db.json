@@ -36,7 +36,7 @@
       "id": 1,
       "title": "Fresh, Local Ingredients:",
       "description": "We use only the freshest ingredients from nearby farms to ensure top flavor and quality in every bite.",
-      "image": "/images/fresh-ingredients.webp",
+      "image": "/images/ingridients.webp",
       "type": "ingredients",
       "ingredients": [
         { "name": "Organic Flour", "description": "Locally milled, full of nutrients." },
@@ -49,13 +49,25 @@
       "id": 2,
       "title": "Artisan Craftsmanship:",
       "description": "Each product is handmade using traditional methods passed down through generations.",
-      "image": "/images/logo.webp",
+      "image": "/images/craftsmanship.webp",
       "type": "products",
       "products": [
-        "/images/logo.webp",
-        "/images/logo.webp",
-        "/images/logo.webp",
-        "/images/logo.webp"
+        "/images/product1.webp",
+        "/images/product2.webp",
+        "/images/product3.webp",
+        "/images/product4.webp",
+        "/images/product5.webp",
+        "/images/product6.webp",
+        "/images/product7.webp",
+        "/images/product8.webp",
+        "/images/product9.webp",
+        "/images/product10.webp",
+        "/images/product11.webp",
+        "/images/product12.webp",
+        "/images/product13.webp",
+        "/images/product14.webp",
+        "/images/product15.webp",
+        "/images/product16.webp"
       ]
     },
     {

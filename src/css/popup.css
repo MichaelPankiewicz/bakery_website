@@ -279,3 +279,54 @@
 #floating-menu-overlay::-webkit-scrollbar-thumb:hover {
   background: rgba(247, 108, 108, 0.9);
 }
+
+
+/* ================= Contact Form ================= */
+.contact-form-card label {
+  margin-top: 0.8rem;
+  font-weight: 600;
+  color: #333;
+}
+
+.contact-form-card input,
+.contact-form-card textarea {
+  width: 100%;
+  padding: 0.6rem;
+  margin-top: 0.3rem;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+  font-size: 1rem;
+}
+
+.contact-form-card textarea {
+  min-height: 120px;
+  resize: vertical;
+}
+
+.contact-form-card input.invalid,
+.contact-form-card textarea.invalid {
+  border-color: red;
+  background-color: #ffe6e6;
+}
+
+/* ================= Notification ================= */
+.custom-notification {
+  position: fixed;
+  bottom: -60px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: #4caf50;
+  color: white;
+  padding: 0.7rem 1.4rem;
+  border-radius: 6px;
+  font-size: 1rem;
+  box-shadow: 0 4px 14px rgba(0,0,0,0.2);
+  opacity: 0;
+  transition: all 0.3s ease;
+  z-index: 20000;
+}
+
+.custom-notification.show {
+  bottom: 30px;
+  opacity: 1;
+}

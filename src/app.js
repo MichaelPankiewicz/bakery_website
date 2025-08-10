@@ -60,6 +60,106 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
+// ===========================
+// CONTACT US POPUP LOGIC
+// ===========================
+const contactBtn = document.querySelector('.contact');
+const contactOverlay = document.getElementById('floating-menu-overlay');
+
+if (contactBtn && contactOverlay) {
+    contactBtn.addEventListener('click', (e) => {
+        e.preventDefault();
+
+        contactOverlay.innerHTML = `
+            <div class="popup-card contact-form-card">
+                <button class="popup-close-btn">&times;</button>
+                <h2 class="popup-title">Contact Us</h2>
+                <form id="contact-form" novalidate>
+                    <label for="contact-name">Name</label>
+                    <input type="text" id="contact-name" name="name" placeholder="Your name" required>
+
+                    <label for="contact-email">Email</label>
+                    <input type="email" id="contact-email" name="email" placeholder="your@email.com" required>
+
+                    <label for="contact-message">Message</label>
+                    <textarea id="contact-message" name="message" placeholder="Your message" required></textarea>
+
+                    <button type="submit" class="popup-expand-btn">Send</button>
+                </form>
+            </div>
+        `;
+        contactOverlay.classList.remove('hidden');
+
+        // Close behavior
+        const closeBtn = contactOverlay.querySelector('.popup-close-btn');
+        closeBtn.addEventListener('click', () => {
+            contactOverlay.classList.add('hidden');
+            contactOverlay.innerHTML = '';
+        });
+
+        // Validation logic
+        const form = document.getElementById('contact-form');
+        const nameInput = document.getElementById('contact-name');
+        const emailInput = document.getElementById('contact-email');
+        const messageInput = document.getElementById('contact-message');
+
+        function validateEmail(email) {
+            return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email); // ✅ fixed regex
+        }
+
+        function validateField(field) {
+            if (!field.value.trim()) {
+                field.classList.add('invalid');
+                return false;
+            }
+            if (field.type === 'email' && !validateEmail(field.value.trim())) {
+                field.classList.add('invalid');
+                return false;
+            }
+            field.classList.remove('invalid');
+            return true;
+        }
+
+        [nameInput, emailInput, messageInput].forEach(input => {
+            input.addEventListener('input', () => validateField(input));
+        });
+
+        form.addEventListener('submit', (ev) => {
+            ev.preventDefault();
+            const validName = validateField(nameInput);
+            const validEmail = validateField(emailInput);
+            const validMessage = validateField(messageInput);
+
+            if (validName && validEmail && validMessage) {
+                showNotification("Message sent!");
+                contactOverlay.classList.add('hidden');
+                contactOverlay.innerHTML = '';
+            }
+        });
+    });
+}
+
+// ===========================
+// NOTIFICATION POPUP FUNCTION
+// ===========================
+function showNotification(message) {
+    let notif = document.createElement('div');
+    notif.className = 'custom-notification';
+    notif.textContent = message;
+    document.body.appendChild(notif);
+
+    setTimeout(() => {
+        notif.classList.add('show');
+    }, 10);
+
+    setTimeout(() => {
+        notif.classList.remove('show');
+        setTimeout(() => notif.remove(), 300);
+    }, 2500);
+}
+
+
+
     // ===========================
     // OLD Explore More popup logic (your existing one, for #explore-more-btn)
     // ===========================

@@ -386,6 +386,66 @@ if (galleryLink && floatingMenuOverlay) {
         }
     }
 
+
+    
+const chefNavLink = document.getElementById('nav-chef');
+
+if (chefNavLink && floatingMenuOverlay) {
+  chefNavLink.addEventListener('click', (e) => {
+    e.preventDefault();
+
+    fetch('http://localhost:3000/chef')
+      .then(res => res.json())
+      .then(data => {
+        if (!Array.isArray(data) || data.length === 0) {
+          floatingMenuOverlay.innerHTML = `
+            <div class="popup-card">
+              <button class="popup-close-btn">&times;</button>
+              <p>No content available at the moment. Please check back later.</p>
+            </div>`;
+          floatingMenuOverlay.classList.remove('hidden');
+          attachChefCloseHandler();
+          return;
+        }
+
+        const item = data[0]; // show only first chef for now
+
+        floatingMenuOverlay.innerHTML = `
+          <div class="popup-card">
+            <button class="popup-close-btn">&times;</button>
+            <img src="${item.image}" alt="${item.title}" class="popup-image" />
+            <h2 class="popup-title">${item.title}</h2>
+            <p class="popup-description">${item.description}</p>
+          </div>
+        `;
+
+        floatingMenuOverlay.classList.remove('hidden');
+        attachChefCloseHandler();
+      })
+      .catch(() => {
+        floatingMenuOverlay.innerHTML = `
+          <div class="popup-card">
+            <button class="popup-close-btn">&times;</button>
+            <p>Failed to load content. Please try again later.</p>
+          </div>`;
+        floatingMenuOverlay.classList.remove('hidden');
+        attachChefCloseHandler();
+      });
+  });
+
+  function attachChefCloseHandler() {
+    const closeBtn = floatingMenuOverlay.querySelector('.popup-close-btn');
+    if (closeBtn) {
+      closeBtn.addEventListener('click', () => {
+        floatingMenuOverlay.classList.add('hidden');
+        floatingMenuOverlay.innerHTML = '';
+      });
+    }
+  }
+}
+
+
+
 }); // end DOMContentLoaded
 
 function fetchMenuItems(container) {

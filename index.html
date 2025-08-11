@@ -33,7 +33,7 @@
         <li><a class="nav-link" href="#" id="gallery-link">Gallery</a></li>
       </ul>
       <div class="nav-buttons">
-        <a class="main-button test" href="#">Menu</a>
+        <a id="menu-link" class="main-button menu-popup-btn" href="#">Menu</a>
         <a class="contact" href="#">Contact Us</a>
       </div>
     </nav>
@@ -81,7 +81,16 @@
         </svg>
       </div>
     </div>
+
+
     <div id="dynamic-menu-section" class="dynamic-menu hidden"></div>
+
+    <div id="popup-overlay" class="popup-overlay" style="display:none;">
+      <div class="popup-content">
+        <span class="closeBtn">&times;</span>
+        <div id="popup-body"></div>
+      </div>
+    </div>
 
 
   </section>
@@ -286,6 +295,8 @@
     </section>
   </footer>
 
+
+  <div id="uniqueMenu-popup-overlay" class="uniqueMenu-popup-overlay hidden"></div>
   <script type="module" src="/src/app.js"></script>
 </body>
 

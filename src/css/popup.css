@@ -511,3 +511,82 @@
   bottom: 30px;
   opacity: 1;
 }
+
+/* Unique styles prefixed with uniqueMenu- */
+
+.uniqueMenu-popup-overlay {
+  position: fixed;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: rgba(0,0,0,0.85);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 11000;
+}
+
+.uniqueMenu-popup-overlay.hidden {
+  display: none;
+}
+
+.uniqueMenu-popup-card {
+  background: #fff;
+  max-width: 460px;
+  width: 90%;
+  padding: 1.5rem 2rem;
+  border-radius: 12px;
+  position: relative;
+  box-shadow: 0 8px 28px rgba(0,0,0,0.32);
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  color: #222;
+}
+
+.uniqueMenu-popup-close-btn {
+  position: absolute;
+  top: 14px;
+  right: 18px;
+  font-size: 2rem;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  color: #555;
+  font-weight: 700;
+  line-height: 1;
+}
+
+.uniqueMenu-popup-title {
+  font-size: 1.6rem;
+  margin-bottom: 0.8rem;
+}
+
+.uniqueMenu-popup-description {
+  font-size: 1rem;
+  margin-bottom: 1.2rem;
+  color: #444;
+}
+
+.uniqueMenu-popup-expand-btn {
+  background-color: #007BFF;
+  border: none;
+  color: white;
+  padding: 0.5rem 1rem;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 1.05rem;
+  margin-bottom: 0.6rem;
+  user-select: none;
+}
+
+.uniqueMenu-popup-expand-list {
+  display: none;
+  max-height: 240px;
+  overflow-y: auto;
+  border-top: 1px solid #ddd;
+  padding-top: 0.6rem;
+  margin-top: 0.6rem;
+  font-size: 0.95rem;
+  color: #333;
+}
+
+.uniqueMenu-popup-expand-list.visible {
+  display: block;
+}

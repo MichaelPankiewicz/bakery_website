@@ -166,6 +166,140 @@
       "id": 10,
       "image": "/images/product10.webp"
     }
-  ]
+  ],
   
+    "topMenu": [
+    {
+      "title": "Classic Croissant",
+      "description": "Buttery, flaky French croissant baked fresh every morning.",
+      "price": "$3.50",
+      "image": "/images/product1.webp",
+      "details": [
+        "Made with real butter",
+        "Crispy outside, soft inside",
+        "Perfect with coffee"
+      ]
+    },
+    {
+      "title": "Sourdough Bread",
+      "description": "Handcrafted sourdough with a crunchy crust and tangy flavor.",
+      "price": "$5.00",
+      "image": "/images/product2.webp",
+      "details": [
+        "Slow fermented",
+        "No preservatives",
+        "Ideal for sandwiches"
+      ]
+    },
+    {
+      "title": "Chocolate Muffin",
+      "description": "Rich chocolate muffin loaded with chocolate chips.",
+      "price": "$2.75",
+      "image": "/images/product3.webp",
+      "details": [
+        "Made with Belgian chocolate",
+        "Moist and soft texture",
+        "Great for dessert"
+      ]
+    },
+    {
+      "title": "Blueberry Bagel",
+      "description": "Chewy bagel packed with fresh blueberries.",
+      "price": "$3.00",
+      "image": "https://example.com/images/blueberry-bagel.jpg",
+      "details": [
+        "Baked daily",
+        "Topped with sugar glaze",
+        "Pairs well with cream cheese"
+      ]
+    },
+    {
+      "title": "Almond Danish",
+      "description": "Flaky Danish pastry topped with almond glaze and sliced almonds.",
+      "price": "$4.00",
+      "image": "https://example.com/images/almond-danish.jpg",
+      "details": [
+        "Sweet and nutty",
+        "Perfect breakfast treat",
+        "Made fresh daily"
+      ]
+    },
+    {
+      "title": "Banana Bread",
+      "description": "Moist banana bread with walnuts and cinnamon.",
+      "price": "$3.25",
+      "image": "https://example.com/images/banana-bread.jpg",
+      "details": [
+        "Contains real bananas",
+        "Gluten-free option available",
+        "Great with butter"
+      ]
+    },
+    {
+      "title": "Cinnamon Roll",
+      "description": "Soft, gooey cinnamon roll with cream cheese frosting.",
+      "price": "$3.75",
+      "image": "https://example.com/images/cinnamon-roll.jpg",
+      "details": [
+        "Made with cinnamon swirl",
+        "Drizzled with frosting",
+        "Baked fresh every day"
+      ]
+    },
+    {
+      "title": "Lemon Tart",
+      "description": "Tangy lemon tart with buttery crust and fresh whipped cream.",
+      "price": "$4.50",
+      "image": "https://example.com/images/lemon-tart.jpg",
+      "details": [
+        "Zesty and refreshing",
+        "Made with fresh lemons",
+        "Perfect dessert choice"
+      ]
+    },
+    {
+      "title": "Pumpkin Spice Muffin",
+      "description": "Seasonal muffin with pumpkin spice and pecans.",
+      "price": "$3.50",
+      "image": "https://example.com/images/pumpkin-spice-muffin.jpg",
+      "details": [
+        "Perfect for fall",
+        "Topped with pecans",
+        "Moist and flavorful"
+      ]
+    },
+    {
+      "title": "Raspberry Scone",
+      "description": "Flaky scone bursting with fresh raspberries.",
+      "price": "$3.25",
+      "image": "https://example.com/images/raspberry-scone.jpg",
+      "details": [
+        "Buttery and crumbly",
+        "Made fresh daily",
+        "Great with tea"
+      ]
+    },
+    {
+      "title": "Spinach Feta Croissant",
+      "description": "Savory croissant stuffed with spinach and feta cheese.",
+      "price": "$4.25",
+      "image": "https://example.com/images/spinach-feta-croissant.jpg",
+      "details": [
+        "Perfect savory snack",
+        "Flaky and cheesy",
+        "Freshly baked"
+      ]
+    },
+    {
+      "title": "Vanilla Cupcake",
+      "description": "Classic vanilla cupcake with buttercream frosting.",
+      "price": "$2.50",
+      "image": "https://example.com/images/vanilla-cupcake.jpg",
+      "details": [
+        "Light and fluffy",
+        "Topped with sprinkles",
+        "Ideal for celebrations"
+      ]
+    }
+  ]
 }

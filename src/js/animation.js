@@ -1,6 +1,8 @@
 // animation.js
-// Scroll animations and intersection observers
+// Sets up scroll-triggered animations using Intersection Observer
+
 import { setupScrollAnimations } from './global.js';
+
 document.addEventListener('DOMContentLoaded', () => {
     setupScrollAnimations();
 });

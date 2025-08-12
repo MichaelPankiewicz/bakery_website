@@ -1,7 +1,9 @@
 // global.js
 // Shared global functions and logic for the bakery website
 
-// Notification popup (moved from app.js)
+// ===========================
+// Notification popup
+// ===========================
 export function showNotification(message) {
     let notif = document.createElement('div');
     notif.className = 'custom-notification';
@@ -16,7 +18,9 @@ export function showNotification(message) {
     }, 2500);
 }
 
-// Intersection Observer for scroll-reveal and scroll-fade (moved from main.js)
+// ===========================
+// Intersection Observer for scroll-reveal and scroll-fade
+// ===========================
 export function setupScrollAnimations() {
     const revealOptions = { threshold: 0.2, rootMargin: '0px' };
     const fadeOptions = { threshold: 0.1 };

@@ -1,5 +1,5 @@
 // form.js
-// Form validation and submission logic
+// Handles contact form validation and submission
 
 document.addEventListener('DOMContentLoaded', () => {
     const form = document.getElementById('contact-form');

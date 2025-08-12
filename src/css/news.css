@@ -46,7 +46,7 @@
   max-width: 350px;
 }
 
-/* Responsive layout */
+/* Responsive layout (section-specific only) */
 @media (max-width: 1279px) {
   #subscribe-section {
     grid-template-columns: 1fr;

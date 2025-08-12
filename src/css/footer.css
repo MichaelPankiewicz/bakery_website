@@ -1,6 +1,6 @@
 
 
-/* Footer grid */
+/* Footer grid (section-specific only) */
 #links-footer {
   display: grid;
   grid-template-columns: repeat(4, 1fr);

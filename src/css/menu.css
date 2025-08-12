@@ -106,7 +106,7 @@
 
 
 
-/* Tablet Layout */
+/* Tablet Layout (section-specific only) */
 @media (max-width: 1670px) {
   .menu-content {
     flex-direction: column;

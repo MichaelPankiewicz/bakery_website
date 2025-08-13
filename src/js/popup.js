@@ -269,7 +269,7 @@ if (galleryLink && floatingMenuOverlay) {
 
 
     // ===========================
-    // FIXED About Us Explore More popup logic (#explore-more-about)
+    // About Us Explore More popup logic (#explore-more-about)
     // ===========================
     const aboutExploreBtn = document.getElementById('explore-more-about');
 
@@ -294,7 +294,7 @@ if (galleryLink && floatingMenuOverlay) {
                     // Show only first aboutExplore item for now
                     const item = data[0];
 
-                    // Use exactly the same popup markup and CSS classes as other popups
+                    // The same popup markup and CSS classes as other popups
                     floatingMenuOverlay.innerHTML = `
                       <div class="popup-card">
                         <button class="popup-close-btn">&times;</button>
@@ -351,7 +351,7 @@ if (chefNavLink && floatingMenuOverlay) {
           return;
         }
 
-        const item = data[0]; // show only first chef for now
+        const item = data[0]; // Assuming we only want to show the first chef item
 
         floatingMenuOverlay.innerHTML = `
           <div class="popup-card">

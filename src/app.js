@@ -6,15 +6,12 @@ import './css/about.css';
 import './css/menu.css';
 import './css/news.css';
 import './css/footer.css';
-import './js/main.js';
 import './js/global.js';
 import './js/navigation.js';
 import './js/popup.js';
 import './js/animation.js';
-import './js/api.js';
 import './js/form.js';
 import './js/menu-cards.js';
-import './js/misc.js';
 
 // ===========================
 // Toggle dynamic menu section and fetch menu items

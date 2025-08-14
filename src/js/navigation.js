@@ -83,6 +83,16 @@ document.addEventListener('DOMContentLoaded', () => {
 
         // Fetch menu items array
         try {
+
+
+            const baseUrl = process.env.NODE_ENV === 'development'
+                ? 'http://localhost:3000'
+                : '';
+
+            const url = process.env.NODE_ENV === 'development'
+                ? `${baseUrl}/topMenu`
+                : `${baseUrl}/api/topMenu`;
+
             const response = await fetch('http://localhost:3000/topMenu');
             menuItems = await response.json();
 

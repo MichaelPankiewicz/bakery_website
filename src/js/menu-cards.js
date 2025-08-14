@@ -16,7 +16,7 @@ document.addEventListener('DOMContentLoaded', () => {
             const url = process.env.NODE_ENV === 'development'
                 ? `${baseUrl}/menuHighlights`
                 : `${baseUrl}/api/menuHighlights`;
-                
+
             fetch(url)
                 .then(res => res.json())
                 .then(data => {

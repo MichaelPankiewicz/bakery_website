@@ -54,9 +54,15 @@ function fetchMenuItems(container) {
     fallback.textContent = 'Loading menu...';
     container.appendChild(fallback);
 
+    const baseUrl = process.env.NODE_ENV === 'development'
+        ? 'http://localhost:3000'
+        : '';
 
+    const url = process.env.NODE_ENV === 'development'
+        ? `${baseUrl}/bakeryItems`
+        : `${baseUrl}/api/bakeryItems`;
 
-    fetch('http://localhost:3000/bakeryItems')
+    fetch(url)
         .then((res) => res.json())
         .then((items) => {
             fallback.remove();

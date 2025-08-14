@@ -93,7 +93,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 ? `${baseUrl}/topMenu`
                 : `${baseUrl}/api/topMenu`;
 
-            const response = await fetch('http://localhost:3000/topMenu');
+            const response = await fetch(url);
             menuItems = await response.json();
 
             if (!menuItems.length) {

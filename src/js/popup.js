@@ -301,7 +301,14 @@ document.addEventListener('DOMContentLoaded', () => {
         aboutExploreBtn.addEventListener('click', (e) => {
             e.preventDefault();
 
-            fetch('http://localhost:3000/aboutExplore')
+            const baseUrl = process.env.NODE_ENV === 'development'
+            ? 'http://localhost:3000'
+            : '';
+            const url = process.env.NODE_ENV === 'development'
+            ? `${baseUrl}/aboutExplore`
+            : `${baseUrl}/api/aboutExplore`;
+
+            fetch(url)
                 .then(res => res.json())
                 .then(data => {
                     if (!Array.isArray(data) || data.length === 0) {

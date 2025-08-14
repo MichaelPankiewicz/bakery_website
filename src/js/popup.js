@@ -357,17 +357,18 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const chefNavLink = document.getElementById('nav-chef');
     
-    const baseUrl = process.env.NODE_ENV === 'development'
-        ? 'http://localhost:3000'
-        : '';
-    const url = process.env.NODE_ENV === 'development'
-        ? `${baseUrl}/chef`
-        : `${baseUrl}/api/chef`;
-
 
     if (chefNavLink && floatingMenuOverlay) {
         chefNavLink.addEventListener('click', (e) => {
             e.preventDefault();
+
+            const baseUrl = process.env.NODE_ENV === 'development'
+            ? 'http://localhost:3000'
+            : '';
+            const url = process.env.NODE_ENV === 'development'
+            ? `${baseUrl}/chef`
+            : `${baseUrl}/api/chef`;
+
 
             fetch(url)
                 .then(res => res.json())

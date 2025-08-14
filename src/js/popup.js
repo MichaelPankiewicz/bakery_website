@@ -219,7 +219,7 @@ document.addEventListener('DOMContentLoaded', () => {
             const url = process.env.NODE_ENV === 'development'
                 ? `${baseUrl}/gallery`
                 : `${baseUrl}/api/gallery`;
-                
+
             floatingMenuOverlay.classList.remove('hidden');
 
             fetch(url)
@@ -356,12 +356,20 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
     const chefNavLink = document.getElementById('nav-chef');
+    
+    const baseUrl = process.env.NODE_ENV === 'development'
+        ? 'http://localhost:3000'
+        : '';
+    const url = process.env.NODE_ENV === 'development'
+        ? `${baseUrl}/chef`
+        : `${baseUrl}/api/chef`;
+
 
     if (chefNavLink && floatingMenuOverlay) {
         chefNavLink.addEventListener('click', (e) => {
             e.preventDefault();
 
-            fetch('http://localhost:3000/chef')
+            fetch(url)
                 .then(res => res.json())
                 .then(data => {
                     if (!Array.isArray(data) || data.length === 0) {

@@ -85,7 +85,7 @@
     },
     {
       "id": 4,
-      "title": "Community–Oriented:",
+      "title": "Community Oriented:",
       "description": "We support local events and organizations that bring our neighborhood together.",
       "image": "/images/community.webp",
       "type": "community",
@@ -128,7 +128,7 @@
  "gallery": [
     {
       "id": 1,
-      "image": "/public/images/product1.webp"
+      "image": "/images/product1.webp"
     },
     {
       "id": 2,
@@ -165,6 +165,98 @@
     {
       "id": 10,
       "image": "/images/product10.webp"
+    },
+    {
+      "id": 11,
+      "image": "/images/product11.webp"
+    },
+    {
+      "id": 12,
+      "image": "/images/product12.webp"
+    },
+    {
+      "id": 13,
+      "image": "/images/product13.webp"
+    },
+    {
+      "id": 14,
+      "image": "/images/product14.webp"
+    },
+    {
+      "id": 15,
+      "image": "/images/product15.webp"
+    },
+    {
+      "id": 16,
+      "image": "/images/product16.webp"
+    },
+    {
+      "id": 17,
+      "image": "/images/mealcard1.webp"
+    },
+    {
+      "id": 18,
+      "image": "/images/mealcard2.webp"
+    },
+    {
+      "id": 19,
+      "image": "/images/mealcard3.webp"
+    },
+    {
+      "id": 20,
+      "image": "/images/mealcard4.webp"
+    },
+    {
+      "id": 21,
+      "image": "/images/interior1.webp"
+    },
+    {
+      "id": 22,
+      "image": "/images/interior2.webp"
+    },
+    {
+      "id": 23,
+      "image": "/images/interior3.webp"
+    },
+    {
+      "id": 24,
+      "image": "/images/interior4.webp"
+    },
+    {
+      "id": 25,
+      "image": "/images/logo.webp"
+    },
+    {
+      "id": 26,
+      "image": "/images/hero.webp"
+    },
+    {
+      "id": 27,
+      "image": "/images/ingridients.webp"
+    },
+    {
+      "id": 29,
+      "image": "/images/craftsmanship.webp"
+    },
+    {
+      "id": 30,
+      "image": "/images/community.webp"
+    },
+    {
+      "id": 31,
+      "image": "/images/chef.webp"
+    },
+    {
+      "id": 32,
+      "image": "/images/bakery.webp"
+    },
+    {
+      "id": 33,
+      "image": "/images/atmosphere.webp"
+    },
+    {
+      "id": 34,
+      "image": "/images/aboutusbakery.webp"
     }
   ],
   
@@ -206,7 +298,7 @@
       "title": "Blueberry Bagel",
       "description": "Chewy bagel packed with fresh blueberries.",
       "price": "$3.00",
-      "image": "https://example.com/images/blueberry-bagel.jpg",
+      "image": "/images/product4.webp",
       "details": [
         "Baked daily",
         "Topped with sugar glaze",
@@ -217,7 +309,7 @@
       "title": "Almond Danish",
       "description": "Flaky Danish pastry topped with almond glaze and sliced almonds.",
       "price": "$4.00",
-      "image": "https://example.com/images/almond-danish.jpg",
+      "image": "/images/product5.webp",
       "details": [
         "Sweet and nutty",
         "Perfect breakfast treat",
@@ -228,7 +320,7 @@
       "title": "Banana Bread",
       "description": "Moist banana bread with walnuts and cinnamon.",
       "price": "$3.25",
-      "image": "https://example.com/images/banana-bread.jpg",
+      "image": "/images/product6.webp",
       "details": [
         "Contains real bananas",
         "Gluten-free option available",
@@ -239,7 +331,7 @@
       "title": "Cinnamon Roll",
       "description": "Soft, gooey cinnamon roll with cream cheese frosting.",
       "price": "$3.75",
-      "image": "https://example.com/images/cinnamon-roll.jpg",
+      "image": "/images/product7.webp",
       "details": [
         "Made with cinnamon swirl",
         "Drizzled with frosting",
@@ -250,7 +342,7 @@
       "title": "Lemon Tart",
       "description": "Tangy lemon tart with buttery crust and fresh whipped cream.",
       "price": "$4.50",
-      "image": "https://example.com/images/lemon-tart.jpg",
+      "image": "/images/product8.webp",
       "details": [
         "Zesty and refreshing",
         "Made with fresh lemons",
@@ -261,7 +353,7 @@
       "title": "Pumpkin Spice Muffin",
       "description": "Seasonal muffin with pumpkin spice and pecans.",
       "price": "$3.50",
-      "image": "https://example.com/images/pumpkin-spice-muffin.jpg",
+      "image": "/images/product9.webp",
       "details": [
         "Perfect for fall",
         "Topped with pecans",
@@ -272,7 +364,7 @@
       "title": "Raspberry Scone",
       "description": "Flaky scone bursting with fresh raspberries.",
       "price": "$3.25",
-      "image": "https://example.com/images/raspberry-scone.jpg",
+      "image": "/images/product10.webp",
       "details": [
         "Buttery and crumbly",
         "Made fresh daily",
@@ -283,7 +375,7 @@
       "title": "Spinach Feta Croissant",
       "description": "Savory croissant stuffed with spinach and feta cheese.",
       "price": "$4.25",
-      "image": "https://example.com/images/spinach-feta-croissant.jpg",
+      "image": "/images/product11.webp",
       "details": [
         "Perfect savory snack",
         "Flaky and cheesy",
@@ -294,7 +386,7 @@
       "title": "Vanilla Cupcake",
       "description": "Classic vanilla cupcake with buttercream frosting.",
       "price": "$2.50",
-      "image": "https://example.com/images/vanilla-cupcake.jpg",
+      "image": "/images/product12.webp",
       "details": [
         "Light and fluffy",
         "Topped with sprinkles",

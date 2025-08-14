@@ -9,7 +9,15 @@ document.addEventListener('DOMContentLoaded', () => {
         card.addEventListener("click", () => {
             const title = card.querySelector("h4").textContent.trim();
 
-            fetch("http://localhost:3000/menuHighlights")
+            const baseUrl = process.env.NODE_ENV === 'development'
+                ? 'http://localhost:3000'
+                : '';
+
+            const url = process.env.NODE_ENV === 'development'
+                ? `${baseUrl}/menuHighlights`
+                : `${baseUrl}/api/menuHighlights`;
+                
+            fetch(url)
                 .then(res => res.json())
                 .then(data => {
                     const match = data.find(item => item.title === title);

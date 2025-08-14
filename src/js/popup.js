@@ -214,7 +214,15 @@ document.addEventListener('DOMContentLoaded', () => {
         `;
             floatingMenuOverlay.classList.remove('hidden');
 
-            fetch('http://localhost:3000/gallery')
+            const baseUrl = process.env.NODE_ENV === 'development'
+                ? 'http://localhost:3000'
+                : '';
+
+            const url = process.env.NODE_ENV === 'development'
+                ? `${baseUrl}/gallery`
+                : `${baseUrl}/api/gallery`;
+
+            fetch(url)
                 .then(res => res.json())
                 .then(data => {
                     const popupCard = floatingMenuOverlay.querySelector('.popup-card');

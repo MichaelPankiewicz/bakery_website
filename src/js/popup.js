@@ -212,15 +212,15 @@ document.addEventListener('DOMContentLoaded', () => {
                 <p class="fallback-msg">Loading gallery...</p>
             </div>
         `;
-            floatingMenuOverlay.classList.remove('hidden');
 
             const baseUrl = process.env.NODE_ENV === 'development'
                 ? 'http://localhost:3000'
                 : '';
-
             const url = process.env.NODE_ENV === 'development'
                 ? `${baseUrl}/gallery`
                 : `${baseUrl}/api/gallery`;
+                
+            floatingMenuOverlay.classList.remove('hidden');
 
             fetch(url)
                 .then(res => res.json())

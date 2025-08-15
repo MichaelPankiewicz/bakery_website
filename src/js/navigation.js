@@ -82,8 +82,18 @@ document.addEventListener('DOMContentLoaded', () => {
         });
 
         // Fetch menu items array
+
+        const baseUrl = process.env.NODE_ENV === 'development'
+            ? 'http://localhost:3000'
+            : '';
+
+        const url = process.env.NODE_ENV === 'development'
+            ? `${baseUrl}/topMenu`
+            : `${baseUrl}/api/topMenu`;
+            
         try {
-            const response = await fetch('http://localhost:3000/topMenu');
+
+            const response = await fetch(url);
             menuItems = await response.json();
 
             if (!menuItems.length) {

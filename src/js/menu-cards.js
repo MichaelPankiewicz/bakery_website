@@ -1,7 +1,6 @@
-// menu-cards.js
-// Handles menu card click and detail popup logic
 
-document.addEventListener('DOMContentLoaded', () => {
+
+window.setupMenuCards = function() {
     const menuCards = document.querySelectorAll(".menu-card");
     const floatingMenuOverlay = document.querySelector("#floating-menu-overlay");
 
@@ -76,4 +75,4 @@ document.addEventListener('DOMContentLoaded', () => {
                 .catch(err => console.error("Error fetching popup data:", err));
         });
     });
-});
+}

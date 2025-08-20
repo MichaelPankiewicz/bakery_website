@@ -1,7 +1,7 @@
 // navigation.js
 // Handles hamburger menu toggle and unique menu popup
 
-document.addEventListener('DOMContentLoaded', () => {
+window.setupNavigation = function() {
     // ===========================
     // Hamburger menu toggle
     // ===========================
@@ -155,4 +155,4 @@ document.addEventListener('DOMContentLoaded', () => {
             showItem(currentIndex);
         });
     });
-});
+};

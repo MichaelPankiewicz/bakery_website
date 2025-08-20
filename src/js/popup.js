@@ -1,5 +1,4 @@
-document.addEventListener('DOMContentLoaded', () => {
-
+window.setupPopups = function() {
 
 
 
@@ -429,4 +428,4 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
 
-});
+};

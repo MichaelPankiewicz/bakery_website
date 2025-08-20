@@ -1,3 +1,4 @@
+// CSS
 import './css/style.css';
 import './css/navbar.css';
 import './css/hero.css';
@@ -7,23 +8,24 @@ import './css/menu.css';
 import './css/news.css';
 import './css/footer.css';
 
-import './js/global.js';
+// JS
+import { setupScrollAnimations } from './js/global.js';
+import { setupBakeryItems } from './js/hero-menu.js';
 import './js/navigation.js';
 import './js/popup.js';
 import './js/animation.js';
 import './js/form.js';
 import './js/menu-cards.js';
 
-import { setupBakeryItems } from './js/hero-menu.js';
-
 document.addEventListener('DOMContentLoaded', () => {
-    if (window.setupGlobal) window.setupGlobal();
-    if (window.setupNavigation) window.setupNavigation();
-    if (window.setupPopups) window.setupPopups();
-    if (window.setupAnimations) window.setupAnimations();
-    if (window.setupForm) window.setupForm();
-    if (window.setupMenuCards) window.setupMenuCards();
+  if (window.setupGlobal) window.setupGlobal();
+  if (window.setupNavigation) window.setupNavigation();
+  if (window.setupPopups) window.setupPopups();
+  if (window.setupAnimations) window.setupAnimations();
+  if (window.setupForm) window.setupForm();
+  if (window.setupMenuCards) window.setupMenuCards();
 
-    // ✅ Call imported function directly
-    setupBakeryItems();
+  // use imported versions now
+  setupScrollAnimations();
+  setupBakeryItems();
 });

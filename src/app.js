@@ -13,12 +13,11 @@ import { setupScrollAnimations } from './js/global.js';
 import { setupBakeryItems } from './js/hero-menu.js';
 import { setupNavigation } from './js/navigation.js';
 import { setupPopups } from './js/popup.js'; // new modular popup
-import './js/animation.js'; // legacy side-effect import
+import { setupAnimations } from './js/animation.js'; // updated modular animation
 import './js/form.js';      // legacy side-effect import
 import './js/menu-cards.js'; // legacy side-effect import
 
 // Optional: ensure menuHighlights is available globally
-// Replace this with your actual fetch/import if needed
 window.menuHighlights = window.menuHighlights || [
   // Example structure
   // { title: 'Fresh Ingredients', type: 'ingredients', items: ['Eggs', 'Flour', 'Milk'] },
@@ -31,10 +30,10 @@ document.addEventListener('DOMContentLoaded', () => {
   setupScrollAnimations();
   setupBakeryItems();
   setupNavigation();
-  setupPopups(); // <-- fully functional modular popup
+  setupPopups(); // fully functional modular popup
+  setupAnimations(); // <-- now modular, no window check needed
 
   // Legacy window-based side-effect setups
-  if (window.setupAnimations) window.setupAnimations();
   if (window.setupForm) window.setupForm();
   if (window.setupMenuCards) window.setupMenuCards();
 });

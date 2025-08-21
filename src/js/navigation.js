@@ -1,9 +1,10 @@
 // navigation.js
 // Handles hamburger menu toggle and unique menu popup
+import { fetchJson } from './functions.js';
 
 export function setupNavigation() {
     // ===========================
-    // Hamburger menu toggle
+    // Hamburger menu toggle logic
     // ===========================
     const burger = document.querySelector('#burger-toggle');
     const nav = document.querySelector('header nav');
@@ -81,18 +82,9 @@ export function setupNavigation() {
             uniquePopupOverlay.innerHTML = '';
         });
 
-        // Fetch menu items array
-        const baseUrl = process.env.NODE_ENV === 'development'
-            ? 'http://localhost:3000'
-            : '';
-
-        const url = process.env.NODE_ENV === 'development'
-            ? `${baseUrl}/topMenu`
-            : `${baseUrl}/api/topMenu`;
-            
         try {
-            const response = await fetch(url);
-            menuItems = await response.json();
+            // Fetch menu items using the centralized fetchJson function
+            menuItems = await fetchJson('topMenu');
 
             if (!menuItems.length) {
                 titleEl.textContent = 'No menu data available.';

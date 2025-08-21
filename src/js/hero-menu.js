@@ -1,4 +1,4 @@
-import { fetchJson } from './global.js';
+import { fetchJson } from './functions.js';
 
 
 export function setupBakeryItems() {

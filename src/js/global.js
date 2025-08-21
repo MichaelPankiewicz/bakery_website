@@ -48,9 +48,3 @@ export function setupScrollAnimations() {
   document.querySelectorAll('.scroll-reveal').forEach(el => revealObserver.observe(el));
   document.querySelectorAll('.scroll-fade').forEach(el => fadeObserver.observe(el));
 }
-
-export async function fetchJson(endpoint) {
-  const response = await fetch(`http://localhost:3000/${endpoint}`);
-  if (!response.ok) throw new Error(`Failed to fetch ${endpoint}`);
-  return await response.json();
-}

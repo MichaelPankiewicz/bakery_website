@@ -1,4 +1,4 @@
-window.setupPopups = function() {
+export function setupPopups() {
 
 
 

@@ -1,6 +1,7 @@
+// menu-cards.js
+// Handles menu card popups
 
-
-window.setupMenuCards = function() {
+export function setupMenuCards() {
     const menuCards = document.querySelectorAll(".menu-card");
     const floatingMenuOverlay = document.querySelector("#floating-menu-overlay");
 

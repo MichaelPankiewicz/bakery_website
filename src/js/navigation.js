@@ -1,7 +1,7 @@
 // navigation.js
 // Handles hamburger menu toggle and unique menu popup
 
-window.setupNavigation = function() {
+export function setupNavigation() {
     // ===========================
     // Hamburger menu toggle
     // ===========================
@@ -82,7 +82,6 @@ window.setupNavigation = function() {
         });
 
         // Fetch menu items array
-
         const baseUrl = process.env.NODE_ENV === 'development'
             ? 'http://localhost:3000'
             : '';
@@ -92,7 +91,6 @@ window.setupNavigation = function() {
             : `${baseUrl}/api/topMenu`;
             
         try {
-
             const response = await fetch(url);
             menuItems = await response.json();
 
@@ -155,4 +153,4 @@ window.setupNavigation = function() {
             showItem(currentIndex);
         });
     });
-};
+}

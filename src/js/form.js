@@ -1,15 +1,18 @@
 // form.js
 // Handles contact form validation and submission
 
-document.addEventListener('DOMContentLoaded', () => {
+export function setupForm() {
     const form = document.getElementById('contact-form');
     if (!form) return;
+
     const nameInput = document.getElementById('contact-name');
     const emailInput = document.getElementById('contact-email');
     const messageInput = document.getElementById('contact-message');
+
     function validateEmail(email) {
         return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
     }
+
     function validateField(field) {
         if (!field.value.trim()) {
             field.classList.add('invalid');
@@ -19,21 +22,26 @@ document.addEventListener('DOMContentLoaded', () => {
             return true;
         }
     }
+
     [nameInput, emailInput, messageInput].forEach(input => {
         input.addEventListener('blur', () => validateField(input));
     });
+
     form.addEventListener('submit', (ev) => {
         ev.preventDefault();
         let valid = true;
+
         [nameInput, emailInput, messageInput].forEach(input => {
             if (!validateField(input)) valid = false;
         });
+
         if (!validateEmail(emailInput.value)) {
             emailInput.classList.add('invalid');
             valid = false;
         }
+
         if (valid) {
             // Submit logic here (AJAX or show notification)
         }
     });
-});
+}

@@ -14,7 +14,7 @@ import { setupBakeryItems } from './js/hero-menu.js';
 import { setupNavigation } from './js/navigation.js';
 import { setupPopups } from './js/popup.js'; // new modular popup
 import { setupAnimations } from './js/animation.js'; // updated modular animation
-import './js/form.js';      // legacy side-effect import
+import { setupForm } from './js/form.js'; // updated modular form
 import './js/menu-cards.js'; // legacy side-effect import
 
 // Optional: ensure menuHighlights is available globally
@@ -30,10 +30,10 @@ document.addEventListener('DOMContentLoaded', () => {
   setupScrollAnimations();
   setupBakeryItems();
   setupNavigation();
-  setupPopups(); // fully functional modular popup
-  setupAnimations(); // <-- now modular, no window check needed
+  setupPopups();
+  setupAnimations();
+  setupForm(); // <-- modular, no window needed
 
   // Legacy window-based side-effect setups
-  if (window.setupForm) window.setupForm();
   if (window.setupMenuCards) window.setupMenuCards();
 });

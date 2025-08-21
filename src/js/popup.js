@@ -100,7 +100,7 @@ export function setupPopups() {
     }
 
     // ===========================
-    // GALLERY POPUP LOGIC (6-IMAGE GRID + ZOOM FEATURE)
+    // GALLERY POPUP LOGIC WITH RANDOMIZATION
     // ===========================
     const galleryLink = document.getElementById('gallery-link');
     const floatingMenuOverlay = document.getElementById('floating-menu-overlay');
@@ -154,6 +154,9 @@ export function setupPopups() {
                     return;
                 }
 
+                // Randomize the image array
+                const randomizedData = data.sort(() => Math.random() - 0.5);
+
                 floatingMenuOverlay.innerHTML = `
                     <div class="popup-card">
                         <button class="popup-close-btn">&times;</button>
@@ -162,7 +165,7 @@ export function setupPopups() {
                             display: grid;
                             grid-template-columns: repeat(6, 1fr);
                             gap: 10px;">
-                            ${data.map((item) => `
+                            ${randomizedData.map((item) => `
                                 <div class="popup-gallery-item">
                                     <img src="${item.image}" alt="Gallery image" class="popup-gallery-image" />
                                 </div>`).join('')}

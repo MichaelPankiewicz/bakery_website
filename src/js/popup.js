@@ -1,11 +1,11 @@
-import { fetchJson } from './functions.js'; // Centralized fetch logic
+import { fetchJson } from './functions.js';
 
 export function setupPopups() {
     // ===========================
     // CONTACT US POPUP LOGIC
     // ===========================
     const contactBtn = document.querySelector('.contact');
-    const contactOverlay = document.getElementById('floating-menu-overlay');
+    const contactOverlay = document.querySelector('#floating-menu-overlay');
 
     if (contactBtn && contactOverlay) {
         contactBtn.addEventListener('click', (e) => {
@@ -39,10 +39,10 @@ export function setupPopups() {
             });
 
             // Validation logic
-            const form = document.getElementById('contact-form');
-            const nameInput = document.getElementById('contact-name');
-            const emailInput = document.getElementById('contact-email');
-            const messageInput = document.getElementById('contact-message');
+            const form = document.querySelector('#contact-form');
+            const nameInput = document.querySelector('#contact-name');
+            const emailInput = document.querySelector('#contact-email');
+            const messageInput = document.querySelector('#contact-message');
 
             function validateEmail(email) {
                 return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
@@ -102,8 +102,8 @@ export function setupPopups() {
     // ===========================
     // GALLERY POPUP LOGIC WITH RANDOMIZATION
     // ===========================
-    const galleryLink = document.getElementById('gallery-link');
-    const floatingMenuOverlay = document.getElementById('floating-menu-overlay');
+    const galleryLink = document.querySelector('#gallery-link');
+    const floatingMenuOverlay = document.querySelector('#floating-menu-overlay');
     const fullscreenOverlay = document.createElement('div');
 
     fullscreenOverlay.className = 'fullscreen-image-overlay hidden';
@@ -215,8 +215,7 @@ export function setupPopups() {
         fallbackMessage = "No content available at the moment.",
         title = ""
     }) {
-        const trigger = document.getElementById(triggerId);
-
+        const trigger = document.querySelector(`#${triggerId}`);
         if (!trigger || !floatingMenuOverlay) return;
 
         trigger.addEventListener('click', async (e) => {

@@ -1,9 +1,10 @@
 // navigation.js
 // Handles hamburger menu toggle and unique menu popup
+import { fetchJson } from './functions.js';
 
-document.addEventListener('DOMContentLoaded', () => {
+export function setupNavigation() {
     // ===========================
-    // Hamburger menu toggle
+    // Hamburger menu toggle logic
     // ===========================
     const burger = document.querySelector('#burger-toggle');
     const nav = document.querySelector('header nav');
@@ -35,8 +36,8 @@ document.addEventListener('DOMContentLoaded', () => {
     // ===========================
     // Unique menu popup logic in the navbar
     // ===========================
-    const uniqueMenuBtn = document.getElementById('menu-link');
-    const uniquePopupOverlay = document.getElementById('uniqueMenu-popup-overlay');
+    const uniqueMenuBtn = document.querySelector('#menu-link');
+    const uniquePopupOverlay = document.querySelector('#uniqueMenu-popup-overlay');
     if (!uniqueMenuBtn || !uniquePopupOverlay) return;
 
     uniqueMenuBtn.addEventListener('click', async (event) => {
@@ -81,10 +82,9 @@ document.addEventListener('DOMContentLoaded', () => {
             uniquePopupOverlay.innerHTML = '';
         });
 
-        // Fetch menu items array
         try {
-            const response = await fetch('http://localhost:3000/topMenu');
-            menuItems = await response.json();
+            // Fetch menu items using the centralized fetchJson function
+            menuItems = await fetchJson('topMenu');
 
             if (!menuItems.length) {
                 titleEl.textContent = 'No menu data available.';
@@ -145,4 +145,4 @@ document.addEventListener('DOMContentLoaded', () => {
             showItem(currentIndex);
         });
     });
-});
+}

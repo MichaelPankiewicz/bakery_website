@@ -1,6 +1,7 @@
 /* ================= Popup Overlay and Card (section-specific only) ================= */
 
-#floating-menu-overlay {
+/* Feedback Raymon verwerkt: #floating-menu-overlay vervangen door .floating-menu-overlay */
+.floating-menu-overlay {
   position: fixed;
   top: 0;
   left: 0;
@@ -16,7 +17,7 @@
   transition: opacity 0.3s ease;
 }
 
-#floating-menu-overlay.hidden {
+.floating-menu-overlay.hidden {
   pointer-events: none;
   opacity: 0;
   visibility: hidden;
@@ -38,7 +39,7 @@
 }
 
 /* Overlay for floating popup */
-#floating-menu-overlay {
+.floating-menu-overlay {
   position: fixed;
   top: 0;
   left: 0;
@@ -55,7 +56,7 @@
 }
 
 /* Popup card container */
-#floating-menu-overlay .popup-card {
+.floating-menu-overlay .popup-card {
   background: white;
   border-radius: 8px;
   max-width: 90vw;
@@ -67,7 +68,7 @@
 }
 
 /* Close button */
-#floating-menu-overlay .popup-close-btn {
+.floating-menu-overlay .popup-close-btn {
   position: absolute;
   top: 1rem;
   right: 1rem;
@@ -444,20 +445,20 @@
 
 /* ================= Scrollbar Styling for Popup Overlay ================= */
 
-#floating-menu-overlay::-webkit-scrollbar {
+.floating-menu-overlay::-webkit-scrollbar {
   width: 8px;
 }
 
-#floating-menu-overlay::-webkit-scrollbar-track {
+.floating-menu-overlay::-webkit-scrollbar-track {
   background: rgba(255,255,255,0.1);
 }
 
-#floating-menu-overlay::-webkit-scrollbar-thumb {
+.floating-menu-overlay::-webkit-scrollbar-thumb {
   background: rgba(247, 108, 108, 0.7);
   border-radius: 4px;
 }
 
-#floating-menu-overlay::-webkit-scrollbar-thumb:hover {
+.floating-menu-overlay::-webkit-scrollbar-thumb:hover {
   background: rgba(247, 108, 108, 0.9);
 }
 
@@ -590,3 +591,5 @@
 .uniqueMenu-popup-expand-list.visible {
   display: block;
 }
+
+/* Feedback Raymon verwerkt: alle #floating-menu-overlay selectors vervangen door .floating-menu-overlay */

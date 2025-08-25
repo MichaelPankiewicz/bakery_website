@@ -1,39 +1,35 @@
 // form.js
 // Handles contact form validation and submission
 
-document.addEventListener('DOMContentLoaded', () => {
-    const form = document.getElementById('contact-form');
+import { validateEmail, validateField } from './functions.js';
+
+export function setupForm() {
+    const form = document.querySelector('#contact-form');
     if (!form) return;
-    const nameInput = document.getElementById('contact-name');
-    const emailInput = document.getElementById('contact-email');
-    const messageInput = document.getElementById('contact-message');
-    function validateEmail(email) {
-        return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
-    }
-    function validateField(field) {
-        if (!field.value.trim()) {
-            field.classList.add('invalid');
-            return false;
-        } else {
-            field.classList.remove('invalid');
-            return true;
-        }
-    }
+
+    const nameInput = document.querySelector('#contact-name');
+    const emailInput = document.querySelector('#contact-email');
+    const messageInput = document.querySelector('#contact-message');
+
     [nameInput, emailInput, messageInput].forEach(input => {
         input.addEventListener('blur', () => validateField(input));
     });
+
     form.addEventListener('submit', (ev) => {
         ev.preventDefault();
         let valid = true;
+
         [nameInput, emailInput, messageInput].forEach(input => {
             if (!validateField(input)) valid = false;
         });
+
         if (!validateEmail(emailInput.value)) {
             emailInput.classList.add('invalid');
             valid = false;
         }
+
         if (valid) {
             // Submit logic here (AJAX or show notification)
         }
     });
-});
+}

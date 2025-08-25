@@ -36,8 +36,8 @@ export function setupNavigation() {
     // ===========================
     // Unique menu popup logic in the navbar
     // ===========================
-        const uniqueMenuBtn = document.querySelector('#menu-link');
-        const uniquePopupOverlay = document.querySelector('#uniqueMenu-popup-overlay');
+    const uniqueMenuBtn = document.querySelector('#menu-link');
+    const uniquePopupOverlay = document.querySelector('#uniqueMenu-popup-overlay');
     if (!uniqueMenuBtn || !uniquePopupOverlay) return;
 
     uniqueMenuBtn.addEventListener('click', async (event) => {

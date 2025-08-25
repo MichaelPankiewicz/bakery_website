@@ -1,22 +1,4 @@
-// js/global.js
-// Shared global functions and logic for the bakery website
-
-// ===========================
-// Notification popup
-// ===========================
-export function showNotification(message) {
-  let notif = document.createElement('div');
-  notif.className = 'custom-notification';
-  notif.textContent = message;
-  document.body.appendChild(notif);
-  setTimeout(() => {
-    notif.classList.add('show');
-  }, 10);
-  setTimeout(() => {
-    notif.classList.remove('show');
-    setTimeout(() => notif.remove(), 300);
-  }, 2500);
-}
+import { showNotification } from './functions.js';
 
 // ===========================
 // Intersection Observer for scroll-reveal and scroll-fade

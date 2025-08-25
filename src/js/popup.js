@@ -1,4 +1,4 @@
-import { fetchJson } from './functions.js';
+import { fetchJson, showNotification, validateEmail, validateField } from './functions.js';
 
 export function setupPopups() {
     // ===========================
@@ -44,23 +44,6 @@ export function setupPopups() {
             const emailInput = document.querySelector('#contact-email');
             const messageInput = document.querySelector('#contact-message');
 
-            function validateEmail(email) {
-                return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
-            }
-
-            function validateField(field) {
-                if (!field.value.trim()) {
-                    field.classList.add('invalid');
-                    return false;
-                }
-                if (field.type === 'email' && !validateEmail(field.value.trim())) {
-                    field.classList.add('invalid');
-                    return false;
-                }
-                field.classList.remove('invalid');
-                return true;
-            }
-
             [nameInput, emailInput, messageInput].forEach(input => {
                 input.addEventListener('input', () => validateField(input));
             });
@@ -78,25 +61,6 @@ export function setupPopups() {
                 }
             });
         });
-    }
-
-    // ===========================
-    // NOTIFICATION POPUP FUNCTION
-    // ===========================
-    function showNotification(message) {
-        const notif = document.createElement('div');
-        notif.className = 'custom-notification';
-        notif.textContent = message;
-        document.body.appendChild(notif);
-
-        setTimeout(() => {
-            notif.classList.add('show');
-        }, 10);
-
-        setTimeout(() => {
-            notif.classList.remove('show');
-            setTimeout(() => notif.remove(), 300);
-        }, 2500);
     }
 
     // ===========================

@@ -1,4 +1,4 @@
-import { fetchJson } from './functions.js';
+import { fetchJson, createElementWithClass, clearElement, toggleClass } from './functions.js';
 
 
 export function setupBakeryItems() {
@@ -10,18 +10,16 @@ export function setupBakeryItems() {
   let isVisible = false;
 
   async function fetchBakeryItems(container) {
-    container.innerHTML = '';
+    clearElement(container);
 
-    const closeBtn = document.createElement('button');
-    closeBtn.className = 'close-menu-btn';
-    closeBtn.innerHTML = '✕';
+    const closeBtn = createElementWithClass('button', 'close-menu-btn');
+    closeBtn.innerHTML = '\u2715';
     closeBtn.addEventListener('click', () => {
-      container.classList.add('hidden');
+      toggleClass(container, 'hidden');
     });
     container.appendChild(closeBtn);
 
-    const fallback = document.createElement('p');
-    fallback.className = 'fallback-msg';
+    const fallback = createElementWithClass('p', 'fallback-msg');
     fallback.textContent = 'Loading menu...';
     container.appendChild(fallback);
 
@@ -31,8 +29,7 @@ export function setupBakeryItems() {
       fallback.remove();
 
       if (!Array.isArray(items) || items.length === 0) {
-        const msg = document.createElement('p');
-        msg.className = 'fallback-msg';
+        const msg = createElementWithClass('p', 'fallback-msg');
         msg.textContent = 'No menu items available at the moment. Please check back later.';
         container.appendChild(msg);
         return;
@@ -42,8 +39,7 @@ export function setupBakeryItems() {
       const animations = ['floatIn', 'slideInLeft', 'slideInRight', 'scaleIn'];
 
       shuffled.forEach((item, index) => {
-        const card = document.createElement('div');
-        card.classList.add('dynamic-card');
+        const card = createElementWithClass('div', 'dynamic-card');
 
         const animationName = animations[Math.floor(Math.random() * animations.length)];
         card.style.animationName = animationName;
@@ -65,7 +61,7 @@ export function setupBakeryItems() {
 
   menuButton.addEventListener('click', (e) => {
     e.preventDefault();
-    menuContainer.classList.toggle('hidden');
+    toggleClass(menuContainer, 'hidden');
     isVisible = !isVisible;
 
     if (isVisible) {

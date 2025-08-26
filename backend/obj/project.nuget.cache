@@ -1,0 +1,11 @@
+{
+  "version": 2,
+  "dgSpecHash": "pp1A1ki9/Mo=",
+  "success": true,
+  "projectFilePath": "C:\\Users\\M.Pankiewicz\\OneDrive - SBB\\Bureaublad\\gitrepos\\bakery_website\\backend\\backend.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\M.Pankiewicz\\.nuget\\packages\\microsoft.aspnetcore.openapi\\9.0.6\\microsoft.aspnetcore.openapi.9.0.6.nupkg.sha512",
+    "C:\\Users\\M.Pankiewicz\\.nuget\\packages\\microsoft.openapi\\1.6.17\\microsoft.openapi.1.6.17.nupkg.sha512"
+  ],
+  "logs": []
+}

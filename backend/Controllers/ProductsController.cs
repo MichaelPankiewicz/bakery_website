@@ -1,8 +1,9 @@
+using YourNamespace.Models;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace YourNamespace.Controllers // Replace "YourNamespace" with your project's actual namespace
+namespace bakery_website_backend.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
@@ -14,7 +15,7 @@ namespace YourNamespace.Controllers // Replace "YourNamespace" with your project
             new Product 
             { 
                 Id = 1, 
-                Image = "https://images.unsplash.com/photo-1566698629409-787a68fc5724?q=80&w=1470&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D", 
+                Image = "https://images.unsplash.com/photo-1566698629409-787a68fc5724?q=80&w=1470&auto=format&fit=crop", 
                 Name = "Sourdough Bread", 
                 Price = 5.50M, 
                 Description = "A crusty artisan sourdough loaf with a tangy flavor and soft, airy interior.", 
@@ -23,7 +24,7 @@ namespace YourNamespace.Controllers // Replace "YourNamespace" with your project
             new Product 
             { 
                 Id = 2, 
-                Image = "https://images.unsplash.com/photo-1623334044303-241021148842?q=80&w=1470&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D", 
+                Image = "https://images.unsplash.com/photo-1623334044303-241021148842?q=80&w=1470&auto=format&fit=crop", 
                 Name = "Classic Butter Croissant", 
                 Price = 3.25M, 
                 Description = "Flaky, buttery croissant made with traditional French techniques.", 
@@ -69,14 +70,13 @@ namespace YourNamespace.Controllers // Replace "YourNamespace" with your project
                 return NotFound($"Product with ID {id} not found.");
             }
 
-            // Update product properties
             product.Image = updatedProduct.Image;
             product.Name = updatedProduct.Name;
             product.Price = updatedProduct.Price;
             product.Description = updatedProduct.Description;
             product.Tags = updatedProduct.Tags;
 
-            return NoContent(); // Indicate success with no content
+            return NoContent();
         }
 
         // DELETE: api/products/{id}
@@ -90,7 +90,7 @@ namespace YourNamespace.Controllers // Replace "YourNamespace" with your project
             }
 
             Products.Remove(product);
-            return NoContent(); // Indicate success with no content
+            return NoContent();
         }
     }
 }

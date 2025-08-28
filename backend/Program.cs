@@ -3,6 +3,10 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services needed for controllers
 builder.Services.AddControllers();
 
+// Add Swagger
+builder.Services.AddEndpointsApiExplorer();
+builder.Services.AddSwaggerGen();
+
 // Enable CORS to allow frontend to make API calls
 builder.Services.AddCors(options =>
 {
@@ -23,6 +27,13 @@ app.UseRouting();
 
 // Enable CORS (must be before MapControllers)
 app.UseCors("AllowAll");
+
+// Enable Swagger in Development
+if (app.Environment.IsDevelopment())
+{
+    app.UseSwagger();
+    app.UseSwaggerUI();
+}
 
 app.MapControllers();
 

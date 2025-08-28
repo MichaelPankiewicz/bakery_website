@@ -3,15 +3,20 @@ import { fetchJson, createElementWithClass, clearElement, toggleClass } from './
 export function setupMenuCards() {
     const menuCards = document.querySelectorAll('.menu-card');
     const floatingMenuOverlay = document.querySelector('#floating-menu-overlay');
+
     menuCards.forEach(card => {
         card.addEventListener('click', async () => {
             const title = card.querySelector('h4').textContent.trim();
             try {
+                // ✅ fetch from backend (via functions.js)
                 const data = await fetchJson('menuHighlights');
+                console.log("Loaded menuHighlights from backend:", data);
+
                 const match = data.find(item => item.title === title);
                 if (match) {
                     let expandableContent = '';
                     let buttonHTML = '';
+
                     if (match.type === 'ingredients') {
                         buttonHTML = '<button class="popup-expand-btn">Show Ingredients</button>';
                         expandableContent = `
@@ -33,6 +38,7 @@ export function setupMenuCards() {
                             </div>
                         `;
                     }
+
                     floatingMenuOverlay.innerHTML = `
                         <div class="popup-card">
                             <button class="popup-close-btn">&times;</button>
@@ -43,11 +49,14 @@ export function setupMenuCards() {
                             ${expandableContent}
                         </div>
                     `;
+
                     floatingMenuOverlay.classList.remove('hidden');
+
                     document.querySelector('.popup-close-btn').addEventListener('click', () => {
                         floatingMenuOverlay.classList.add('hidden');
                         clearElement(floatingMenuOverlay);
                     });
+
                     const expandBtn = document.querySelector('.popup-expand-btn');
                     const expandList = document.querySelector('.popup-expand-list');
                     if (expandBtn && expandList) {

@@ -1,6 +1,10 @@
 // Utility functions, no DOMContentLoaded needed
-const isDevelopment = process.env.NODE_ENV === 'development';
-const baseUrl = isDevelopment ? 'http://localhost:3000' : '/api'; // Centralized base URL logic
+
+// Detect environment
+const isDevelopment = window.location.hostname === 'localhost';
+
+// ✅ Use .NET backend in development, fallback to relative /api in production
+const baseUrl = isDevelopment ? 'http://localhost:5144/api' : '/api';
 
 // API helpers
 export function getApiUrl(endpoint) {

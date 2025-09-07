@@ -1,23 +1,18 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>Contact Messages CRUD</title>
-  <link rel="stylesheet" href="./src/css/contact-crud.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Contact CRUD</title>
+  <link rel="stylesheet" href="./src/css/contact-crud.css" />
 </head>
-<body>
-  <div class="crud-container">
-    <h1>Contact Messages</h1>
-    <form id="contact-crud-form">
-      <input type="text" id="contact-name" placeholder="Name" required>
-      <input type="email" id="contact-email" placeholder="Email" required>
-      <textarea id="contact-message" placeholder="Message" required></textarea>
-      <button type="submit">Add Message</button>
-    </form>
+<body class="contact-crud-page">
+  <h1 class="contact-crud-title">Contact Messages</h1>
+  <div id="contact-list" class="contact-crud-list"></div>
 
-    <div id="contact-list"></div>
-  </div>
-
-  <script type="module" src="./src/js/contact-crud.js"></script>
+  <script type="module">
+    import { setupContactCRUD } from './src/js/contact-crud.js';
+    setupContactCRUD();
+  </script>
 </body>
 </html>

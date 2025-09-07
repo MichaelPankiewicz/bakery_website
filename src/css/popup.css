@@ -272,6 +272,10 @@
   margin-bottom: 1rem;
 }
 
+.popup-card p {
+    color: #000;
+}
+
 /* ================= Expand Button ================= */
 
 .popup-expand-btn {

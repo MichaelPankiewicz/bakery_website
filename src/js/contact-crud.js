@@ -1,100 +1,75 @@
-import { fetchJson, getApiUrl, showNotification, validateEmail, validateField } from './functions.js';
+import { getApiUrl, showNotification } from './functions.js';
 
 export function setupContactCRUD() {
-    const form = document.querySelector('#contact-crud-form');
-    const nameInput = document.querySelector('#contact-name');
-    const emailInput = document.querySelector('#contact-email');
-    const messageInput = document.querySelector('#contact-message');
-    const list = document.querySelector('#contact-list');
+    const container = document.querySelector('#contact-list');
 
-    async function loadMessages() {
+    async function loadContacts() {
         try {
-            const messages = await fetchJson('Contact');
-            list.innerHTML = messages.map(msg => `
-                <div class="contact-item" data-id="${msg.id}">
-                    <span><strong>${msg.name}</strong> (${msg.email}): ${msg.message}</span>
-                    <span>
-                        <button class="edit-btn">Edit</button>
-                        <button class="delete-btn">Delete</button>
-                    </span>
+            const res = await fetch(getApiUrl('Contact'));
+            if (!res.ok) throw new Error('Failed to fetch');
+            const data = await res.json();
+
+            container.innerHTML = data.map(msg => `
+                <div class="contact-crud-item" data-id="${msg.id}">
+                    <p><strong>${msg.name}</strong> (${msg.email})</p>
+                    <p>${msg.message}</p>
+                    <div class="contact-crud-actions">
+                        <button class="edit-contact">Edit</button>
+                        <button class="delete-contact">Delete</button>
+                    </div>
                 </div>
             `).join('');
 
-            attachItemButtons();
+            attachEvents();
         } catch (err) {
             console.error(err);
-            list.innerHTML = '<p>Failed to load messages.</p>';
+            container.innerHTML = `<p class="contact-crud-error">Error loading contacts.</p>`;
         }
     }
 
-    function attachItemButtons() {
-        const deleteButtons = list.querySelectorAll('.delete-btn');
-        const editButtons = list.querySelectorAll('.edit-btn');
-
-        deleteButtons.forEach(btn => {
-            btn.addEventListener('click', async () => {
-                const id = btn.closest('.contact-item').dataset.id;
+    function attachEvents() {
+        container.querySelectorAll('.delete-contact').forEach(btn => {
+            btn.addEventListener('click', async (e) => {
+                const id = e.target.closest('.contact-crud-item').dataset.id;
                 try {
                     await fetch(getApiUrl(`Contact/${id}`), { method: 'DELETE' });
-                    showNotification('Message deleted!');
-                    loadMessages();
-                } catch (err) {
-                    console.error(err);
-                    showNotification('Failed to delete message.');
+                    showNotification('Message deleted');
+                    loadContacts();
+                } catch {
+                    showNotification('Failed to delete message');
                 }
             });
         });
 
-        editButtons.forEach(btn => {
-            btn.addEventListener('click', () => {
-                const item = btn.closest('.contact-item');
-                nameInput.value = item.querySelector('strong').textContent;
-                emailInput.value = item.querySelector('span').textContent.match(/\((.*)\)/)[1];
-                messageInput.value = item.querySelector('span').textContent.split(': ')[1];
-                form.dataset.editId = item.dataset.id;
+        container.querySelectorAll('.edit-contact').forEach(btn => {
+            btn.addEventListener('click', async (e) => {
+                const item = e.target.closest('.contact-crud-item');
+                const id = item.dataset.id;
+                const name = prompt('Edit name:', item.querySelector('strong').innerText);
+                const email = prompt('Edit email:', item.querySelector('p').innerText.match(/\((.*?)\)/)[1]);
+                const message = prompt('Edit message:', item.querySelectorAll('p')[1].innerText);
+
+                if (!name || !email || !message) {
+                    showNotification('All fields required');
+                    return;
+                }
+
+                try {
+                    await fetch(getApiUrl(`Contact/${id}`), {
+                        method: 'PUT',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({ id, name, email, message })
+                    });
+                    showNotification('Message updated');
+                    loadContacts();
+                } catch {
+                    showNotification('Failed to update message');
+                }
             });
         });
     }
 
-    form.addEventListener('submit', async (ev) => {
-        ev.preventDefault();
-        const validName = validateField(nameInput);
-        const validEmail = validateField(emailInput);
-        const validMessage = validateField(messageInput);
+    document.addEventListener('contactUpdated', loadContacts);
 
-        if (!(validName && validEmail && validMessage)) return;
-
-        const payload = {
-            name: nameInput.value.trim(),
-            email: emailInput.value.trim(),
-            message: messageInput.value.trim()
-        };
-
-        const editId = form.dataset.editId;
-        try {
-            if (editId) {
-                await fetch(getApiUrl(`Contact/${editId}`), {
-                    method: 'PUT',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify(payload)
-                });
-                delete form.dataset.editId;
-                showNotification('Message updated!');
-            } else {
-                await fetch(getApiUrl('Contact'), {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify(payload)
-                });
-                showNotification('Message added!');
-            }
-            form.reset();
-            loadMessages();
-        } catch (err) {
-            console.error(err);
-            showNotification('Failed to save message.');
-        }
-    });
-
-    loadMessages();
+    loadContacts();
 }

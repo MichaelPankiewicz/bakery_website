@@ -1,4 +1,5 @@
-import { fetchJson, showNotification, validateEmail, validateField } from './functions.js';
+// src/js/popup.js
+import { fetchJson, showNotification, validateEmail, validateField, getApiUrl } from './functions.js';
 
 export function setupPopups() {
     // ===========================
@@ -31,7 +32,7 @@ export function setupPopups() {
             `;
             contactOverlay.classList.remove('hidden');
 
-            // Close behavior
+            // Close popup
             const closeBtn = contactOverlay.querySelector('.popup-close-btn');
             closeBtn.addEventListener('click', () => {
                 contactOverlay.classList.add('hidden');
@@ -48,45 +49,49 @@ export function setupPopups() {
                 input.addEventListener('input', () => validateField(input));
             });
 
-            form.addEventListener('submit', (ev) => {
+            form.addEventListener('submit', async (ev) => {
                 ev.preventDefault();
+
                 const validName = validateField(nameInput);
                 const validEmail = validateField(emailInput);
                 const validMessage = validateField(messageInput);
 
                 if (validName && validEmail && validMessage) {
-                    const payload = {
-                        name: nameInput.value.trim(),
-                        email: emailInput.value.trim(),
-                        message: messageInput.value.trim()
-                    };
-
-                    fetchJson('Contact', {
-                        method: 'POST',
-                        headers: { 'Content-Type': 'application/json' },
-                        body: JSON.stringify(payload)
-                    })
-                        .then(() => {
-                            showNotification("Message sent!");
-                            contactOverlay.classList.add('hidden');
-                            contactOverlay.innerHTML = '';
-                        })
-                        .catch(err => {
-                            console.error(err);
-                            showNotification("Failed to send message. Try again.");
+                    try {
+                        // POST to API
+                        await fetch(getApiUrl('Contact'), {
+                            method: 'POST',
+                            headers: { 'Content-Type': 'application/json' },
+                            body: JSON.stringify({
+                                name: nameInput.value.trim(),
+                                email: emailInput.value.trim(),
+                                message: messageInput.value.trim()
+                            })
                         });
+
+                        showNotification('Message sent!');
+                        contactOverlay.classList.add('hidden');
+                        contactOverlay.innerHTML = '';
+
+                        // Trigger refresh of contact-crud if exists
+                        if (typeof setupContactCRUD !== 'undefined') {
+                            document.dispatchEvent(new Event('contactUpdated'));
+                        }
+
+                    } catch (err) {
+                        console.error(err);
+                        showNotification('Failed to submit message.');
+                    }
                 }
             });
         });
     }
 
     // ===========================
-    // GALLERY POPUP LOGIC WITH RANDOMIZATION
+    // GALLERY POPUP LOGIC
     // ===========================
     const galleryLink = document.querySelector('#gallery-link');
-    const floatingMenuOverlay = document.querySelector('#floating-menu-overlay');
     const fullscreenOverlay = document.createElement('div');
-
     fullscreenOverlay.className = 'fullscreen-image-overlay hidden';
     fullscreenOverlay.innerHTML = `
         <div class="fullscreen-image-wrapper">
@@ -98,12 +103,10 @@ export function setupPopups() {
     const fullscreenImg = fullscreenOverlay.querySelector('img');
     const fullscreenCloseBtn = fullscreenOverlay.querySelector('.fullscreen-close-btn');
 
-    // Fullscreen image close handlers
     fullscreenCloseBtn.addEventListener('click', () => {
         fullscreenOverlay.classList.add('hidden');
         fullscreenImg.src = '';
     });
-
     fullscreenOverlay.addEventListener('click', (e) => {
         if (e.target === fullscreenOverlay) {
             fullscreenOverlay.classList.add('hidden');
@@ -115,103 +118,86 @@ export function setupPopups() {
         galleryLink.addEventListener('click', async (e) => {
             e.preventDefault();
 
-            floatingMenuOverlay.innerHTML = `
+            contactOverlay.innerHTML = `
                 <div class="popup-card">
                     <button class="popup-close-btn">&times;</button>
                     <p class="fallback-msg">Loading gallery...</p>
                 </div>`;
-            floatingMenuOverlay.classList.remove('hidden');
+            contactOverlay.classList.remove('hidden');
 
             try {
                 const data = await fetchJson('gallery');
-
                 if (!Array.isArray(data) || data.length === 0) {
-                    floatingMenuOverlay.innerHTML = `
+                    contactOverlay.innerHTML = `
                         <div class="popup-card">
                             <button class="popup-close-btn">&times;</button>
                             <p>No gallery images available.</p>
                         </div>`;
-                    attachGalleryPopupCloseHandler(); // Add close for gallery popup
+                    attachGalleryCloseHandler();
                     return;
                 }
 
-                // Randomize the image array
-                const randomizedData = data.sort(() => Math.random() - 0.5);
+                const randomized = data.sort(() => Math.random() - 0.5);
 
-                floatingMenuOverlay.innerHTML = `
+                contactOverlay.innerHTML = `
                     <div class="popup-card">
                         <button class="popup-close-btn">&times;</button>
                         <h2 class="popup-title">Gallery</h2>
-                        <div class="popup-gallery-container" style="
-                            display: grid;
-                            grid-template-columns: repeat(6, 1fr);
-                            gap: 10px;">
-                            ${randomizedData.map((item) => `
-                                <img src="${item.image}" alt="Gallery image" class="popup-gallery-image" />`).join('')}
+                        <div class="popup-gallery-container" style="display:grid;grid-template-columns:repeat(6,1fr);gap:10px;">
+                            ${randomized.map(img => `<img src="${img.image}" class="popup-gallery-image"/>`).join('')}
                         </div>
                     </div>`;
+                attachGalleryCloseHandler();
 
-                attachGalleryPopupCloseHandler(); // Ensure close button works
                 const galleryContainer = document.querySelector('.popup-gallery-container');
-
                 galleryContainer.addEventListener('click', (e) => {
-                    const clickedImg = e.target.closest('.popup-gallery-image');
-                    if (!clickedImg) return;
-
-                    fullscreenImg.src = clickedImg.src;
+                    const clicked = e.target.closest('.popup-gallery-image');
+                    if (!clicked) return;
+                    fullscreenImg.src = clicked.src;
                     fullscreenOverlay.classList.remove('hidden');
                 });
-            } catch (error) {
-                console.error('Failed to load gallery:', error);
-                floatingMenuOverlay.innerHTML = `
+            } catch (err) {
+                console.error(err);
+                contactOverlay.innerHTML = `
                     <div class="popup-card">
                         <button class="popup-close-btn">&times;</button>
-                        <p>Failed to load gallery. Please try again later.</p>
+                        <p>Failed to load gallery.</p>
                     </div>`;
-                attachGalleryPopupCloseHandler(); // Ensure close button works
+                attachGalleryCloseHandler();
             }
         });
 
-        // Attach close handler for gallery popup
-        function attachGalleryPopupCloseHandler() {
-            const closeBtn = floatingMenuOverlay.querySelector('.popup-close-btn');
+        function attachGalleryCloseHandler() {
+            const closeBtn = contactOverlay.querySelector('.popup-close-btn');
             if (closeBtn) {
                 closeBtn.addEventListener('click', () => {
-                    floatingMenuOverlay.classList.add('hidden');
-                    floatingMenuOverlay.innerHTML = '';
+                    contactOverlay.classList.add('hidden');
+                    contactOverlay.innerHTML = '';
                 });
             }
         }
     }
 
     // ===========================
-    // GENERIC FETCH-BASED POPUP FUNCTION
+    // GENERIC FETCH-BASED POPUPS
     // ===========================
-    function setupFetchPopup({
-        triggerId,
-        endpoint,
-        mapData,
-        fallbackMessage = "No content available at the moment.",
-        title = ""
-    }) {
+    function setupFetchPopup({ triggerId, endpoint, mapData, fallbackMessage = 'No content available.', title = '' }) {
         const trigger = document.querySelector(`#${triggerId}`);
-        if (!trigger || !floatingMenuOverlay) return;
+        if (!trigger || !contactOverlay) return;
 
         trigger.addEventListener('click', async (e) => {
             e.preventDefault();
-
-            floatingMenuOverlay.innerHTML = `
+            contactOverlay.innerHTML = `
                 <div class="popup-card">
                     <button class="popup-close-btn">&times;</button>
                     <p class="fallback-msg">Loading...</p>
                 </div>`;
-            floatingMenuOverlay.classList.remove('hidden');
+            contactOverlay.classList.remove('hidden');
 
             try {
                 const data = await fetchJson(endpoint);
-
                 if (!Array.isArray(data) || data.length === 0) {
-                    floatingMenuOverlay.innerHTML = `
+                    contactOverlay.innerHTML = `
                         <div class="popup-card">
                             <button class="popup-close-btn">&times;</button>
                             <p>${fallbackMessage}</p>
@@ -221,64 +207,67 @@ export function setupPopups() {
                 }
 
                 const contentHTML = mapData(data);
-                floatingMenuOverlay.innerHTML = `
+                contactOverlay.innerHTML = `
                     <div class="popup-card">
                         <button class="popup-close-btn">&times;</button>
                         ${title ? `<h2 class="popup-title">${title}</h2>` : ''}
                         ${contentHTML}
                     </div>`;
                 attachCloseHandler();
-            } catch (error) {
-                console.error(`Error fetching data from ${endpoint}:`, error);
-                floatingMenuOverlay.innerHTML = `
+            } catch (err) {
+                console.error(err);
+                contactOverlay.innerHTML = `
                     <div class="popup-card">
                         <button class="popup-close-btn">&times;</button>
-                        <p>Failed to load content. Please try again later.</p>
+                        <p>Failed to load content.</p>
                     </div>`;
                 attachCloseHandler();
             }
         });
 
         function attachCloseHandler() {
-            const closeBtn = floatingMenuOverlay.querySelector('.popup-close-btn');
+            const closeBtn = contactOverlay.querySelector('.popup-close-btn');
             if (closeBtn) {
                 closeBtn.addEventListener('click', () => {
-                    floatingMenuOverlay.classList.add('hidden');
-                    floatingMenuOverlay.innerHTML = '';
+                    contactOverlay.classList.add('hidden');
+                    contactOverlay.innerHTML = '';
                 });
             }
         }
     }
 
     // ===========================
-    // BUTTONS FOR DYNAMIC POPUPS
+    // EXAMPLE DYNAMIC POPUPS
     // ===========================
     setupFetchPopup({
         triggerId: 'explore-more-btn',
         endpoint: 'exploreMore',
-        mapData: (data) => data.map(item => `
+        mapData: data => data.map(item => `
             <div class="explore-item">
-                <img src="${item.image}" alt="${item.title}" class="popup-image" />
+                <img src="${item.image}" alt="${item.title}" class="popup-image"/>
                 <h2 class="popup-title">${item.title}</h2>
-                <p class="popup-description">${item.description}</p>
-            </div>`).join('')
+                <p>${item.description}</p>
+            </div>
+        `).join('')
     });
 
     setupFetchPopup({
         triggerId: 'explore-more-about',
         endpoint: 'aboutExplore',
-        mapData: (data) => `
-            <img src="${data[0].image}" alt="${data[0].title}" class="popup-image" />
+        mapData: data => `
+            <img src="${data[0].image}" alt="${data[0].title}" class="popup-image"/>
             <h2 class="popup-title">${data[0].title}</h2>
-            <p class="popup-description">${data[0].description}</p>`
+            <p>${data[0].description}</p>
+        `
     });
 
     setupFetchPopup({
         triggerId: 'nav-chef',
         endpoint: 'chef',
-        mapData: (data) => `
-            <img src="${data[0].image}" alt="${data[0].title}" class="popup-image" />
+        mapData: data => `
+            <img src="${data[0].image}" alt="${data[0].title}" class="popup-image"/>
             <h2 class="popup-title">${data[0].title}</h2>
-            <p class="popup-description">${data[0].description}</p>`
+            <p>${data[0].description}</p>
+        `
     });
 }

@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>CRUD – Bakery</title>
+
+  <!-- Scoped CSS voor CRUD (staat in src/css/crud.css) -->
+  <link rel="stylesheet" href="/src/css/crud.css" />
+</head>
+<body>
+  <div class="crud-page">
+    <h1 class="crud-title">Bakery Products — CRUD</h1>
+
+    <section class="crud-area">
+      <form class="crud-form" aria-label="Product form">
+        <input type="hidden" name="id" data-field="id" />
+        <input type="text" name="name" data-field="name" placeholder="Productnaam" required />
+        <input type="text" name="description" data-field="description" placeholder="Omschrijving" required />
+        <input type="text" name="price" data-field="price" placeholder="Prijs" />
+        <input type="text" name="image" data-field="image" placeholder="Image URL" required />
+        <button type="submit" class="crud-save">Opslaan</button>
+        <button type="button" class="crud-cancel" style="display:none;">Annuleren</button>
+      </form>
+
+      <div class="crud-products" id="crud-products" aria-live="polite"></div>
+    </section>
+  </div>
+
+  <!-- --- Pas deze API_BASE aan als jouw backend op een andere poort draait --- -->
+  <script>
+    // Standaard: dotnet output toonde eerder: http://localhost:5144
+    // Als jouw backend op een andere poort luistert, verander dit naar bv 'http://localhost:5036/api'
+    window.__API_BASE__ = 'http://localhost:5144/api';
+  </script>
+
+  <!-- Module laadt de CRUD-logica vanuit src/js/crud.js -->
+  <script type="module" src="/src/js/crud.js"></script>
+</body>
+</html>

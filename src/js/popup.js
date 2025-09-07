@@ -130,9 +130,7 @@ export function setupPopups() {
                             grid-template-columns: repeat(6, 1fr);
                             gap: 10px;">
                             ${randomizedData.map((item) => `
-                                <div class="popup-gallery-item">
-                                    <img src="${item.image}" alt="Gallery image" class="popup-gallery-image" />
-                                </div>`).join('')}
+                                <img src="${item.image}" alt="Gallery image" class="popup-gallery-image" />`).join('')}
                         </div>
                     </div>`;
 

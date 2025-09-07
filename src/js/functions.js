@@ -1,69 +1,62 @@
-// Utility functions, no DOMContentLoaded needed
+// src/js/functions.js
+// Algemene helpers - gebruikt door crud.js en andere modules
 
-// Detect environment
-const isDevelopment = window.location.hostname === 'localhost';
+// Kies API base:
+// 1) Als pagina expliciet window.__API_BASE__ heeft (crud.html zet deze) -> gebruik die
+// 2) Anders bij dev (localhost) -> http://localhost:5144/api (pas aan als jouw dotnet op andere poort luistert)
+// 3) In productie -> relative '/api'
+const isBrowser = typeof window !== 'undefined';
+const isLocalhost = isBrowser && (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1');
 
-// ✅ Use .NET backend in development, fallback to relative /api in production
-const baseUrl = isDevelopment ? 'http://localhost:5144/api' : '/api';
+const API_BASE = (isBrowser && window.__API_BASE__) || (isLocalhost ? 'http://localhost:5144/api' : '/api');
 
-// API helpers
+function joinUrl(base, endpoint) {
+  const b = String(base || '').replace(/\/+$/, '');
+  const e = String(endpoint || '').replace(/^\/+/, '');
+  return e ? `${b}/${e}` : b;
+}
+
 export function getApiUrl(endpoint) {
-    return `${baseUrl}/${endpoint}`;
+  return joinUrl(API_BASE, endpoint);
 }
 
-export async function fetchJson(endpoint) {
-    const url = getApiUrl(endpoint);
-    const response = await fetch(url);
-    if (!response.ok) {
-        throw new Error(`Failed to fetch from ${endpoint}: ${response.statusText}`);
-    }
-    return response.json();
+export async function fetchJson(endpoint, options = {}) {
+  const url = getApiUrl(endpoint);
+  const res = await fetch(url, options);
+  if (!res.ok) {
+    const body = await res.text().catch(() => '');
+    throw new Error(`Fetch error ${res.status} ${res.statusText} -> ${url}${body ? ' :: ' + body : ''}`);
+  }
+  if (res.status === 204) return null;
+  return res.json();
 }
 
-// DOM helpers
+// DOM helpers (gekopieerd uit je eerdere utils)
 export function createElementWithClass(tag, className) {
-    const el = document.createElement(tag);
-    if (className) el.className = className;
-    return el;
+  const el = document.createElement(tag);
+  if (className) el.className = className;
+  return el;
 }
-
 export function toggleClass(element, className) {
-    if (element) element.classList.toggle(className);
+  if (element) element.classList.toggle(className);
 }
-
 export function clearElement(element) {
-    if (element) element.innerHTML = '';
+  if (element) element.innerHTML = '';
 }
-
-// Form helpers
 export function validateEmail(email) {
-    return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+  return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
 }
-
 export function validateField(field) {
-    if (!field.value.trim()) {
-        field.classList.add('invalid');
-        return false;
-    }
-    if (field.type === 'email' && !validateEmail(field.value.trim())) {
-        field.classList.add('invalid');
-        return false;
-    }
-    field.classList.remove('invalid');
-    return true;
+  if (!field.value.trim()) { field.classList.add('invalid'); return false; }
+  if (field.type === 'email' && !validateEmail(field.value.trim())) { field.classList.add('invalid'); return false; }
+  field.classList.remove('invalid');
+  return true;
 }
-
-// Notification helper
 export function showNotification(message) {
-    const notif = document.createElement('div');
-    notif.className = 'custom-notification';
-    notif.textContent = message;
-    document.body.appendChild(notif);
-    setTimeout(() => {
-        notif.classList.add('show');
-    }, 10);
-    setTimeout(() => {
-        notif.classList.remove('show');
-        setTimeout(() => notif.remove(), 300);
-    }, 2500);
+  const notif = document.createElement('div');
+  notif.className = 'custom-notification';
+  notif.textContent = message;
+  document.body.appendChild(notif);
+  setTimeout(() => notif.classList.add('show'), 10);
+  setTimeout(() => { notif.classList.remove('show'); setTimeout(() => notif.remove(), 300); }, 2500);
 }

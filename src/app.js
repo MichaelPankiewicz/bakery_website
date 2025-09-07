@@ -8,6 +8,7 @@ import './css/menu.css';
 import './css/news.css';
 import './css/footer.css';
 import './css/crud.css';
+import './css/contact-crud.css';
 
 // JS
 import { setupScrollAnimations } from './js/global.js';
@@ -17,7 +18,9 @@ import { setupPopups } from './js/popup.js';
 import { setupAnimations } from './js/animation.js';
 import { setupForm } from './js/form.js';
 import { setupMenuCards } from './js/menu-cards.js';
-import { setupCrud } from './js/crud.js'; // 👈 new import
+import { setupCrud } from './js/crud.js'; 
+import { setupContactCRUD } from './js/contact-crud.js';
+
 
 document.addEventListener('DOMContentLoaded', () => {
   setupScrollAnimations();
@@ -28,4 +31,5 @@ document.addEventListener('DOMContentLoaded', () => {
   setupForm();
   setupMenuCards();
   setupCrud(); // 👈 runs only on /crud
+  setupContactCRUD();
 });

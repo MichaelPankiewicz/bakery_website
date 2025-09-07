@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Contact Messages CRUD</title>
+  <link rel="stylesheet" href="./src/css/contact-crud.css">
+</head>
+<body>
+  <div class="crud-container">
+    <h1>Contact Messages</h1>
+    <form id="contact-crud-form">
+      <input type="text" id="contact-name" placeholder="Name" required>
+      <input type="email" id="contact-email" placeholder="Email" required>
+      <textarea id="contact-message" placeholder="Message" required></textarea>
+      <button type="submit">Add Message</button>
+    </form>
+
+    <div id="contact-list"></div>
+  </div>
+
+  <script type="module" src="./src/js/contact-crud.js"></script>
+</body>
+</html>

@@ -55,9 +55,26 @@ export function setupPopups() {
                 const validMessage = validateField(messageInput);
 
                 if (validName && validEmail && validMessage) {
-                    showNotification("Message sent!");
-                    contactOverlay.classList.add('hidden');
-                    contactOverlay.innerHTML = '';
+                    const payload = {
+                        name: nameInput.value.trim(),
+                        email: emailInput.value.trim(),
+                        message: messageInput.value.trim()
+                    };
+
+                    fetchJson('Contact', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify(payload)
+                    })
+                        .then(() => {
+                            showNotification("Message sent!");
+                            contactOverlay.classList.add('hidden');
+                            contactOverlay.innerHTML = '';
+                        })
+                        .catch(err => {
+                            console.error(err);
+                            showNotification("Failed to send message. Try again.");
+                        });
                 }
             });
         });

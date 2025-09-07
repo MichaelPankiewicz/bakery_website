@@ -1,0 +1,44 @@
+.crud-container {
+  max-width: 700px;
+  margin: 50px auto;
+  padding: 20px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  background: #fff;
+}
+
+.crud-container h1 {
+  font-size: 1.8rem;
+  margin-bottom: 20px;
+}
+
+#contact-crud-form input,
+#contact-crud-form textarea {
+  display: block;
+  width: 100%;
+  margin-bottom: 12px;
+  padding: 8px;
+  border: 1px solid #aaa;
+  border-radius: 4px;
+}
+
+#contact-crud-form button {
+  padding: 10px 15px;
+  border: none;
+  background-color: #4CAF50;
+  color: #fff;
+  cursor: pointer;
+  border-radius: 4px;
+}
+
+#contact-list .contact-item {
+  border-bottom: 1px solid #ddd;
+  padding: 10px 0;
+  display: flex;
+  justify-content: space-between;
+}
+
+.contact-item button {
+  margin-left: 8px;
+  padding: 4px 8px;
+}

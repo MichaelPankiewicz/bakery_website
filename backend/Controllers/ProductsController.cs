@@ -5,9 +5,6 @@ using System.Linq;
 
 namespace bakery_website_backend.Controllers
 {
-    /// <summary>
-    /// API-controller voor het beheren van producten.
-    /// </summary>
     [ApiController]
     [Route("api/[controller]")]
     public class ProductsController : ControllerBase
@@ -35,10 +32,6 @@ namespace bakery_website_backend.Controllers
             },
         };
 
-        /// <summary>
-        /// Haalt alle producten op.
-        /// </summary>
-        /// <returns>Lijst met producten.</returns>
         // GET: api/products
         [HttpGet]
         public IActionResult GetAll()

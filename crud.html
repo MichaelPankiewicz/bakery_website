@@ -9,30 +9,23 @@
   <link rel="stylesheet" href="/src/css/crud.css" />
 </head>
 <body>
-  <main class="crud-page">
+  <div class="crud-page">
     <h1 class="crud-title">Bakery Products — CRUD</h1>
 
     <section class="crud-area">
       <form class="crud-form" aria-label="Product form">
-        <fieldset>
-          <legend style="position:absolute;left:-9999px;">Productgegevens</legend>
-          <input type="hidden" name="id" data-field="id" />
-          <label for="crud-name">Productnaam</label>
-          <input id="crud-name" type="text" name="name" data-field="name" placeholder="Productnaam" required />
-          <label for="crud-description">Omschrijving</label>
-          <input id="crud-description" type="text" name="description" data-field="description" placeholder="Omschrijving" required />
-          <label for="crud-price">Prijs</label>
-          <input id="crud-price" type="text" name="price" data-field="price" placeholder="Prijs" />
-          <label for="crud-image">Image URL</label>
-          <input id="crud-image" type="text" name="image" data-field="image" placeholder="Image URL" required />
-        </fieldset>
+        <input type="hidden" name="id" data-field="id" />
+        <input type="text" name="name" data-field="name" placeholder="Productnaam" required />
+        <input type="text" name="description" data-field="description" placeholder="Omschrijving" required />
+        <input type="text" name="price" data-field="price" placeholder="Prijs" />
+        <input type="text" name="image" data-field="image" placeholder="Image URL" required />
         <button type="submit" class="crud-save">Opslaan</button>
         <button type="button" class="crud-cancel" style="display:none;">Annuleren</button>
       </form>
 
       <div class="crud-products" id="crud-products" aria-live="polite"></div>
     </section>
-  </main>
+  </div>
 
   <!-- --- Pas deze API_BASE aan als jouw backend op een andere poort draait --- -->
   <script>

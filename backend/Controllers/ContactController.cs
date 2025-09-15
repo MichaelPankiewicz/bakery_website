@@ -2,30 +2,18 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace BakeryApi.Controllers
 {
-    /// <summary>
-    /// API-controller voor het beheren van contactberichten.
-    /// </summary>
     [ApiController]
     [Route("api/[controller]")]
     public class ContactController : ControllerBase
     {
         private static List<ContactMessage> _messages = new List<ContactMessage>();
 
-        /// <summary>
-        /// Haalt alle contactberichten op.
-        /// </summary>
-        /// <returns>Lijst met contactberichten.</returns>
         [HttpGet]
         public IActionResult GetAll()
         {
             return Ok(_messages);
         }
 
-        /// <summary>
-        /// Haalt een specifiek contactbericht op basis van ID.
-        /// </summary>
-        /// <param name="id">Het ID van het contactbericht.</param>
-        /// <returns>Het contactbericht of NotFound.</returns>
         [HttpGet("{id}")]
         public IActionResult GetById(int id)
         {
@@ -34,11 +22,6 @@ namespace BakeryApi.Controllers
             return Ok(msg);
         }
 
-        /// <summary>
-        /// Voegt een nieuw contactbericht toe.
-        /// </summary>
-        /// <param name="message">Het contactbericht om toe te voegen.</param>
-        /// <returns>Het aangemaakte contactbericht.</returns>
         [HttpPost]
         public IActionResult Post([FromBody] ContactMessage message)
         {
@@ -47,12 +30,6 @@ namespace BakeryApi.Controllers
             return CreatedAtAction(nameof(GetById), new { id = message.Id }, message);
         }
 
-        /// <summary>
-        /// Wijzigt een bestaand contactbericht.
-        /// </summary>
-        /// <param name="id">Het ID van het te wijzigen bericht.</param>
-        /// <param name="updatedMessage">De nieuwe gegevens van het bericht.</param>
-        /// <returns>Het gewijzigde bericht of NotFound.</returns>
         [HttpPut("{id}")]
         public IActionResult Put(int id, [FromBody] ContactMessage updatedMessage)
         {

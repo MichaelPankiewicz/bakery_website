@@ -1,40 +1,26 @@
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
-using BakeryAPI.Models;
-using BakeryAPI.Services;
 
 namespace BakeryAPI.Controllers
 {
-    /// <summary>
-    /// API-controller voor het ophalen van extra informatie over de bakkerij.
-    /// </summary>
     [ApiController]
     [Route("api/[controller]")]
     public class ExploreMoreController : ControllerBase
     {
-        /// <summary>
-        /// Haalt extra informatie op over de bakkerij.
-        /// </summary>
-        /// <returns>Lijst met extra informatie.</returns>
         [HttpGet]
-        private readonly ExploreMoreService _service;
-
-        public ExploreMoreController(ExploreMoreService service)
-        {
-            _service = service;
-        }
-
         public IActionResult GetExploreMore()
         {
-            try
+            var exploreMore = new List<object>
             {
-                var exploreMore = _service.GetAll();
-                return Ok(exploreMore);
-            }
-            catch (Exception)
-            {
-                return StatusCode(500, new { message = "Er is een fout opgetreden bij het ophalen van extra informatie. Probeer het later opnieuw." });
-            }
+                new {
+                    id = 1,
+                    title = "Discover Our Bakery's Story",
+                    description = "Welcome to our bakery, where every morning begins with the comforting aroma of bread fresh from the oven. We open our doors with a smile, ready to share warm pastries, crisp baguettes, and indulgent cakes made with care. Our shelves are filled with flavors that change with the seasons, each recipe crafted to brighten your day. Whether you’re here for a quick coffee, a sweet treat, or a loaf to take home, you’ll always find a friendly face and something freshly baked. Step inside and let the warmth of our bakery become part of your day.",
+                    image = "/images/bakery.webp"
+                }
+            };
+
+            return Ok(exploreMore);
         }
     }
 }

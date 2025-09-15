@@ -301,26 +301,49 @@
 /* ================= View Products Button ================= */
 
 .view-products-button {
-  background-color: #FFD966 !important;
-  color: #000000 !important;
-  border: none !important;
-  padding: 0.6rem 1.5rem !important;
-  font-size: 1rem !important;
-  font-weight: 600 !important;
-  border-radius: 30px !important;
-  cursor: pointer !important;
-  box-shadow: 0 4px 8px rgba(255, 217, 102, 0.4) !important;
-  transition: background-color 0.3s ease, box-shadow 0.3s ease !important;
-  display: inline-block !important;
-  text-align: center !important;
-  text-decoration: none !important;
+  background-color: #FFD966;
+  color: #000000;
+  border: none;
+  padding: 0.6rem 1.5rem;
+  font-size: 1rem;
+  font-weight: 600;
+  border-radius: 30px;
+  cursor: pointer;
+  box-shadow: 0 4px 8px rgba(255, 217, 102, 0.4);
+  transition: background-color 0.3s ease, box-shadow 0.3s ease;
+  display: inline-block;
+  text-align: center;
+  text-decoration: none;
+}
+
+body .view-products-button {
+  background-color: #FFD966;
+  color: #000000;
+  border: none;
+  padding: 0.6rem 1.5rem;
+  font-size: 1rem;
+  font-weight: 600;
+  border-radius: 30px;
+  cursor: pointer;
+  box-shadow: 0 4px 8px rgba(255, 217, 102, 0.4);
+  transition: background-color 0.3s ease, box-shadow 0.3s ease;
+  display: inline-block;
+  text-align: center;
+  text-decoration: none;
 }
 
 .view-products-button:hover,
 .view-products-button:focus {
-  background-color: #FFEA99 !important;
-  box-shadow: 0 6px 12px rgba(255, 234, 153, 0.5) !important;
-  outline: none !important;
+  background-color: #FFEA99;
+  box-shadow: 0 6px 12px rgba(255, 234, 153, 0.5);
+  outline: none;
+}
+
+body .view-products-button:hover,
+body .view-products-button:focus {
+  background-color: #FFEA99;
+  box-shadow: 0 6px 12px rgba(255, 234, 153, 0.5);
+  outline: none;
 }
 
 /* ================= Expandable List (Ingredients or Partners) ================= */
@@ -335,8 +358,14 @@
 }
 
 .popup-expand-list.hidden {
-  max-height: 0 !important;
-  padding: 0 !important;
+  max-height: 0;
+  padding: 0;
+  pointer-events: none;
+}
+
+body .popup-expand-list.hidden {
+  max-height: 0;
+  padding: 0;
   pointer-events: none;
 }
 

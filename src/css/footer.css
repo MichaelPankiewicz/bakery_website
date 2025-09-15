@@ -148,7 +148,11 @@ white-space: nowrap;
 
   /* Remove vertical lines */
   #links-footer > div::before {
-    display: none !important;
+    display: none;
+  }
+
+  body #links-footer > div::before {
+    display: none;
   }
 
   /* --- THIS IS THE PART YOU NEED --- */

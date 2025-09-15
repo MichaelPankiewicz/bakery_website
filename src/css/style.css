@@ -112,7 +112,19 @@ body {
 .menu-text p,
 .featured-header p,
 .newsletter-center p {
-  font-family: 'Inter', sans-serif !important;
+  font-family: 'Inter', sans-serif;
+}
+
+body .btn.gold,
+body .btn.white,
+body .hero-menu-card,
+body .hero-menu-card *,
+body .hero-text,
+body .hero-text p,
+body .menu-text p,
+body .featured-header p,
+body .newsletter-center p {
+  font-family: 'Inter', sans-serif;
 }
 
 
@@ -367,5 +379,9 @@ body {
 }
 
 .hidden {
-  display: none !important;
+  display: none;
+}
+
+body .hidden {
+  display: none;
 }

@@ -10,14 +10,15 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" />
 </head>
 
+
 <body>
   <div id="startup-overlay">
-    <img src="/images/logo.webp" alt="Bistro Bakery Logo" class="startup-logo" />
+    <img src="/images/logo.webp" alt="Logo van Bistro Bakery (wit op zwart, rond logo)" class="startup-logo" />
   </div>
 
   <header>
     <div class="nav-logo">
-      <a href="#"><img loading="lazy" fetchpriority="high" class="logo-image" src="/images/logo.webp" alt="Logo"></a>
+      <a href="#"><img loading="lazy" fetchpriority="high" class="logo-image" src="/images/logo.webp" alt="Bistro Bakery logo, klik voor home"></a>
     </div>
     <div class="nav-burger" id="burger-toggle" aria-label="Toggle menu" aria-expanded="false" role="button"
       tabindex="0">
@@ -39,61 +40,58 @@
     </nav>
   </header>
 
-
-  <section class="hero">
-    <h1 class="hero-title scroll-fade"><span>Bistro</span> | <span>Bakery</span></h1>
-    <div class="hero-inner">
-      <div class="hero-text scroll-reveal reveal-left">
-        <p>
-          Pulling on influence from around the globe, with the chef’s talents, pedigrees and passions,
-          6 Bistro + Bakery features freshly made morning pastries, including Danish, brioche,
-          and a variety of flaky croissants; signature desserts such as macaroons, petit gateaux
-          (small cakes) and tarts.
-        </p>
-        <a href="#" id="explore-more-btn" class="hero-btn-alt">Explore more</a>
+  <main>
+    <section class="hero">
+      <h1 class="hero-title scroll-fade"><span>Bistro</span> | <span>Bakery</span></h1>
+      <div class="hero-inner">
+        <div class="hero-text scroll-reveal reveal-left">
+          <p>
+            Pulling on influence from around the globe, with the chef’s talents, pedigrees and passions,
+            6 Bistro + Bakery features freshly made morning pastries, including Danish, brioche,
+            and a variety of flaky croissants; signature desserts such as macaroons, petit gateaux
+            (small cakes) and tarts.
+          </p>
+          <a href="#" id="explore-more-btn" class="hero-btn-alt">Explore more</a>
+        </div>
+        <div class="hero-menu-card">
+          <img loading="lazy" fetchpriority="high" src="/images/logo.webp" alt="Menu icoon: rond logo van Bistro Bakery" class="menu-icon" />
+          <a href="#menu" class="open-menu-btn">
+            Open Menu
+            <span class="arrows">
+              <svg width="60" height="60" viewBox="0 0 60 60" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <rect x="1" y="1" width="58" height="58" rx="29" stroke="black" stroke-width="2" />
+                <path d="M24 20L36 30L24 40" stroke="black" stroke-width="2" stroke-linecap="round"
+                  stroke-linejoin="round" />
+              </svg>
+            </span>
+          </a>
+        </div>
+        <div id="floating-menu-overlay" class="floating-menu hidden"></div>
       </div>
-      <div class="hero-menu-card">
-        <img loading="lazy" fetchpriority="high" src="/images/logo.webp" alt="hero menu icon" class="menu-icon" />
-        <a href="#menu" class="open-menu-btn">
-          Open Menu
-          <span class="arrows">
-            <svg width="60" height="60" viewBox="0 0 60 60" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <rect x="1" y="1" width="58" height="58" rx="29" stroke="black" stroke-width="2" />
-              <path d="M24 20L36 30L24 40" stroke="black" stroke-width="2" stroke-linecap="round"
-                stroke-linejoin="round" />
-            </svg>
-          </span>
-        </a>
+      <div class="scroll-down">
+        <div class="mouse-wrapper">
+          <!-- Mouse icon -->
+          <svg class="mouse" width="24" height="40" viewBox="0 0 24 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <rect x="1" y="1" width="22" height="38" rx="11" stroke="white" stroke-width="2" />
+            <line x1="12" y1="6" x2="12" y2="12" stroke="white" stroke-width="2" stroke-linecap="round" />
+          </svg>
+
+          <!-- Arrow inside or below -->
+          <svg class="arrow" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M6 9L12 15L18 9" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+          </svg>
+        </div>
       </div>
-      <div id="floating-menu-overlay" class="floating-menu hidden"></div>
-    </div>
-    <div class="scroll-down">
-      <div class="mouse-wrapper">
-        <!-- Mouse icon -->
-        <svg class="mouse" width="24" height="40" viewBox="0 0 24 40" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <rect x="1" y="1" width="22" height="38" rx="11" stroke="white" stroke-width="2" />
-          <line x1="12" y1="6" x2="12" y2="12" stroke="white" stroke-width="2" stroke-linecap="round" />
-        </svg>
 
-        <!-- Arrow inside or below -->
-        <svg class="arrow" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <path d="M6 9L12 15L18 9" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
-        </svg>
+      <div id="dynamic-menu-section" class="dynamic-menu hidden"></div>
+
+      <div id="popup-overlay" class="popup-overlay" style="display:none;">
+        <div class="popup-content">
+          <span class="closeBtn">&times;</span>
+          <div id="popup-body"></div>
+        </div>
       </div>
-    </div>
-
-
-    <div id="dynamic-menu-section" class="dynamic-menu hidden"></div>
-
-    <div id="popup-overlay" class="popup-overlay" style="display:none;">
-      <div class="popup-content">
-        <span class="closeBtn">&times;</span>
-        <div id="popup-body"></div>
-      </div>
-    </div>
-
-
-  </section>
+    </section>
 
   <section class="about">
     <div class="about-left scroll-reveal reveal-left">

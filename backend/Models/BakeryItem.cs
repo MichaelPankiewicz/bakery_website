@@ -1,0 +1,13 @@
+namespace BakeryAPI.Models
+{
+    /// <summary>
+    /// Model voor een bakkerijproduct.
+    /// </summary>
+    public class BakeryItem
+    {
+        public int Id { get; set; }
+        public string Name { get; set; } = string.Empty;
+        public string Description { get; set; } = string.Empty;
+        public string Image { get; set; } = string.Empty;
+    }
+}

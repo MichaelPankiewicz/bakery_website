@@ -1,26 +1,40 @@
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
+using BakeryAPI.Models;
+using BakeryAPI.Services;
 
 namespace BakeryAPI.Controllers
 {
+    /// <summary>
+    /// API-controller voor informatie over de chef.
+    /// </summary>
     [ApiController]
     [Route("api/[controller]")]
     public class ChefController : ControllerBase
     {
+        /// <summary>
+        /// Haalt informatie op over de chef van de bakkerij.
+        /// </summary>
+        /// <returns>Lijst met chef-informatie.</returns>
         [HttpGet]
+        private readonly ChefInfoService _service;
+
+        public ChefController(ChefInfoService service)
+        {
+            _service = service;
+        }
+
         public IActionResult GetChef()
         {
-            var chef = new List<object>
+            try
             {
-                new {
-                    id = 1,
-                    title = "Chef Henry Hane",
-                    description = "Chef Henry Hane is the heart and soul of our kitchen, bringing over 25 years of culinary mastery to every dish he creates. Trained in some of the world’s most prestigious culinary schools, Henry has honed his skills in both traditional and contemporary baking techniques. His passion for using locally sourced, fresh ingredients shines through in every pastry, bread, and dessert crafted under his watchful eye. Beyond his technical expertise, Henry is a true artist, blending flavors and textures to create unforgettable culinary experiences that delight all the senses. When he's not in the kitchen, Henry mentors young chefs and shares his knowledge through workshops and community events, inspiring the next generation to pursue excellence and creativity in the culinary arts.",
-                    image = "/images/chef.webp"
-                }
-            };
-
-            return Ok(chef);
+                var chef = _service.GetAll();
+                return Ok(chef);
+            }
+            catch (Exception)
+            {
+                return StatusCode(500, new { message = "Er is een fout opgetreden bij het ophalen van de chef-informatie. Probeer het later opnieuw." });
+            }
         }
     }
 }

@@ -54,7 +54,14 @@ namespace bakery_website_backend.Controllers
         [HttpGet]
         public IActionResult GetAll()
         {
-            return Ok(Products);
+            try
+            {
+                return Ok(Products);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, $"An error occurred while retrieving products: {ex.Message}");
+            }
         }
 
         /// <summary>
@@ -65,12 +72,19 @@ namespace bakery_website_backend.Controllers
         [HttpGet("{id}")]
         public IActionResult GetById(int id)
         {
-            var product = Products.FirstOrDefault(p => p.Id == id);
-            if (product == null)
+            try
             {
-                return NotFound($"Product with ID {id} not found.");
+                var product = Products.FirstOrDefault(p => p.Id == id);
+                if (product == null)
+                {
+                    return NotFound($"Product with ID {id} not found.");
+                }
+                return Ok(product);
             }
-            return Ok(product);
+            catch (Exception ex)
+            {
+                return StatusCode(500, $"An error occurred while retrieving the product: {ex.Message}");
+            }
         }
 
         /// <summary>
@@ -81,42 +95,63 @@ namespace bakery_website_backend.Controllers
         [HttpPost]
         public IActionResult Create([FromBody] Product newProduct)
         {
-            newProduct.Id = Products.Max(p => p.Id) + 1; // Auto-generate a unique ID
-            Products.Add(newProduct);
-            return CreatedAtAction(nameof(GetById), new { id = newProduct.Id }, newProduct);
+            try
+            {
+                newProduct.Id = Products.Max(p => p.Id) + 1; // Auto-generate a unique ID
+                Products.Add(newProduct);
+                return CreatedAtAction(nameof(GetById), new { id = newProduct.Id }, newProduct);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, $"An error occurred while creating the product: {ex.Message}");
+            }
         }
 
         // PUT: api/products/{id}
         [HttpPut("{id}")]
         public IActionResult Update(int id, [FromBody] Product updatedProduct)
         {
-            var product = Products.FirstOrDefault(p => p.Id == id);
-            if (product == null)
+            try
             {
-                return NotFound($"Product with ID {id} not found.");
+                var product = Products.FirstOrDefault(p => p.Id == id);
+                if (product == null)
+                {
+                    return NotFound($"Product with ID {id} not found.");
+                }
+
+                product.Image = updatedProduct.Image;
+                product.Name = updatedProduct.Name;
+                product.Price = updatedProduct.Price;
+                product.Description = updatedProduct.Description;
+                product.Tags = updatedProduct.Tags;
+
+                return NoContent();
             }
-
-            product.Image = updatedProduct.Image;
-            product.Name = updatedProduct.Name;
-            product.Price = updatedProduct.Price;
-            product.Description = updatedProduct.Description;
-            product.Tags = updatedProduct.Tags;
-
-            return NoContent();
+            catch (Exception ex)
+            {
+                return StatusCode(500, $"An error occurred while updating the product: {ex.Message}");
+            }
         }
 
         // DELETE: api/products/{id}
         [HttpDelete("{id}")]
         public IActionResult Delete(int id)
         {
-            var product = Products.FirstOrDefault(p => p.Id == id);
-            if (product == null)
+            try
             {
-                return NotFound($"Product with ID {id} not found.");
-            }
+                var product = Products.FirstOrDefault(p => p.Id == id);
+                if (product == null)
+                {
+                    return NotFound($"Product with ID {id} not found.");
+                }
 
-            Products.Remove(product);
-            return NoContent();
+                Products.Remove(product);
+                return NoContent();
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, $"An error occurred while deleting the product: {ex.Message}");
+            }
         }
     }
 }

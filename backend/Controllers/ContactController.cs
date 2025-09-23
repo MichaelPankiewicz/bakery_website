@@ -25,7 +25,14 @@ namespace BakeryApi.Controllers
         [HttpGet]
         public IActionResult GetAll()
         {
-            return Ok(_messages);
+            try
+            {
+                return Ok(_messages);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, $"An error occurred while retrieving contact messages: {ex.Message}");
+            }
         }
 
         /// <summary>
@@ -36,9 +43,16 @@ namespace BakeryApi.Controllers
         [HttpGet("{id}")]
         public IActionResult GetById(int id)
         {
-            var msg = _messages.FirstOrDefault(m => m.Id == id);
-            if (msg == null) return NotFound();
-            return Ok(msg);
+            try
+            {
+                var msg = _messages.FirstOrDefault(m => m.Id == id);
+                if (msg == null) return NotFound($"Contact message with ID {id} not found.");
+                return Ok(msg);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, $"An error occurred while retrieving the contact message: {ex.Message}");
+            }
         }
 
         /// <summary>
@@ -49,9 +63,16 @@ namespace BakeryApi.Controllers
         [HttpPost]
         public IActionResult Post([FromBody] ContactMessage message)
         {
-            message.Id = _messages.Count > 0 ? _messages.Max(m => m.Id) + 1 : 1;
-            _messages.Add(message);
-            return CreatedAtAction(nameof(GetById), new { id = message.Id }, message);
+            try
+            {
+                message.Id = _messages.Count > 0 ? _messages.Max(m => m.Id) + 1 : 1;
+                _messages.Add(message);
+                return CreatedAtAction(nameof(GetById), new { id = message.Id }, message);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, $"An error occurred while creating the contact message: {ex.Message}");
+            }
         }
 
         /// <summary>
@@ -63,14 +84,21 @@ namespace BakeryApi.Controllers
         [HttpPut("{id}")]
         public IActionResult Put(int id, [FromBody] ContactMessage updatedMessage)
         {
-            var msg = _messages.FirstOrDefault(m => m.Id == id);
-            if (msg == null) return NotFound();
+            try
+            {
+                var msg = _messages.FirstOrDefault(m => m.Id == id);
+                if (msg == null) return NotFound($"Contact message with ID {id} not found.");
 
-            msg.Name = updatedMessage.Name;
-            msg.Email = updatedMessage.Email;
-            msg.Message = updatedMessage.Message;
+                msg.Name = updatedMessage.Name;
+                msg.Email = updatedMessage.Email;
+                msg.Message = updatedMessage.Message;
 
-            return Ok(msg);
+                return Ok(msg);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, $"An error occurred while updating the contact message: {ex.Message}");
+            }
         }
 
         /// <summary>
@@ -81,11 +109,18 @@ namespace BakeryApi.Controllers
         [HttpDelete("{id}")]
         public IActionResult Delete(int id)
         {
-            var msg = _messages.FirstOrDefault(m => m.Id == id);
-            if (msg == null) return NotFound();
+            try
+            {
+                var msg = _messages.FirstOrDefault(m => m.Id == id);
+                if (msg == null) return NotFound($"Contact message with ID {id} not found.");
 
-            _messages.Remove(msg);
-            return NoContent();
+                _messages.Remove(msg);
+                return NoContent();
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, $"An error occurred while deleting the contact message: {ex.Message}");
+            }
         }
     }
 

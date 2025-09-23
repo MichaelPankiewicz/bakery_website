@@ -78,7 +78,14 @@ namespace BakeryAPI.Controllers
                 }
             };
 
-            return Ok(menuHighlights);
+                try
+                {
+                    return Ok(menuHighlights);
+                }
+                catch (Exception ex)
+                {
+                    return StatusCode(500, $"An error occurred while retrieving menu highlights: {ex.Message}");
+                }
         }
     }
 }

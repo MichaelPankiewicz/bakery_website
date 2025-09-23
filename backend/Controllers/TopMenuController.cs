@@ -17,6 +17,7 @@ namespace BakeryAPI.Controllers
         [HttpGet]
         public IActionResult GetTopMenu()
         {
+            try {
             var topMenu = new List<object>
             {
                 new {
@@ -166,6 +167,11 @@ namespace BakeryAPI.Controllers
             };
 
             return Ok(topMenu);
+            }
+            catch (Exception ex)
+            {
+                  return StatusCode(500, $"An error occurred while retrieving top menu: {ex.Message}");
+            }
         }
     }
 }

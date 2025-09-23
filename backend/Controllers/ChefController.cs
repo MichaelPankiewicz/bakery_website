@@ -27,7 +27,14 @@ namespace BakeryAPI.Controllers
                 }
             };
 
-            return Ok(chef);
+            try
+            {
+                return Ok(chef);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, $"An error occurred while retrieving chef info: {ex.Message}");
+            }
         }
     }
 }

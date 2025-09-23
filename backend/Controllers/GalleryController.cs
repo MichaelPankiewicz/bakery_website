@@ -53,12 +53,12 @@ namespace BakeryAPI.Controllers
                 new { id = 25, image = "/images/logo.webp" },
                 new { id = 26, image = "/images/hero.webp" },
                 new { id = 27, image = "/images/ingridients.webp" },
-                new { id = 29, image = "/images/craftsmanship.webp" },
-                new { id = 30, image = "/images/community.webp" },
-                new { id = 31, image = "/images/chef.webp" },
-                new { id = 32, image = "/images/bakery.webp" },
-                new { id = 33, image = "/images/atmosphere.webp" },
-                new { id = 34, image = "/images/aboutusbakery.webp" }
+                new { id = 28, image = "/images/craftsmanship.webp" },
+                new { id = 29, image = "/images/community.webp" },
+                new { id = 30, image = "/images/chef.webp" },
+                new { id = 31, image = "/images/bakery.webp" },
+                new { id = 32, image = "/images/atmosphere.webp" },
+                new { id = 33, image = "/images/aboutusbakery.webp" }
             };
 
             return Ok(gallery);

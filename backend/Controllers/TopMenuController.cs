@@ -16,11 +16,10 @@ namespace bakery_website_backend.Controllers
         /// <returns>List of top menu items.</returns>
         [HttpGet]
         public IActionResult GetTopMenu()
-        {
             try {
-            var topMenu = new List<bakery_website_backend.Models.TopMenuItem>
-            {
-                new bakery_website_backend.Models.TopMenuItem {
+                var topMenu = new List<bakery_website_backend.Models.TopMenuItem>
+                {
+                    new bakery_website_backend.Models.TopMenuItem {
                     Id = 1,
                     Title = "Classic Croissant",
                     Description = "Buttery, flaky French croissant baked fresh every morning.",
@@ -28,6 +27,19 @@ namespace bakery_website_backend.Controllers
                     Image = "/images/product1.webp",
                     Details = new List<string> {
                         "Made with real butter",
+
+                };
+
+                return Ok(topMenu);
+            }
+            catch (Exception ex)
+            {
+                // Gebruikersvriendelijke en duidelijke foutmelding
+                return StatusCode(500, new {
+                    error = "Er is een fout opgetreden bij het ophalen van het menu.",
+                    details = ex.Message
+                });
+            }
                         "Crispy outside, soft inside",
                         "Perfect with coffee"
                     }

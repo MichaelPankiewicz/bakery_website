@@ -5,8 +5,15 @@ namespace BakeryAPI.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
+    /// <summary>
+    /// Controller for bakery gallery images (in-memory).
+    /// </summary>
     public class GalleryController : ControllerBase
     {
+        /// <summary>
+        /// Gets all gallery images.
+        /// </summary>
+        /// <returns>List of gallery images with IDs.</returns>
         [HttpGet]
         public IActionResult GetGallery()
         {

@@ -5,8 +5,15 @@ namespace BakeryAPI.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
+    /// <summary>
+    /// Controller for bakery's 'Explore More' section (in-memory).
+    /// </summary>
     public class ExploreMoreController : ControllerBase
     {
+        /// <summary>
+        /// Gets the 'Explore More' story for the bakery.
+        /// </summary>
+        /// <returns>Story and image for the Explore More section.</returns>
         [HttpGet]
         public IActionResult GetExploreMore()
         {

@@ -5,8 +5,15 @@ namespace BakeryAPI.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
+    /// <summary>
+    /// Controller for chef information (in-memory).
+    /// </summary>
     public class ChefController : ControllerBase
     {
+        /// <summary>
+        /// Gets chef information.
+        /// </summary>
+        /// <returns>Chef details and image.</returns>
         [HttpGet]
         public IActionResult GetChef()
         {

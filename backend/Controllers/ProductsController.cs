@@ -7,6 +7,9 @@ namespace bakery_website_backend.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
+    /// <summary>
+    /// Controller for managing bakery products (in-memory).
+    /// </summary>
     public class ProductsController : ControllerBase
     {
         // In-memory product list
@@ -32,14 +35,21 @@ namespace bakery_website_backend.Controllers
             },
         };
 
-        // GET: api/products
+        /// <summary>
+        /// Gets all products.
+        /// </summary>
+        /// <returns>List of all products.</returns>
         [HttpGet]
         public IActionResult GetAll()
         {
             return Ok(Products);
         }
 
-        // GET: api/products/{id}
+        /// <summary>
+        /// Gets a product by its ID.
+        /// </summary>
+        /// <param name="id">Product ID.</param>
+        /// <returns>The product if found, otherwise NotFound.</returns>
         [HttpGet("{id}")]
         public IActionResult GetById(int id)
         {
@@ -51,7 +61,11 @@ namespace bakery_website_backend.Controllers
             return Ok(product);
         }
 
-        // POST: api/products
+        /// <summary>
+        /// Creates a new product.
+        /// </summary>
+        /// <param name="newProduct">Product to add.</param>
+        /// <returns>The created product.</returns>
         [HttpPost]
         public IActionResult Create([FromBody] Product newProduct)
         {

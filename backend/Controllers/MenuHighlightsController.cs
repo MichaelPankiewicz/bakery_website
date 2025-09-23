@@ -5,8 +5,15 @@ namespace BakeryAPI.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
+    /// <summary>
+    /// Controller for menu highlights (in-memory).
+    /// </summary>
     public class MenuHighlightsController : ControllerBase
     {
+        /// <summary>
+        /// Gets menu highlights for the bakery.
+        /// </summary>
+        /// <returns>List of menu highlights.</returns>
         [HttpGet]
         public IActionResult GetMenuHighlights()
         {

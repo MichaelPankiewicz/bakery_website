@@ -8,12 +8,21 @@ namespace BakeryApi.Controllers
     {
         private static List<ContactMessage> _messages = new List<ContactMessage>();
 
+        /// <summary>
+        /// Gets all contact messages.
+        /// </summary>
+        /// <returns>List of contact messages.</returns>
         [HttpGet]
         public IActionResult GetAll()
         {
             return Ok(_messages);
         }
 
+        /// <summary>
+        /// Gets a contact message by ID.
+        /// </summary>
+        /// <param name="id">Message ID.</param>
+        /// <returns>The message if found, otherwise NotFound.</returns>
         [HttpGet("{id}")]
         public IActionResult GetById(int id)
         {
@@ -22,6 +31,11 @@ namespace BakeryApi.Controllers
             return Ok(msg);
         }
 
+        /// <summary>
+        /// Creates a new contact message.
+        /// </summary>
+        /// <param name="message">Message to add.</param>
+        /// <returns>The created message.</returns>
         [HttpPost]
         public IActionResult Post([FromBody] ContactMessage message)
         {
@@ -30,6 +44,12 @@ namespace BakeryApi.Controllers
             return CreatedAtAction(nameof(GetById), new { id = message.Id }, message);
         }
 
+        /// <summary>
+        /// Updates a contact message by ID.
+        /// </summary>
+        /// <param name="id">Message ID.</param>
+        /// <param name="updatedMessage">Updated message data.</param>
+        /// <returns>The updated message if found, otherwise NotFound.</returns>
         [HttpPut("{id}")]
         public IActionResult Put(int id, [FromBody] ContactMessage updatedMessage)
         {
@@ -43,6 +63,11 @@ namespace BakeryApi.Controllers
             return Ok(msg);
         }
 
+        /// <summary>
+        /// Deletes a contact message by ID.
+        /// </summary>
+        /// <param name="id">Message ID.</param>
+        /// <returns>NoContent if deleted, otherwise NotFound.</returns>
         [HttpDelete("{id}")]
         public IActionResult Delete(int id)
         {

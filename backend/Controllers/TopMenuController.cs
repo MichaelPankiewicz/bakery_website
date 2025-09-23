@@ -5,8 +5,15 @@ namespace BakeryAPI.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
-    public class TopMenuController : ControllerBase
+      /// <summary>
+      /// Controller for top menu items (in-memory).
+      /// </summary>
+      public class TopMenuController : ControllerBase
     {
+        /// <summary>
+        /// Gets top menu items for the bakery.
+        /// </summary>
+        /// <returns>List of top menu items.</returns>
         [HttpGet]
         public IActionResult GetTopMenu()
         {

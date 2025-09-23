@@ -6,7 +6,16 @@ namespace BakeryApi.Controllers
     [Route("api/[controller]")]
     public class ContactController : ControllerBase
     {
-        private static List<ContactMessage> _messages = new List<ContactMessage>();
+        private static List<ContactMessage> _messages = new List<ContactMessage>()
+        {
+            // Voorbeeld: nieuwe berichten kunnen hier als dummy worden toegevoegd
+            // new ContactMessage {
+            //     Id      = 1,
+            //     Name    = "Julia Simmons",
+            //     Email   = "julia@example.com",
+            //     Message = "Ik wil graag een taart bestellen voor zaterdag."
+            // }
+        };
 
         /// <summary>
         /// Gets all contact messages.

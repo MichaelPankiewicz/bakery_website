@@ -15,23 +15,35 @@ namespace bakery_website_backend.Controllers
         // In-memory product list
         private static List<Product> Products = new List<Product>
         {
-            new Product 
-            { 
-                Id = 1, 
-                Image = "https://images.unsplash.com/photo-1566698629409-787a68fc5724?q=80&w=1470&auto=format&fit=crop", 
-                Name = "Sourdough Bread", 
-                Price = 5.50M, 
-                Description = "A crusty artisan sourdough loaf with a tangy flavor and soft, airy interior.", 
-                Tags = new List<string> { "bread", "artisan", "savory", "vegan", "special!" }
+            new Product
+            {
+                Id          = 1,
+                Name        = "Sourdough Bread",
+                Image       = "https://images.unsplash.com/photo-1566698629409-787a68fc5724?q=80&w=1470&auto=format&fit=crop",
+                Price       = 5.50M,
+                Description = "A crusty artisan sourdough loaf with a tangy flavor and soft, airy interior.",
+                Tags        = new List<string>
+                {
+                    "bread",
+                    "artisan",
+                    "savory",
+                    "vegan",
+                    "special!"
+                }
             },
-            new Product 
-            { 
-                Id = 2, 
-                Image = "https://images.unsplash.com/photo-1623334044303-241021148842?q=80&w=1470&auto=format&fit=crop", 
-                Name = "Classic Butter Croissant", 
-                Price = 3.25M, 
-                Description = "Flaky, buttery croissant made with traditional French techniques.", 
-                Tags = new List<string> { "pastry", "buttery", "breakfast" }
+            new Product
+            {
+                Id          = 2,
+                Name        = "Classic Butter Croissant",
+                Image       = "https://images.unsplash.com/photo-1623334044303-241021148842?q=80&w=1470&auto=format&fit=crop",
+                Price       = 3.25M,
+                Description = "Flaky, buttery croissant made with traditional French techniques.",
+                Tags        = new List<string>
+                {
+                    "pastry",
+                    "buttery",
+                    "breakfast"
+                }
             },
         };
 

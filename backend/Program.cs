@@ -12,7 +12,14 @@ builder.Services.AddCors(options =>
 {
     options.AddPolicy("AllowAll", policy =>
     {
-        policy.AllowAnyOrigin()  // Allow requests from anywhere during dev
+        policy.AllowAnyOrigin()
+              .AllowAnyHeader()
+              .AllowAnyMethod();
+    });
+
+    options.AddPolicy("ProductionCors", policy =>
+    {
+        policy.WithOrigins("https://jouwproductiedomein.nl") // Pas aan naar echte domein
               .AllowAnyHeader()
               .AllowAnyMethod();
     });
@@ -31,8 +38,13 @@ app.UseCors("AllowAll");
 // Enable Swagger in Development
 if (app.Environment.IsDevelopment())
 {
+    app.UseCors("AllowAll");
     app.UseSwagger();
     app.UseSwaggerUI();
+}
+else
+{
+    app.UseCors("ProductionCors");
 }
 
 app.MapControllers();

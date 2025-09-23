@@ -1,7 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 
-namespace BakeryAPI.Controllers
+namespace bakery_website_backend.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
@@ -18,147 +18,147 @@ namespace BakeryAPI.Controllers
         public IActionResult GetTopMenu()
         {
             try {
-            var topMenu = new List<object>
+            var topMenu = new List<bakery_website_backend.Models.TopMenuItem>
             {
-                new {
-                    id          = 1,
-                    title       = "Classic Croissant",
-                    description = "Buttery, flaky French croissant baked fresh every morning.",
-                    price       = "$3.50",
-                    image       = "/images/product1.webp",
-                    details     = new [] {
+                new bakery_website_backend.Models.TopMenuItem {
+                    Id = 1,
+                    Title = "Classic Croissant",
+                    Description = "Buttery, flaky French croissant baked fresh every morning.",
+                    Price = "$3.50",
+                    Image = "/images/product1.webp",
+                    Details = new List<string> {
                         "Made with real butter",
                         "Crispy outside, soft inside",
                         "Perfect with coffee"
                     }
                 },
-                new {
-                    id          = 2,
-                    title       = "Sourdough Bread",
-                    description = "Handcrafted sourdough with a crunchy crust and tangy flavor.",
-                    price       = "$5.00",
-                    image       = "/images/product2.webp",
-                    details     = new [] {
+                new bakery_website_backend.Models.TopMenuItem {
+                    Id = 2,
+                    Title = "Sourdough Bread",
+                    Description = "Handcrafted sourdough with a crunchy crust and tangy flavor.",
+                    Price = "$5.00",
+                    Image = "/images/product2.webp",
+                    Details = new List<string> {
                         "Slow fermented",
                         "No preservatives",
                         "Ideal for sandwiches"
                     }
                 },
-                new {
-                    id          = 3,
-                    title       = "Chocolate Muffin",
-                    description = "Rich chocolate muffin loaded with chocolate chips.",
-                    price       = "$2.75",
-                    image       = "/images/product3.webp",
-                    details     = new [] {
+                new bakery_website_backend.Models.TopMenuItem {
+                    Id = 3,
+                    Title = "Chocolate Muffin",
+                    Description = "Rich chocolate muffin loaded with chocolate chips.",
+                    Price = "$2.75",
+                    Image = "/images/product3.webp",
+                    Details = new List<string> {
                         "Made with Belgian chocolate",
                         "Moist and soft texture",
                         "Great for dessert"
                     }
                 },
-                new {
-                    id          = 4,
-                    title       = "Blueberry Bagel",
-                    description = "Chewy bagel packed with fresh blueberries.",
-                    price       = "$3.00",
-                    image       = "/images/product4.webp",
-                    details     = new [] {
+                new bakery_website_backend.Models.TopMenuItem {
+                    Id = 4,
+                    Title = "Blueberry Bagel",
+                    Description = "Chewy bagel packed with fresh blueberries.",
+                    Price = "$3.00",
+                    Image = "/images/product4.webp",
+                    Details = new List<string> {
                         "Baked daily",
                         "Topped with sugar glaze",
                         "Pairs well with cream cheese"
                     }
                 },
-                new {
-                    id          = 5,
-                    title       = "Almond Danish",
-                    description = "Flaky Danish pastry topped with almond glaze and sliced almonds.",
-                    price       = "$4.00",
-                    image       = "/images/product5.webp",
-                    details     = new [] {
+                new bakery_website_backend.Models.TopMenuItem {
+                    Id = 5,
+                    Title = "Almond Danish",
+                    Description = "Flaky Danish pastry topped with almond glaze and sliced almonds.",
+                    Price = "$4.00",
+                    Image = "/images/product5.webp",
+                    Details = new List<string> {
                         "Sweet and nutty",
                         "Perfect breakfast treat",
                         "Made fresh daily"
                     }
                 },
-                new {
-                    id          = 6,
-                    title       = "Banana Bread",
-                    description = "Moist banana bread with walnuts and cinnamon.",
-                    price       = "$3.25",
-                    image       = "/images/product6.webp",
-                    details     = new [] {
+                new bakery_website_backend.Models.TopMenuItem {
+                    Id = 6,
+                    Title = "Banana Bread",
+                    Description = "Moist banana bread with walnuts and cinnamon.",
+                    Price = "$3.25",
+                    Image = "/images/product6.webp",
+                    Details = new List<string> {
                         "Contains real bananas",
                         "Gluten-free option available",
                         "Great with butter"
                     }
                 },
-                new {
-                    id          = 7,
-                    title       = "Cinnamon Roll",
-                    description = "Soft, gooey cinnamon roll with cream cheese frosting.",
-                    price       = "$3.75",
-                    image       = "/images/product7.webp",
-                    details     = new [] {
+                new bakery_website_backend.Models.TopMenuItem {
+                    Id = 7,
+                    Title = "Cinnamon Roll",
+                    Description = "Soft, gooey cinnamon roll with cream cheese frosting.",
+                    Price = "$3.75",
+                    Image = "/images/product7.webp",
+                    Details = new List<string> {
                         "Made with cinnamon swirl",
                         "Drizzled with frosting",
                         "Baked fresh every day"
                     }
                 },
-                new {
-                    id          = 8,
-                    title       = "Lemon Tart",
-                    description = "Tangy lemon tart with buttery crust and fresh whipped cream.",
-                    price       = "$4.50",
-                    image       = "/images/product8.webp",
-                    details     = new [] {
+                new bakery_website_backend.Models.TopMenuItem {
+                    Id = 8,
+                    Title = "Lemon Tart",
+                    Description = "Tangy lemon tart with buttery crust and fresh whipped cream.",
+                    Price = "$4.50",
+                    Image = "/images/product8.webp",
+                    Details = new List<string> {
                         "Zesty and refreshing",
                         "Made with fresh lemons",
                         "Perfect dessert choice"
                     }
                 },
-                new {
-                    id          = 9,
-                    title       = "Pumpkin Spice Muffin",
-                    description = "Seasonal muffin with pumpkin spice and pecans.",
-                    price       = "$3.50",
-                    image       = "/images/product9.webp",
-                    details     = new [] {
+                new bakery_website_backend.Models.TopMenuItem {
+                    Id = 9,
+                    Title = "Pumpkin Spice Muffin",
+                    Description = "Seasonal muffin with pumpkin spice and pecans.",
+                    Price = "$3.50",
+                    Image = "/images/product9.webp",
+                    Details = new List<string> {
                         "Perfect for fall",
                         "Topped with pecans",
                         "Moist and flavorful"
                     }
                 },
-                new {
-                    id          = 10,
-                    title       = "Raspberry Scone",
-                    description = "Flaky scone bursting with fresh raspberries.",
-                    price       = "$3.25",
-                    image       = "/images/product10.webp",
-                    details     = new [] {
+                new bakery_website_backend.Models.TopMenuItem {
+                    Id = 10,
+                    Title = "Raspberry Scone",
+                    Description = "Flaky scone bursting with fresh raspberries.",
+                    Price = "$3.25",
+                    Image = "/images/product10.webp",
+                    Details = new List<string> {
                         "Buttery and crumbly",
                         "Made fresh daily",
                         "Great with tea"
                     }
                 },
-                new {
-                    id          = 11,
-                    title       = "Spinach Feta Croissant",
-                    description = "Savory croissant stuffed with spinach and feta cheese.",
-                    price       = "$4.25",
-                    image       = "/images/product11.webp",
-                    details     = new [] {
+                new bakery_website_backend.Models.TopMenuItem {
+                    Id = 11,
+                    Title = "Spinach Feta Croissant",
+                    Description = "Savory croissant stuffed with spinach and feta cheese.",
+                    Price = "$4.25",
+                    Image = "/images/product11.webp",
+                    Details = new List<string> {
                         "Perfect savory snack",
                         "Flaky and cheesy",
                         "Freshly baked"
                     }
                 },
-                new {
-                    id          = 12,
-                    title       = "Vanilla Cupcake",
-                    description = "Classic vanilla cupcake with buttercream frosting.",
-                    price       = "$2.50",
-                    image       = "/images/product12.webp",
-                    details     = new [] {
+                new bakery_website_backend.Models.TopMenuItem {
+                    Id = 12,
+                    Title = "Vanilla Cupcake",
+                    Description = "Classic vanilla cupcake with buttercream frosting.",
+                    Price = "$2.50",
+                    Image = "/images/product12.webp",
+                    Details = new List<string> {
                         "Light and fluffy",
                         "Topped with sprinkles",
                         "Ideal for celebrations"

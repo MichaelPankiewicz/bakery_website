@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Mvc;
+using BakeryApi.Models;
 
 namespace BakeryApi.Controllers
 {
@@ -88,11 +89,4 @@ namespace BakeryApi.Controllers
         }
     }
 
-    public class ContactMessage
-    {
-        public int Id { get; set; }
-        public string Name { get; set; } = "";
-        public string Email { get; set; } = "";
-        public string Message { get; set; } = "";
-    }
 }

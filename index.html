@@ -12,7 +12,7 @@
 
 <body>
   <div id="startup-overlay">
-    <img src="/images/logo.webp" alt="Bistro Bakery Logo" class="startup-logo" />
+    <img src="/images/logo.webp" alt="Logo van Bistro Bakery, wit op zwart" class="startup-logo" />
   </div>
 
   <header>
@@ -40,6 +40,7 @@
   </header>
 
 
+  <main>
   <section class="hero">
     <h1 class="hero-title scroll-fade"><span>Bistro</span> | <span>Bakery</span></h1>
     <div class="hero-inner">
@@ -177,19 +178,19 @@
     </div>
     <div class="featured-grid">
       <div class="feature-card scroll-reveal reveal-left">
-        <img loading="lazy" fetchpriority="high" src="/images/mealcard1.webp" alt="Dish One">
+        <img loading="lazy" fetchpriority="high" src="/images/mealcard1.webp" alt="Pastelito Pancakes: vers gebakken pannenkoeken met glazuur">
         <h3>Pastelito Pancakes</h3>
       </div>
       <div class="feature-card scroll-reveal reveal-left">
-        <img loading="lazy" fetchpriority="high" src="/images/mealcard2.webp" alt="Dish Two">
+        <img loading="lazy" fetchpriority="high" src="/images/mealcard2.webp" alt="Croissant Loaf French Toast: Franse toast van croissantbrood, geserveerd met fruit">
         <h3>Croissant Loaf French Toast</h3>
       </div>
       <div class="feature-card scroll-reveal reveal-right">
-        <img loading="lazy" fetchpriority="high" src="/images/mealcard3.webp" alt="Dish Three">
+        <img loading="lazy" fetchpriority="high" src="/images/mealcard3.webp" alt="Croissant Loaf French Toast: Franse toast van croissantbrood, geserveerd met fruit">
         <h3>Croissant Loaf French Toast</h3>
       </div>
       <div class="feature-card scroll-reveal reveal-right">
-        <img loading="lazy" fetchpriority="high" src="/images/mealcard4.webp" alt="Dish Four">
+        <img loading="lazy" fetchpriority="high" src="/images/mealcard4.webp" alt="Smoked Salmon Scramble: roerei met gerookte zalm en kruiden">
         <h3>Smoked Salmon Scramble</h3>
       </div>
     </div>
@@ -208,17 +209,22 @@
 
     <div class="newsletter-right scroll-reveal reveal-right">
       <form class="subscribe-form" action="#" method="post">
-        <input type="email" placeholder="Email" required />
+        <fieldset>
+          <legend>Schrijf je in voor de nieuwsbrief</legend>
+          <label for="newsletter-email">E-mailadres:</label>
+          <input id="newsletter-email" name="email" type="email" placeholder="Email" required />
+        </fieldset>
         <button type="submit">Subscribe</button>
       </form>
     </div>
   </section>
 
 
+  <aside>
   <footer>
     <section id="links-footer" class="links-footer scroll-fade">
       <div class="footer-logo-container">
-        <a href="#"><img loading="lazy" fetchpriority="high" src="/images/logo.webp" alt="Logo"></a>
+  <a href="#"><img loading="lazy" fetchpriority="high" src="/images/logo.webp" alt="Logo van Bistro Bakery"></a>
         <p>600 Brickell Ave. Miami, FL 33131</p>
         <p><a href="tel:(305) 778-4585">(305) 778-4585</a></p>
         <p>(WE DO NOT TAKE RESERVATIONS, NO EXCEPTIONS)</p>
@@ -283,10 +289,10 @@
     <section id="main-footer" class="main-footer">
       <div class="footer-socials scroll-reveal reveal-left">
         <ul>
-          <li><a href="#" class="fa fa-facebook-official"></a></li>
-          <li><a href="#" class="fa fa-twitter"></a></li>
-          <li><a href="#" class="fa fa-instagram"></a></li>
-          <li><a href="#" class="fa fa-linkedin"></a></li>
+          <li><a href="https://facebook.com" class="fa fa-facebook-official" rel="noopener" target="_blank"></a></li>
+          <li><a href="https://twitter.com" class="fa fa-twitter" rel="noopener" target="_blank"></a></li>
+          <li><a href="https://instagram.com" class="fa fa-instagram" rel="noopener" target="_blank"></a></li>
+          <li><a href="https://linkedin.com" class="fa fa-linkedin" rel="noopener" target="_blank"></a></li>
         </ul>
       </div>
       <div class="copy-rights scroll-reveal reveal-right">
@@ -297,7 +303,9 @@
 
 
   <div id="uniqueMenu-popup-overlay" class="uniqueMenu-popup-overlay hidden"></div>
+  </aside>
   <script type="module" src="/src/app.js"></script>
+</main>
 </body>
 
 </html>

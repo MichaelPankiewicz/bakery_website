@@ -112,7 +112,7 @@ body {
 .menu-text p,
 .featured-header p,
 .newsletter-center p {
-  font-family: 'Inter', sans-serif !important;
+  font-family: 'Inter', sans-serif ;
 }
 
 
@@ -365,6 +365,10 @@ body {
   opacity: 0;
   visibility: hidden;
 }
+
+  /* `!important` is hier nodig om ervoor te zorgen dat deze regel andere 
+    `display`-regels overschrijft. Zonder dit kan het gebeuren dat de popup (#floating-menu-overlay) 
+    niet verborgen wordt en niet meer kan worden gesloten. */
 
 .hidden {
   display: none !important;

@@ -21,7 +21,7 @@ namespace bakery_website_backend.Controllers
             {
                 // Ingredients highlight
                 new {
-                    id          = 1,
+                    Id          = 1,
                     title       = "Fresh, Local Ingredients:",
                     description = "We use only the freshest ingredients from nearby farms to ensure top flavor and quality in every bite.",
                     image       = "/images/ingridients.webp",
@@ -36,7 +36,7 @@ namespace bakery_website_backend.Controllers
 
                 // Products highlight
                 new {
-                    id          = 2,
+                    Id          = 2,
                     title       = "Artisan Craftsmanship:",
                     description = "Each product is handmade using traditional methods passed down through generations.",
                     image       = "/images/craftsmanship.webp",
@@ -53,7 +53,7 @@ namespace bakery_website_backend.Controllers
 
                 // Atmosphere highlight
                 new {
-                    id          = 3,
+                    Id          = 3,
                     title       = "Inviting Atmosphere:",
                     description = "Our cozy café space is designed for relaxation, conversation, and delicious moments.",
                     image       = "/images/atmosphere.webp",

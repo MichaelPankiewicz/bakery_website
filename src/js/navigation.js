@@ -9,7 +9,8 @@ export function setupNavigation() {
     const burger = document.querySelector('#burger-toggle');
     const nav = document.querySelector('header nav');
     const headerScroll = document.querySelector('header');
-    if (burger && nav && headerScroll) {
+    let cleanupFns = [];
+    if (burger?.addEventListener && nav && headerScroll) {
         const toggleMenu = () => {
             const expanded = burger.getAttribute('aria-expanded') === 'true';
             burger.setAttribute('aria-expanded', String(!expanded));
@@ -18,19 +19,24 @@ export function setupNavigation() {
             headerScroll.classList.toggle('mobile-nav-open');
         };
         burger.addEventListener('click', toggleMenu);
-        burger.addEventListener('keydown', (e) => {
+        cleanupFns.push(() => burger.removeEventListener('click', toggleMenu));
+        const keydownHandler = (e) => {
             if (e.key === 'Enter' || e.key === ' ') {
                 e.preventDefault();
                 toggleMenu();
             }
-        });
-        window.addEventListener('scroll', () => {
+        };
+        burger.addEventListener('keydown', keydownHandler);
+        cleanupFns.push(() => burger.removeEventListener('keydown', keydownHandler));
+        const scrollHandler = () => {
             if (window.scrollY > 10) {
                 headerScroll.classList.add('scrolled');
             } else {
                 headerScroll.classList.remove('scrolled');
             }
-        });
+        };
+        window.addEventListener('scroll', scrollHandler);
+        cleanupFns.push(() => window.removeEventListener('scroll', scrollHandler));
     }
 
     // ===========================

@@ -86,6 +86,87 @@ export function setupPopups() {
             });
         });
     }
+        let cleanupFns = [];
+        if (contactBtn?.addEventListener && contactOverlay) {
+            const openPopup = (e) => {
+                e.preventDefault();
+                contactOverlay.innerHTML = `
+                    <div class="popup-card contact-form-card">
+                        <button class="popup-close-btn">&times;</button>
+                        <h2 class="popup-title">Contact Us</h2>
+                        <form id="contact-form" novalidate>
+                            <label for="contact-name">Name</label>
+                            <input type="text" id="contact-name" name="name" placeholder="Your name" required>
+                            <label for="contact-email">Email</label>
+                            <input type="email" id="contact-email" name="email" placeholder="your@email.com" required>
+                            <label for="contact-message">Message</label>
+                            <textarea id="contact-message" name="message" placeholder="Your message" required></textarea>
+                            <button type="submit" class="popup-expand-btn">Send</button>
+                        </form>
+                    </div>
+                `;
+                contactOverlay.classList.remove('hidden');
+
+                // Close popup
+                const closeBtn = contactOverlay.querySelector('.popup-close-btn');
+                const closeHandler = () => {
+                    contactOverlay.classList.add('hidden');
+                    contactOverlay.innerHTML = '';
+                    cleanupFns.forEach(fn => fn());
+                    cleanupFns = [];
+                };
+                closeBtn?.addEventListener('click', closeHandler);
+                cleanupFns.push(() => closeBtn?.removeEventListener('click', closeHandler));
+
+                // Validation logic
+                const form = document.querySelector('#contact-form');
+                const nameInput = document.querySelector('#contact-name');
+                const emailInput = document.querySelector('#contact-email');
+                const messageInput = document.querySelector('#contact-message');
+
+                [nameInput, emailInput, messageInput].forEach(input => {
+                    if (input?.addEventListener) {
+                        const inputHandler = () => validateField(input);
+                        input.addEventListener('input', inputHandler);
+                        cleanupFns.push(() => input.removeEventListener('input', inputHandler));
+                    }
+                });
+
+                if (form?.addEventListener) {
+                    const submitHandler = async (ev) => {
+                        ev.preventDefault();
+                        const validName = validateField(nameInput);
+                        const validEmail = validateField(emailInput);
+                        const validMessage = validateField(messageInput);
+                        if (validName && validEmail && validMessage) {
+                            try {
+                                await fetch(getApiUrl('Contact'), {
+                                    method: 'POST',
+                                    headers: { 'Content-Type': 'application/json' },
+                                    body: JSON.stringify({
+                                        name: nameInput.value.trim(),
+                                        email: emailInput.value.trim(),
+                                        message: messageInput.value.trim()
+                                    })
+                                });
+                                showNotification('Message sent!');
+                                contactOverlay.classList.add('hidden');
+                                contactOverlay.innerHTML = '';
+                                if (typeof setupContactCRUD !== 'undefined') {
+                                    document.dispatchEvent(new Event('contactUpdated'));
+                                }
+                            } catch (err) {
+                                showNotification('Error sending message.');
+                            }
+                        }
+                    };
+                    form.addEventListener('submit', submitHandler);
+                    cleanupFns.push(() => form.removeEventListener('submit', submitHandler));
+                }
+            };
+            contactBtn.addEventListener('click', openPopup);
+            cleanupFns.push(() => contactBtn.removeEventListener('click', openPopup));
+        }
 
     // ===========================
     // GALLERY POPUP LOGIC

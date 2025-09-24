@@ -22,13 +22,18 @@ export function getApiUrl(endpoint) {
 
 export async function fetchJson(endpoint, options = {}) {
   const url = getApiUrl(endpoint);
-  const res = await fetch(url, options);
-  if (!res.ok) {
-    const body = await res.text().catch(() => '');
-    throw new Error(`Fetch error ${res.status} ${res.statusText} -> ${url}${body ? ' :: ' + body : ''}`);
+  try {
+    const res = await fetch(url, options);
+    if (!res.ok) {
+      const body = await res.text().catch(() => '');
+      throw new Error(`Fetch error ${res.status} ${res.statusText} -> ${url}${body ? ' :: ' + body : ''}`);
+    }
+    if (res.status === 204) return null;
+    return res.json();
+  } catch (err) {
+    console.error('fetchJson error:', err);
+    throw err;
   }
-  if (res.status === 204) return null;
-  return res.json();
 }
 
 // DOM helpers (gekopieerd uit je eerdere utils)

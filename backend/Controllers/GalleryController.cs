@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
+using bakery_website_backend.Models;
 
 namespace bakery_website_backend.Controllers
 {
@@ -19,55 +20,55 @@ namespace bakery_website_backend.Controllers
         {
             try
             {
-                var gallery = new List<object>
+                var gallery = new List<GalleryItem>
                 {
                     // Product images
-                    new { id = 1,  image = "/images/product1.webp" },
-                    new { id = 2,  image = "/images/product2.webp" },
-                    new { id = 3,  image = "/images/product3.webp" },
-                    new { id = 4,  image = "/images/product4.webp" },
-                    new { id = 5,  image = "/images/product5.webp" },
-                    new { id = 6,  image = "/images/product6.webp" },
-                    new { id = 7,  image = "/images/product7.webp" },
-                    new { id = 8,  image = "/images/product8.webp" },
-                    new { id = 9,  image = "/images/product9.webp" },
-                    new { id = 10, image = "/images/product10.webp" },
-                    new { id = 11, image = "/images/product11.webp" },
-                    new { id = 12, image = "/images/product12.webp" },
-                    new { id = 13, image = "/images/product13.webp" },
-                    new { id = 14, image = "/images/product14.webp" },
-                    new { id = 15, image = "/images/product15.webp" },
-                    new { id = 16, image = "/images/product16.webp" },
+                    new GalleryItem { Id = 1,  Image = "/images/product1.webp" },
+                    new GalleryItem { Id = 2,  Image = "/images/product2.webp" },
+                    new GalleryItem { Id = 3,  Image = "/images/product3.webp" },
+                    new GalleryItem { Id = 4,  Image = "/images/product4.webp" },
+                    new GalleryItem { Id = 5,  Image = "/images/product5.webp" },
+                    new GalleryItem { Id = 6,  Image = "/images/product6.webp" },
+                    new GalleryItem { Id = 7,  Image = "/images/product7.webp" },
+                    new GalleryItem { Id = 8,  Image = "/images/product8.webp" },
+                    new GalleryItem { Id = 9,  Image = "/images/product9.webp" },
+                    new GalleryItem { Id = 10, Image = "/images/product10.webp" },
+                    new GalleryItem { Id = 11, Image = "/images/product11.webp" },
+                    new GalleryItem { Id = 12, Image = "/images/product12.webp" },
+                    new GalleryItem { Id = 13, Image = "/images/product13.webp" },
+                    new GalleryItem { Id = 14, Image = "/images/product14.webp" },
+                    new GalleryItem { Id = 15, Image = "/images/product15.webp" },
+                    new GalleryItem { Id = 16, Image = "/images/product16.webp" },
 
                     // Meal cards
-                    new { id = 17, image = "/images/mealcard1.webp" },
-                    new { id = 18, image = "/images/mealcard2.webp" },
-                    new { id = 19, image = "/images/mealcard3.webp" },
-                    new { id = 20, image = "/images/mealcard4.webp" },
+                    new GalleryItem { Id = 17, Image = "/images/mealcard1.webp" },
+                    new GalleryItem { Id = 18, Image = "/images/mealcard2.webp" },
+                    new GalleryItem { Id = 19, Image = "/images/mealcard3.webp" },
+                    new GalleryItem { Id = 20, Image = "/images/mealcard4.webp" },
 
                     // Interior images
-                    new { id = 21, image = "/images/interior1.webp" },
-                    new { id = 22, image = "/images/interior2.webp" },
-                    new { id = 23, image = "/images/interior3.webp" },
-                    new { id = 24, image = "/images/interior4.webp" },
+                    new GalleryItem { Id = 21, Image = "/images/interior1.webp" },
+                    new GalleryItem { Id = 22, Image = "/images/interior2.webp" },
+                    new GalleryItem { Id = 23, Image = "/images/interior3.webp" },
+                    new GalleryItem { Id = 24, Image = "/images/interior4.webp" },
 
                     // Branding & other
-                    new { id = 25, image = "/images/logo.webp" },
-                    new { id = 26, image = "/images/hero.webp" },
-                    new { id = 27, image = "/images/ingridients.webp" },
-                    new { id = 28, image = "/images/craftsmanship.webp" },
-                    new { id = 29, image = "/images/community.webp" },
-                    new { id = 30, image = "/images/chef.webp" },
-                    new { id = 31, image = "/images/bakery.webp" },
-                    new { id = 32, image = "/images/atmosphere.webp" },
-                    new { id = 33, image = "/images/aboutusbakery.webp" }
+                    new GalleryItem { Id = 25, Image = "/images/logo.webp" },
+                    new GalleryItem { Id = 26, Image = "/images/hero.webp" },
+                    new GalleryItem { Id = 27, Image = "/images/ingridients.webp" },
+                    new GalleryItem { Id = 28, Image = "/images/craftsmanship.webp" },
+                    new GalleryItem { Id = 29, Image = "/images/community.webp" },
+                    new GalleryItem { Id = 30, Image = "/images/chef.webp" },
+                    new GalleryItem { Id = 31, Image = "/images/bakery.webp" },
+                    new GalleryItem { Id = 32, Image = "/images/atmosphere.webp" },
+                    new GalleryItem { Id = 33, Image = "/images/aboutusbakery.webp" }
                 };
 
                 return Ok(gallery);
             }
             catch (Exception ex)
             {
-                return StatusCode(500, $"An error occurred while retrieving gallery images: {ex.Message}");
+                return StatusCode(500, new { message = "Er is een fout opgetreden bij het ophalen van de galerij-afbeeldingen.", details = ex.Message });
             }
         }
     }

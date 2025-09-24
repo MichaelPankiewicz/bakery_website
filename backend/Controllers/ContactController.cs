@@ -1,13 +1,14 @@
 using Microsoft.AspNetCore.Mvc;
 using BakeryApi.Models;
+using bakery_website_backend.Models;
 
-namespace BakeryApi.Controllers
+namespace bakery_website_backend.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
     public class ContactController : ControllerBase
     {
-        private static List<ContactMessage> _messages = new List<ContactMessage>()
+    private static List<ContactMessage> _messages = new List<ContactMessage>()
         {
             // Voorbeeld: nieuwe berichten kunnen hier als dummy worden toegevoegd
             // new ContactMessage {
@@ -46,7 +47,10 @@ namespace BakeryApi.Controllers
             try
             {
                 var msg = _messages.FirstOrDefault(m => m.Id == id);
-                if (msg == null) return NotFound($"Contact message with ID {id} not found.");
+                if (msg == null)
+                {
+                    return NotFound($"Contact message with ID {id} not found.");
+                }
                 return Ok(msg);
             }
             catch (Exception ex)

@@ -34,3 +34,4 @@ C:\Users\M.Pankiewicz\OneDrive - SBB\Bureaublad\gitrepos\bakery_website\backend\
 C:\Users\M.Pankiewicz\OneDrive - SBB\Bureaublad\gitrepos\bakery_website\backend\bin\Debug\net9.0\Swashbuckle.AspNetCore.Swagger.dll
 C:\Users\M.Pankiewicz\OneDrive - SBB\Bureaublad\gitrepos\bakery_website\backend\bin\Debug\net9.0\Swashbuckle.AspNetCore.SwaggerGen.dll
 C:\Users\M.Pankiewicz\OneDrive - SBB\Bureaublad\gitrepos\bakery_website\backend\bin\Debug\net9.0\Swashbuckle.AspNetCore.SwaggerUI.dll
+C:\Users\M.Pankiewicz\OneDrive - SBB\Bureaublad\gitrepos\bakery_website\backend\bin\Debug\net9.0\backend.staticwebassets.runtime.json

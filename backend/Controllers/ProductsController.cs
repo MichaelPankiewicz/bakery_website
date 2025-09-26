@@ -1,62 +1,27 @@
-using YourNamespace.Models;
 using Microsoft.AspNetCore.Mvc;
-using System.Collections.Generic;
-using System.Linq;
+using Microsoft.EntityFrameworkCore;
 
 namespace bakery_website_backend.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
-    /// <summary>
-    /// Controller for managing bakery products (in-memory).
-    /// </summary>
     public class ProductsController : ControllerBase
     {
-        // In-memory product list
-        private static List<Product> Products = new List<Product>
-        {
-            new Product
-            {
-                Id          = 1,
-                Name        = "Sourdough Bread",
-                Image       = "https://images.unsplash.com/photo-1566698629409-787a68fc5724?q=80&w=1470&auto=format&fit=crop",
-                Price       = 5.50M,
-                Description = "A crusty artisan sourdough loaf with a tangy flavor and soft, airy interior.",
-                Tags        = new List<string>
-                {
-                    "bread",
-                    "artisan",
-                    "savory",
-                    "vegan",
-                    "special!"
-                }
-            },
-            new Product
-            {
-                Id          = 2,
-                Name        = "Classic Butter Croissant",
-                Image       = "https://images.unsplash.com/photo-1623334044303-241021148842?q=80&w=1470&auto=format&fit=crop",
-                Price       = 3.25M,
-                Description = "Flaky, buttery croissant made with traditional French techniques.",
-                Tags        = new List<string>
-                {
-                    "pastry",
-                    "buttery",
-                    "breakfast"
-                }
-            },
-        };
+        private readonly BakeryDbContext _context;
 
-        /// <summary>
-        /// Gets all products.
-        /// </summary>
-        /// <returns>List of all products.</returns>
+        public ProductsController(BakeryDbContext context)
+        {
+            _context = context;
+        }
+
+        // GET: api/products
         [HttpGet]
-        public IActionResult GetAll()
+        public async Task<IActionResult> GetAll()
         {
             try
             {
-                return Ok(Products);
+                var products = await _context.Products.ToListAsync();
+                return Ok(products);
             }
             catch (Exception ex)
             {
@@ -64,17 +29,13 @@ namespace bakery_website_backend.Controllers
             }
         }
 
-        /// <summary>
-        /// Gets a product by its ID.
-        /// </summary>
-        /// <param name="id">Product ID.</param>
-        /// <returns>The product if found, otherwise NotFound.</returns>
+        // GET: api/products/{id}
         [HttpGet("{id}")]
-        public IActionResult GetById(int id)
+        public async Task<IActionResult> GetById(int id)
         {
             try
             {
-                var product = Products.FirstOrDefault(p => p.Id == id);
+                var product = await _context.Products.FindAsync(id);
                 if (product == null)
                 {
                     return NotFound($"Product with ID {id} not found.");
@@ -87,18 +48,14 @@ namespace bakery_website_backend.Controllers
             }
         }
 
-        /// <summary>
-        /// Creates a new product.
-        /// </summary>
-        /// <param name="newProduct">Product to add.</param>
-        /// <returns>The created product.</returns>
+        // POST: api/products
         [HttpPost]
-        public IActionResult Create([FromBody] Product newProduct)
+        public async Task<IActionResult> Create([FromBody] Product newProduct)
         {
             try
             {
-                newProduct.Id = Products.Max(p => p.Id) + 1; // Auto-generate a unique ID
-                Products.Add(newProduct);
+                _context.Products.Add(newProduct);
+                await _context.SaveChangesAsync();
                 return CreatedAtAction(nameof(GetById), new { id = newProduct.Id }, newProduct);
             }
             catch (Exception ex)
@@ -109,22 +66,23 @@ namespace bakery_website_backend.Controllers
 
         // PUT: api/products/{id}
         [HttpPut("{id}")]
-        public IActionResult Update(int id, [FromBody] Product updatedProduct)
+        public async Task<IActionResult> Update(int id, [FromBody] Product updatedProduct)
         {
             try
             {
-                var product = Products.FirstOrDefault(p => p.Id == id);
+                var product = await _context.Products.FindAsync(id);
                 if (product == null)
                 {
                     return NotFound($"Product with ID {id} not found.");
                 }
 
-                product.Image = updatedProduct.Image;
                 product.Name = updatedProduct.Name;
+                product.Image = updatedProduct.Image;
                 product.Price = updatedProduct.Price;
                 product.Description = updatedProduct.Description;
                 product.Tags = updatedProduct.Tags;
 
+                await _context.SaveChangesAsync();
                 return NoContent();
             }
             catch (Exception ex)
@@ -135,17 +93,18 @@ namespace bakery_website_backend.Controllers
 
         // DELETE: api/products/{id}
         [HttpDelete("{id}")]
-        public IActionResult Delete(int id)
+        public async Task<IActionResult> Delete(int id)
         {
             try
             {
-                var product = Products.FirstOrDefault(p => p.Id == id);
+                var product = await _context.Products.FindAsync(id);
                 if (product == null)
                 {
                     return NotFound($"Product with ID {id} not found.");
                 }
 
-                Products.Remove(product);
+                _context.Products.Remove(product);
+                await _context.SaveChangesAsync();
                 return NoContent();
             }
             catch (Exception ex)

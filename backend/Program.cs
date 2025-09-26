@@ -1,3 +1,6 @@
+using Microsoft.EntityFrameworkCore;
+
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services needed for controllers
@@ -6,6 +9,10 @@ builder.Services.AddControllers();
 // Add Swagger
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+
+// Add DbContext for SQL Server
+builder.Services.AddDbContext<BakeryDbContext>(options =>
+    options.UseSqlServer(builder.Configuration.GetConnectionString("BakeryData")));
 
 // Enable CORS to allow frontend to make API calls
 builder.Services.AddCors(options =>

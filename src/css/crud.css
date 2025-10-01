@@ -1,32 +1,132 @@
 /* src/css/crud.css - all selectors scoped under .crud-page to avoid global override */
 
-.crud-page { box-sizing: border-box; padding: 20px; background: #fffaf5; }
-.crud-title { text-align: center; color: #b85a1f; margin-bottom: 18px; font-family: Inter, Arial, sans-serif; }
+.crud-page {
+    box-sizing: border-box;
+    padding: 20px;
+    background: #fffaf5;
+}
 
-.crud-area { max-width: 1100px; margin: 0 auto; }
+.crud-title {
+    text-align: center;
+    color: #b85a1f;
+    margin-bottom: 18px;
+    font-family: Inter, Arial, sans-serif;
+}
+
+.crud-area {
+    max-width: 1100px;
+    margin: 0 auto;
+}
 
 /* Form */
-.crud-page .crud-form { display:flex; flex-wrap:wrap; gap:10px; align-items:center; margin-bottom:18px; }
-.crud-page .crud-form input { padding:10px; border-radius:6px; border:1px solid #ddd; flex:1 1 200px; font-size:0.95rem; }
-.crud-page .crud-form .crud-save { padding:10px 14px; background:#b85a1f; color:white; border:none; border-radius:6px; cursor:pointer; }
-.crud-page .crud-form .crud-save:hover { background:#94481a; }
-.crud-page .crud-form .crud-cancel { padding:10px 12px; background:#7f8c8d; color:white; border:none; border-radius:6px; cursor:pointer; }
+.crud-page .crud-form {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    align-items: center;
+    margin-bottom: 18px;
+}
+
+.crud-page .crud-form input {
+    padding: 10px;
+    border-radius: 6px;
+    border: 1px solid #ddd;
+    flex: 1 1 200px;
+    font-size: 0.95rem;
+}
+
+.crud-page .crud-form .crud-save {
+    padding: 10px 14px;
+    background: #b85a1f;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+}
+
+.crud-page .crud-form .crud-save:hover {
+    background: #94481a;
+}
+
+.crud-page .crud-form .crud-cancel {
+    padding: 10px 12px;
+    background: #7f8c8d;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+}
 
 /* Product grid */
-.crud-page .crud-products { display:grid; grid-template-columns: repeat(auto-fill, minmax(230px, 1fr)); gap:14px; }
-.crud-page .crud-card { background:white; padding:12px; border-radius:10px; box-shadow:0 2px 6px rgba(0,0,0,0.06); text-align:center; }
-.crud-page .crud-card img { width:100%; height:140px; object-fit:cover; border-radius:8px; margin-bottom:8px; }
-.crud-page .crud-card h3 { margin:4px 0; font-size:1.05rem; }
-.crud-page .crud-card p { margin:6px 0; font-size:0.9rem; color:#444; }
-.crud-page .crud-actions { display:flex; justify-content:center; gap:8px; margin-top:8px; }
-.crud-page .crud-actions button { padding:6px 10px; border-radius:6px; border:none; cursor:pointer; color:white; }
-.crud-page .crud-actions .edit-btn { background:#f39c12; }
-.crud-page .crud-actions .edit-btn:hover { background:#d4860f; }
-.crud-page .crud-actions .delete-btn { background:#e74c3c; }
-.crud-page .crud-actions .delete-btn:hover { background:#c0392b; }
+.crud-page .crud-products {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
+    gap: 14px;
+}
 
-/* error */
-.crud-page .error { color:#c0392b; font-weight:700; }
+.crud-page .crud-card {
+    background: white;
+    padding: 12px;
+    border-radius: 10px;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.06);
+    text-align: center;
+}
+
+.crud-page .crud-card img {
+    width: 100%;
+    height: 140px;
+    object-fit: cover;
+    border-radius: 8px;
+    margin-bottom: 8px;
+}
+
+.crud-page .crud-card h3 {
+    margin: 4px 0;
+    font-size: 1.05rem;
+}
+
+.crud-page .crud-card p {
+    margin: 6px 0;
+    font-size: 0.9rem;
+    color: #444;
+}
+
+.crud-page .crud-actions {
+    display: flex;
+    justify-content: center;
+    gap: 8px;
+    margin-top: 8px;
+}
+
+.crud-page .crud-actions button {
+    padding: 6px 10px;
+    border-radius: 6px;
+    border: none;
+    cursor: pointer;
+    color: white;
+}
+
+.crud-page .crud-actions .edit-btn {
+    background: #f39c12;
+}
+
+.crud-page .crud-actions .edit-btn:hover {
+    background: #d4860f;
+}
+
+.crud-page .crud-actions .delete-btn {
+    background: #e74c3c;
+}
+
+.crud-page .crud-actions .delete-btn:hover {
+    background: #c0392b;
+}
+
+/* Error */
+.crud-page .error {
+    color: #c0392b;
+    font-weight: 700;
+}
 
 /* contact CRUD layout only */
 #contact-messages {

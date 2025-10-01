@@ -24,12 +24,7 @@ builder.Services.AddCors(options =>
               .AllowAnyMethod();
     });
 
-    options.AddPolicy("ProductionCors", policy =>
-    {
-        policy.WithOrigins("https://jouwproductiedomein.nl") // Pas aan naar echte domein
-              .AllowAnyHeader()
-              .AllowAnyMethod();
-    });
+    
 });
 
 var app = builder.Build();

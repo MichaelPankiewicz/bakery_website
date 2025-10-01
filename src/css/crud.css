@@ -35,6 +35,10 @@
     font-size: 0.95rem;
 }
 
+.crud-page .crud-form input[type="number"] {
+    width: 100%; /* Zorg ervoor dat de nummerinput consistent breed is */
+}
+
 .crud-page .crud-form .crud-save {
     padding: 10px 14px;
     background: #b85a1f;
@@ -55,6 +59,7 @@
     border: none;
     border-radius: 6px;
     cursor: pointer;
+    display: none;
 }
 
 /* Product grid */
@@ -126,6 +131,11 @@
 .crud-page .error {
     color: #c0392b;
     font-weight: 700;
+}
+
+.crud-page .crud-form input:invalid {
+    border: 1px solid #e74c3c;
+    background-color: #fdecea;
 }
 
 /* contact CRUD layout only */

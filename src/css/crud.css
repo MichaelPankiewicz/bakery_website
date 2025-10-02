@@ -1,4 +1,4 @@
-/* src/css/crud.css - all selectors scoped under .crud-page to avoid global override */
+/* src/css/crud.css - all selectors scoped onder .crud-page om global override te vermijden */
 
 .crud-page {
     box-sizing: border-box;
@@ -36,7 +36,7 @@
 }
 
 .crud-page .crud-form input[type="number"] {
-    width: 100%; /* Zorg ervoor dat de nummerinput consistent breed is */
+    width: 100%; /* Zorg voor consistente breedte */
 }
 
 .crud-page .crud-form .crud-save {
@@ -103,7 +103,8 @@
     margin-top: 8px;
 }
 
-.crud-page .crud-actions button {
+.crud-page .crud-actions .edit-btn,
+.crud-page .crud-actions .delete-btn {
     padding: 6px 10px;
     border-radius: 6px;
     border: none;
@@ -138,7 +139,7 @@
     background-color: #fdecea;
 }
 
-/* contact CRUD layout only */
+/* Contact CRUD layout only */
 #contact-messages {
     margin-top: 20px;
     display: flex;
@@ -154,7 +155,8 @@
     position: relative;
 }
 
-.contact-item button {
+.contact-item .edit-btn,
+.contact-item .delete-btn {
     margin-left: 5px;
     padding: 4px 8px;
     border: none;
@@ -172,6 +174,7 @@
     color: white;
 }
 
-.contact-item button:hover {
+.contact-item .edit-btn:hover,
+.contact-item .delete-btn:hover {
     opacity: 0.85;
 }

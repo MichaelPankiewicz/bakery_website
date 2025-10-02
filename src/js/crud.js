@@ -27,10 +27,8 @@ async function apiFetch(path, options = {}) {
   try { body = text ? JSON.parse(text) : null; } catch (e) { body = text; }
 
   if (!res.ok) {
-    // Try to build a helpful error message with server ProblemDetails or plain text
     let serverMsg = '';
     if (body && typeof body === 'object') {
-      // ApiController typically returns ProblemDetails with "title" and "errors"
       serverMsg = body.title ? `${body.title} ${JSON.stringify(body.errors ?? body)}` : JSON.stringify(body);
     } else {
       serverMsg = body ?? res.statusText;
@@ -42,8 +40,12 @@ async function apiFetch(path, options = {}) {
     throw err;
   }
 
-  // return parsed json or null if empty
   return body;
+}
+
+// 🔹 Helper om DRY te maken
+function getField(form, name) {
+  return form.querySelector(`[data-field="${name}"]`);
 }
 
 export function setupCrud() {
@@ -51,20 +53,20 @@ export function setupCrud() {
   if (!page) return;
 
   const form = page.querySelector('.crud-form');
-  const inputId = form.querySelector('[data-field="id"]');
-  const inputName = form.querySelector('[data-field="name"]');
-  const inputDescription = form.querySelector('[data-field="description"]');
-  const inputPrice = form.querySelector('[data-field="price"]');
-  const inputImage = form.querySelector('[data-field="image"]');
-  // optional tags field - include only if present in your form
-  const inputTags = form.querySelector('[data-field="tags"]');
+
+  // gebruik helperfunctie i.p.v. losse variabelen
+  const inputId = getField(form, 'id');
+  const inputName = getField(form, 'name');
+  const inputDescription = getField(form, 'description');
+  const inputPrice = getField(form, 'price');
+  const inputImage = getField(form, 'image');
+  const inputTags = getField(form, 'tags'); // optional
   const cancelBtn = page.querySelector('.crud-cancel');
   const productsContainer = page.querySelector('#crud-products');
 
   async function loadProducts() {
     productsContainer.textContent = 'Laden...';
     try {
-      // use whatever fetchJson you already have — it's fine as long as it throws on non-ok
       const products = await fetchJson('Products');
       productsContainer.innerHTML = '';
       if (!Array.isArray(products) || products.length === 0) {
@@ -86,7 +88,7 @@ export function setupCrud() {
           }
         });
 
-        // edit knop: vul form
+        // edit knop
         card.querySelector('.edit-btn').addEventListener('click', () => {
           inputId.value = p.id ?? '';
           inputName.value = p.name ?? '';
@@ -117,7 +119,6 @@ export function setupCrud() {
       image: inputImage.value.trim()
     };
 
-    // include tags only if the field exists
     if (inputTags) {
       payload.tags = inputTags.value
         .split(',')
@@ -145,7 +146,6 @@ export function setupCrud() {
       await loadProducts();
     } catch (err) {
       console.error('Save failed:', err);
-      // show the server-provided message so the user can see validation errors
       alert(`Opslaan mislukt — ${err.message}`);
     }
   });
@@ -156,7 +156,6 @@ export function setupCrud() {
     cancelBtn.style.display = 'none';
   });
 
-  // initial load
   loadProducts();
 }
 

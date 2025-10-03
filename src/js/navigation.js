@@ -90,7 +90,8 @@ export function setupNavigation() {
 
         try {
             // Fetch menu items using the centralized fetchJson function
-            menuItems = await fetchJson('topMenu');
+            menuItems = await fetchJson('Products');
+
 
             if (!menuItems.length) {
                 titleEl.textContent = 'No menu data available.';
@@ -116,12 +117,18 @@ export function setupNavigation() {
             titleEl.textContent = item.title || '';
             descEl.textContent = item.description || '';
             priceEl.textContent = item.price ? `Price: ${item.price}` : '';
-            imageEl.src = item.image || '';
+            imageEl.src = `/images/${item.imageName}` || '';
             imageEl.alt = item.title || 'Menu image';
 
-            if (item.details && Array.isArray(item.details) && item.details.length) {
+            if (item.details && item.details.trim() !== '') {
                 expandBtn.style.display = 'inline-block';
-                expandList.innerHTML = item.details.map(i => `<li>${i}</li>`).join('');
+
+                // Split by ";" and filter out empty strings
+                const detailsArray = item.details.split(';').map(d => d.trim()).filter(d => d !== '');
+
+                // Maak <li> per detail
+                expandList.innerHTML = detailsArray.map(d => `<li>${d}</li>`).join('');
+
                 expandList.classList.remove('visible');
                 expandBtn.textContent = 'Show Details';
                 expandList.setAttribute('aria-expanded', 'false');
@@ -129,6 +136,7 @@ export function setupNavigation() {
                 expandBtn.style.display = 'none';
                 expandList.innerHTML = '';
             }
+
         }
 
         // Initialize first item

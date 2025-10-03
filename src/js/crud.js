@@ -5,7 +5,7 @@ function createCardElement(p) {
   const el = document.createElement('article');
   el.className = 'crud-card';
   el.innerHTML = `
-    <img src="${p.image ?? ''}" alt="${p.name ?? ''}">
+    <img src="/images/${p.imageName ?? ''}" alt="${p.name ?? ''}">
     <h3 class="crud-card-title">${p.name ?? ''}</h3>
     <p class="crud-card-desc">${p.description ?? ''}</p>
     <p class="crud-card-price">${p.price != null ? p.price : ''}</p>

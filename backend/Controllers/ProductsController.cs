@@ -1,7 +1,8 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using BakeryWebsiteBackend.Models;
 
-namespace bakery_website_backend.Controllers
+namespace BakeryWebsiteBackend.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
@@ -54,8 +55,14 @@ namespace bakery_website_backend.Controllers
         {
             try
             {
+                if (!ModelState.IsValid)
+                {
+                    return BadRequest(ModelState);
+                }
+
                 _context.Products.Add(newProduct);
                 await _context.SaveChangesAsync();
+
                 return CreatedAtAction(nameof(GetById), new { id = newProduct.Id }, newProduct);
             }
             catch (Exception ex)
@@ -77,10 +84,11 @@ namespace bakery_website_backend.Controllers
                 }
 
                 product.Name = updatedProduct.Name;
-                product.Image = updatedProduct.Image;
-                product.Price = updatedProduct.Price;
                 product.Description = updatedProduct.Description;
+                product.Price = updatedProduct.Price;
+                product.ImageName = updatedProduct.ImageName;
                 product.Tags = updatedProduct.Tags;
+                product.Details = updatedProduct.Details;
 
                 await _context.SaveChangesAsync();
                 return NoContent();

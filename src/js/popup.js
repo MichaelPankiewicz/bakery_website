@@ -2,63 +2,93 @@
 import { fetchJson, showNotification, validateEmail, validateField, getApiUrl } from './functions.js';
 
 export function setupPopups() {
-    // ===========================
-    // CONTACT US POPUP LOGIC
-    // ===========================
-    const contactBtn = document.querySelector('.contact');
     const contactOverlay = document.querySelector('#floating-menu-overlay');
 
+    // ===========================
+    // CONTACT POPUP
+    // ===========================
+    const contactBtn = document.querySelector('.contact');
     if (contactBtn && contactOverlay) {
         contactBtn.addEventListener('click', (e) => {
             e.preventDefault();
 
-            contactOverlay.innerHTML = `
-                <div class="popup-card contact-form-card">
-                    <button class="popup-close-btn">&times;</button>
-                    <h2 class="popup-title">Contact Us</h2>
-                    <form id="contact-form" novalidate>
-                        <label for="contact-name">Name</label>
-                        <input type="text" id="contact-name" name="name" placeholder="Your name" required>
+            // Maak popup-card
+            const popupCard = document.createElement('div');
+            popupCard.className = 'popup-card contact-form-card';
 
-                        <label for="contact-email">Email</label>
-                        <input type="email" id="contact-email" name="email" placeholder="your@email.com" required>
+            // Sluitknop
+            const closeBtn = document.createElement('button');
+            closeBtn.className = 'popup-close-btn';
+            closeBtn.textContent = '×';
+            popupCard.appendChild(closeBtn);
 
-                        <label for="contact-message">Message</label>
-                        <textarea id="contact-message" name="message" placeholder="Your message" required></textarea>
+            // Titel
+            const h2 = document.createElement('h2');
+            h2.className = 'popup-title';
+            h2.textContent = 'Contact Us';
+            popupCard.appendChild(h2);
 
-                        <button type="submit" class="popup-expand-btn">Send</button>
-                    </form>
-                </div>
-            `;
+            // Formulier
+            const form = document.createElement('form');
+            form.id = 'contact-form';
+            form.noValidate = true;
+
+            const createInputField = (labelText, type, id, placeholder) => {
+                const label = document.createElement('label');
+                label.setAttribute('for', id);
+                label.textContent = labelText;
+
+                const input = type === 'textarea' ? document.createElement('textarea') : document.createElement('input');
+                if (type !== 'textarea') input.type = type;
+                input.id = id;
+                input.name = id.split('-')[1];
+                input.placeholder = placeholder;
+                input.required = true;
+
+                form.appendChild(label);
+                form.appendChild(input);
+
+                return input;
+            };
+
+            const nameInput = createInputField('Name', 'text', 'contact-name', 'Your name');
+            const emailInput = createInputField('Email', 'email', 'contact-email', 'your@email.com');
+            const messageInput = createInputField('Message', 'textarea', 'contact-message', 'Your message');
+
+            // Submit button
+            const submitBtn = document.createElement('button');
+            submitBtn.type = 'submit';
+            submitBtn.className = 'popup-expand-btn';
+            submitBtn.textContent = 'Send';
+            form.appendChild(submitBtn);
+
+            popupCard.appendChild(form);
+
+            // Voeg popup toe aan overlay
+            while (contactOverlay.firstChild) contactOverlay.removeChild(contactOverlay.firstChild);
+            contactOverlay.appendChild(popupCard);
             contactOverlay.classList.remove('hidden');
 
-            // Close popup
-            const closeBtn = contactOverlay.querySelector('.popup-close-btn');
+            // Sluitknop functionaliteit
             closeBtn.addEventListener('click', () => {
                 contactOverlay.classList.add('hidden');
-                contactOverlay.innerHTML = '';
+                while (contactOverlay.firstChild) contactOverlay.removeChild(contactOverlay.firstChild);
             });
 
-            // Validation logic
-            const form = document.querySelector('#contact-form');
-            const nameInput = document.querySelector('#contact-name');
-            const emailInput = document.querySelector('#contact-email');
-            const messageInput = document.querySelector('#contact-message');
-
+            // Validatie
             [nameInput, emailInput, messageInput].forEach(input => {
                 input.addEventListener('input', () => validateField(input));
             });
 
+            // Form submit
             form.addEventListener('submit', async (ev) => {
                 ev.preventDefault();
-
                 const validName = validateField(nameInput);
                 const validEmail = validateField(emailInput);
                 const validMessage = validateField(messageInput);
 
                 if (validName && validEmail && validMessage) {
                     try {
-                        // POST to API
                         await fetch(getApiUrl('Contact'), {
                             method: 'POST',
                             headers: { 'Content-Type': 'application/json' },
@@ -71,196 +101,141 @@ export function setupPopups() {
 
                         showNotification('Message sent!');
                         contactOverlay.classList.add('hidden');
-                        contactOverlay.innerHTML = '';
+                        while (contactOverlay.firstChild) contactOverlay.removeChild(contactOverlay.firstChild);
 
-                        // Trigger refresh of contact-crud if exists
                         if (typeof setupContactCRUD !== 'undefined') {
                             document.dispatchEvent(new Event('contactUpdated'));
                         }
-
                     } catch (err) {
+                        showNotification('Failed to send message.');
                         console.error(err);
-                        showNotification('Failed to submit message.');
                     }
                 }
             });
         });
     }
-        let cleanupFns = [];
-        if (contactBtn?.addEventListener && contactOverlay) {
-            const openPopup = (e) => {
-                e.preventDefault();
-                contactOverlay.innerHTML = `
-                    <div class="popup-card contact-form-card">
-                        <button class="popup-close-btn">&times;</button>
-                        <h2 class="popup-title">Contact Us</h2>
-                        <form id="contact-form" novalidate>
-                            <label for="contact-name">Name</label>
-                            <input type="text" id="contact-name" name="name" placeholder="Your name" required>
-                            <label for="contact-email">Email</label>
-                            <input type="email" id="contact-email" name="email" placeholder="your@email.com" required>
-                            <label for="contact-message">Message</label>
-                            <textarea id="contact-message" name="message" placeholder="Your message" required></textarea>
-                            <button type="submit" class="popup-expand-btn">Send</button>
-                        </form>
-                    </div>
-                `;
-                contactOverlay.classList.remove('hidden');
-
-                // Close popup
-                const closeBtn = contactOverlay.querySelector('.popup-close-btn');
-                const closeHandler = () => {
-                    contactOverlay.classList.add('hidden');
-                    contactOverlay.innerHTML = '';
-                    cleanupFns.forEach(fn => fn());
-                    cleanupFns = [];
-                };
-                closeBtn?.addEventListener('click', closeHandler);
-                cleanupFns.push(() => closeBtn?.removeEventListener('click', closeHandler));
-
-                // Validation logic
-                const form = document.querySelector('#contact-form');
-                const nameInput = document.querySelector('#contact-name');
-                const emailInput = document.querySelector('#contact-email');
-                const messageInput = document.querySelector('#contact-message');
-
-                [nameInput, emailInput, messageInput].forEach(input => {
-                    if (input?.addEventListener) {
-                        const inputHandler = () => validateField(input);
-                        input.addEventListener('input', inputHandler);
-                        cleanupFns.push(() => input.removeEventListener('input', inputHandler));
-                    }
-                });
-
-                if (form?.addEventListener) {
-                    const submitHandler = async (ev) => {
-                        ev.preventDefault();
-                        const validName = validateField(nameInput);
-                        const validEmail = validateField(emailInput);
-                        const validMessage = validateField(messageInput);
-                        if (validName && validEmail && validMessage) {
-                            try {
-                                await fetch(getApiUrl('Contact'), {
-                                    method: 'POST',
-                                    headers: { 'Content-Type': 'application/json' },
-                                    body: JSON.stringify({
-                                        name: nameInput.value.trim(),
-                                        email: emailInput.value.trim(),
-                                        message: messageInput.value.trim()
-                                    })
-                                });
-                                showNotification('Message sent!');
-                                contactOverlay.classList.add('hidden');
-                                contactOverlay.innerHTML = '';
-                                if (typeof setupContactCRUD !== 'undefined') {
-                                    document.dispatchEvent(new Event('contactUpdated'));
-                                }
-                            } catch (err) {
-                                showNotification('Error sending message.');
-                            }
-                        }
-                    };
-                    form.addEventListener('submit', submitHandler);
-                    cleanupFns.push(() => form.removeEventListener('submit', submitHandler));
-                }
-            };
-            contactBtn.addEventListener('click', openPopup);
-            cleanupFns.push(() => contactBtn.removeEventListener('click', openPopup));
-        }
 
     // ===========================
-    // GALLERY POPUP LOGIC
+    // GALLERY POPUP
     // ===========================
     const galleryLink = document.querySelector('#gallery-link');
     const fullscreenOverlay = document.createElement('div');
     fullscreenOverlay.className = 'fullscreen-image-overlay hidden';
-    fullscreenOverlay.innerHTML = `
-        <div class="fullscreen-image-wrapper">
-            <img src="" alt="Fullscreen view" />
-            <button class="fullscreen-close-btn" aria-label="Close">&times;</button>
-        </div>`;
+    const fullscreenWrapper = document.createElement('div');
+    fullscreenWrapper.className = 'fullscreen-image-wrapper';
+    const fullscreenImg = document.createElement('img');
+    fullscreenImg.alt = 'Fullscreen view';
+    const fullscreenCloseBtn = document.createElement('button');
+    fullscreenCloseBtn.className = 'fullscreen-close-btn';
+    fullscreenCloseBtn.setAttribute('aria-label', 'Close');
+    fullscreenCloseBtn.textContent = '×';
+    fullscreenWrapper.appendChild(fullscreenImg);
+    fullscreenWrapper.appendChild(fullscreenCloseBtn);
+    fullscreenOverlay.appendChild(fullscreenWrapper);
     document.body.appendChild(fullscreenOverlay);
 
-    const fullscreenImg = fullscreenOverlay.querySelector('img');
-    const fullscreenCloseBtn = fullscreenOverlay.querySelector('.fullscreen-close-btn');
-
-    fullscreenCloseBtn.addEventListener('click', () => {
+    const closeFullscreen = () => {
         fullscreenOverlay.classList.add('hidden');
         fullscreenImg.src = '';
-    });
+    };
+
+    fullscreenCloseBtn.addEventListener('click', closeFullscreen);
     fullscreenOverlay.addEventListener('click', (e) => {
-        if (e.target === fullscreenOverlay) {
-            fullscreenOverlay.classList.add('hidden');
-            fullscreenImg.src = '';
-        }
+        if (e.target === fullscreenOverlay) closeFullscreen();
     });
 
-    if (galleryLink) {
+    if (galleryLink && contactOverlay) {
         galleryLink.addEventListener('click', async (e) => {
             e.preventDefault();
 
-            contactOverlay.innerHTML = `
-                <div class="popup-card">
-                    <button class="popup-close-btn">&times;</button>
-                    <p class="fallback-msg">Loading gallery...</p>
-                </div>`;
+            while (contactOverlay.firstChild) contactOverlay.removeChild(contactOverlay.firstChild);
+
+            const popupCard = document.createElement('div');
+            popupCard.className = 'popup-card';
+            const closeBtn = document.createElement('button');
+            closeBtn.className = 'popup-close-btn';
+            closeBtn.textContent = '×';
+            popupCard.appendChild(closeBtn);
+
+            const loadingMsg = document.createElement('p');
+            loadingMsg.className = 'fallback-msg';
+            loadingMsg.textContent = 'Loading gallery...';
+            popupCard.appendChild(loadingMsg);
+
+            contactOverlay.appendChild(popupCard);
             contactOverlay.classList.remove('hidden');
+
+            closeBtn.addEventListener('click', () => {
+                contactOverlay.classList.add('hidden');
+                while (contactOverlay.firstChild) contactOverlay.removeChild(contactOverlay.firstChild);
+            });
 
             try {
                 const data = await fetchJson('gallery');
+                while (popupCard.firstChild) popupCard.removeChild(popupCard.firstChild);
+
+                const closeBtn2 = document.createElement('button');
+                closeBtn2.className = 'popup-close-btn';
+                closeBtn2.textContent = '×';
+                popupCard.appendChild(closeBtn2);
+
+                closeBtn2.addEventListener('click', () => {
+                    contactOverlay.classList.add('hidden');
+                    while (contactOverlay.firstChild) contactOverlay.removeChild(contactOverlay.firstChild);
+                });
+
                 if (!Array.isArray(data) || data.length === 0) {
-                    contactOverlay.innerHTML = `
-                        <div class="popup-card">
-                            <button class="popup-close-btn">&times;</button>
-                            <p>No gallery images available.</p>
-                        </div>`;
-                    attachGalleryCloseHandler();
+                    const msg = document.createElement('p');
+                    msg.textContent = 'No gallery images available.';
+                    popupCard.appendChild(msg);
                     return;
                 }
 
+                const title = document.createElement('h2');
+                title.className = 'popup-title';
+                title.textContent = 'Gallery';
+                popupCard.appendChild(title);
+
+                const galleryContainer = document.createElement('div');
+                galleryContainer.className = 'popup-gallery-container';
+                galleryContainer.style.display = 'grid';
+                galleryContainer.style.gridTemplateColumns = 'repeat(6,1fr)';
+                galleryContainer.style.gap = '10px';
+
                 const randomized = data.sort(() => Math.random() - 0.5);
-
-                contactOverlay.innerHTML = `
-                    <div class="popup-card">
-                        <button class="popup-close-btn">&times;</button>
-                        <h2 class="popup-title">Gallery</h2>
-                        <div class="popup-gallery-container" style="display:grid;grid-template-columns:repeat(6,1fr);gap:10px;">
-                            ${randomized.map(img => `<img src="${img.image}" class="popup-gallery-image"/>`).join('')}
-                        </div>
-                    </div>`;
-                attachGalleryCloseHandler();
-
-                const galleryContainer = document.querySelector('.popup-gallery-container');
-                galleryContainer.addEventListener('click', (e) => {
-                    const clicked = e.target.closest('.popup-gallery-image');
-                    if (!clicked) return;
-                    fullscreenImg.src = clicked.src;
-                    fullscreenOverlay.classList.remove('hidden');
+                randomized.forEach(imgData => {
+                    const img = document.createElement('img');
+                    img.src = imgData.image;
+                    img.className = 'popup-gallery-image';
+                    img.addEventListener('click', () => {
+                        fullscreenImg.src = img.src;
+                        fullscreenOverlay.classList.remove('hidden');
+                    });
+                    galleryContainer.appendChild(img);
                 });
+
+                popupCard.appendChild(galleryContainer);
             } catch (err) {
                 console.error(err);
-                contactOverlay.innerHTML = `
-                    <div class="popup-card">
-                        <button class="popup-close-btn">&times;</button>
-                        <p>Failed to load gallery.</p>
-                    </div>`;
-                attachGalleryCloseHandler();
-            }
-        });
+                while (popupCard.firstChild) popupCard.removeChild(popupCard.firstChild);
+                const closeBtn3 = document.createElement('button');
+                closeBtn3.className = 'popup-close-btn';
+                closeBtn3.textContent = '×';
+                popupCard.appendChild(closeBtn3);
+                const msg = document.createElement('p');
+                msg.textContent = 'Failed to load gallery.';
+                popupCard.appendChild(msg);
 
-        function attachGalleryCloseHandler() {
-            const closeBtn = contactOverlay.querySelector('.popup-close-btn');
-            if (closeBtn) {
-                closeBtn.addEventListener('click', () => {
+                closeBtn3.addEventListener('click', () => {
                     contactOverlay.classList.add('hidden');
-                    contactOverlay.innerHTML = '';
+                    while (contactOverlay.firstChild) contactOverlay.removeChild(contactOverlay.firstChild);
                 });
             }
-        }
+        });
     }
 
     // ===========================
-    // GENERIC FETCH-BASED POPUPS
+    // FETCH-BASED DYNAMIC POPUPS
     // ===========================
     function setupFetchPopup({ triggerId, endpoint, mapData, fallbackMessage = 'No content available.', title = '' }) {
         const trigger = document.querySelector(`#${triggerId}`);
@@ -268,87 +243,118 @@ export function setupPopups() {
 
         trigger.addEventListener('click', async (e) => {
             e.preventDefault();
-            contactOverlay.innerHTML = `
-                <div class="popup-card">
-                    <button class="popup-close-btn">&times;</button>
-                    <p class="fallback-msg">Loading...</p>
-                </div>`;
+
+            while (contactOverlay.firstChild) contactOverlay.removeChild(contactOverlay.firstChild);
+            const popupCard = document.createElement('div');
+            popupCard.className = 'popup-card';
+            const closeBtn = document.createElement('button');
+            closeBtn.className = 'popup-close-btn';
+            closeBtn.textContent = '×';
+            popupCard.appendChild(closeBtn);
+            const loadingMsg = document.createElement('p');
+            loadingMsg.className = 'fallback-msg';
+            loadingMsg.textContent = 'Loading...';
+            popupCard.appendChild(loadingMsg);
+            contactOverlay.appendChild(popupCard);
             contactOverlay.classList.remove('hidden');
+
+            closeBtn.addEventListener('click', () => {
+                contactOverlay.classList.add('hidden');
+                while (contactOverlay.firstChild) contactOverlay.removeChild(contactOverlay.firstChild);
+            });
 
             try {
                 const data = await fetchJson(endpoint);
+                while (popupCard.firstChild) popupCard.removeChild(popupCard.firstChild);
+                const closeBtn2 = document.createElement('button');
+                closeBtn2.className = 'popup-close-btn';
+                closeBtn2.textContent = '×';
+                popupCard.appendChild(closeBtn2);
+
+                closeBtn2.addEventListener('click', () => {
+                    contactOverlay.classList.add('hidden');
+                    while (contactOverlay.firstChild) contactOverlay.removeChild(contactOverlay.firstChild);
+                });
+
                 if (!Array.isArray(data) || data.length === 0) {
-                    contactOverlay.innerHTML = `
-                        <div class="popup-card">
-                            <button class="popup-close-btn">&times;</button>
-                            <p>${fallbackMessage}</p>
-                        </div>`;
-                    attachCloseHandler();
+                    const msg = document.createElement('p');
+                    msg.textContent = fallbackMessage;
+                    popupCard.appendChild(msg);
                     return;
                 }
 
-                const contentHTML = mapData(data);
-                contactOverlay.innerHTML = `
-                    <div class="popup-card">
-                        <button class="popup-close-btn">&times;</button>
-                        ${title ? `<h2 class="popup-title">${title}</h2>` : ''}
-                        ${contentHTML}
-                    </div>`;
-                attachCloseHandler();
+                if (title) {
+                    const h2 = document.createElement('h2');
+                    h2.className = 'popup-title';
+                    h2.textContent = title;
+                    popupCard.appendChild(h2);
+                }
+
+                const contentElements = mapData(data);
+                if (Array.isArray(contentElements)) {
+                    contentElements.forEach(el => popupCard.appendChild(el));
+                } else if (contentElements instanceof HTMLElement) {
+                    popupCard.appendChild(contentElements);
+                }
             } catch (err) {
                 console.error(err);
-                contactOverlay.innerHTML = `
-                    <div class="popup-card">
-                        <button class="popup-close-btn">&times;</button>
-                        <p>Failed to load content.</p>
-                    </div>`;
-                attachCloseHandler();
-            }
-        });
+                while (popupCard.firstChild) popupCard.removeChild(popupCard.firstChild);
+                const closeBtn3 = document.createElement('button');
+                closeBtn3.className = 'popup-close-btn';
+                closeBtn3.textContent = '×';
+                popupCard.appendChild(closeBtn3);
+                const msg = document.createElement('p');
+                msg.textContent = 'Failed to load content.';
+                popupCard.appendChild(msg);
 
-        function attachCloseHandler() {
-            const closeBtn = contactOverlay.querySelector('.popup-close-btn');
-            if (closeBtn) {
-                closeBtn.addEventListener('click', () => {
+                closeBtn3.addEventListener('click', () => {
                     contactOverlay.classList.add('hidden');
-                    contactOverlay.innerHTML = '';
+                    while (contactOverlay.firstChild) contactOverlay.removeChild(contactOverlay.firstChild);
                 });
             }
-        }
+        });
     }
 
     // ===========================
-    // EXAMPLE DYNAMIC POPUPS
+    // EXAMPLES OF DYNAMIC POPUPS
     // ===========================
+    const createExploreItem = (item) => {
+        const container = document.createElement('div');
+        container.className = 'explore-item';
+
+        const img = document.createElement('img');
+        img.src = item.image;
+        img.alt = item.title;
+        img.className = 'popup-image';
+        container.appendChild(img);
+
+        const h2 = document.createElement('h2');
+        h2.className = 'popup-title';
+        h2.textContent = item.title;
+        container.appendChild(h2);
+
+        const p = document.createElement('p');
+        p.textContent = item.description;
+        container.appendChild(p);
+
+        return container;
+    };
+
     setupFetchPopup({
         triggerId: 'explore-more-btn',
         endpoint: 'exploreMore',
-        mapData: data => data.map(item => `
-            <div class="explore-item">
-                <img src="${item.image}" alt="${item.title}" class="popup-image"/>
-                <h2 class="popup-title">${item.title}</h2>
-                <p>${item.description}</p>
-            </div>
-        `).join('')
+        mapData: data => data.map(createExploreItem)
     });
 
     setupFetchPopup({
         triggerId: 'explore-more-about',
         endpoint: 'aboutExplore',
-        mapData: data => `
-            <img src="${data[0].image}" alt="${data[0].title}" class="popup-image"/>
-            <h2 class="popup-title">${data[0].title}</h2>
-            <p>${data[0].description}</p>
-        `
+        mapData: data => createExploreItem(data[0])
     });
 
     setupFetchPopup({
         triggerId: 'nav-chef',
         endpoint: 'chef',
-        mapData: data => `
-            <img src="${data[0].image}" alt="${data[0].title}" class="popup-image"/>
-            <h2 class="popup-title">${data[0].title}</h2>
-            <p>${data[0].description}</p>
-        `
+        mapData: data => createExploreItem(data[0])
     });
 }

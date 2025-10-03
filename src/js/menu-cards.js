@@ -1,5 +1,9 @@
 import { fetchJson, createElementWithClass, clearElement, toggleClass } from './functions.js';
 
+/**
+ * Refactor: innerHTML volledig vervangen door veilige DOM-manipulatie.
+ * Alle rendering gebeurt nu met createElement, appendChild, textContent, classList, enz.
+ */
 export function setupMenuCards() {
     const menuCards = document.querySelectorAll('.menu-card');
     const floatingMenuOverlay = document.querySelector('#floating-menu-overlay');
@@ -14,51 +18,97 @@ export function setupMenuCards() {
 
                 const match = data.find(item => item.title === title);
                 if (match) {
-                    let expandableContent = '';
-                    let buttonHTML = '';
+                    // Maak popup-card
+                    const popupCard = document.createElement('div');
+                    popupCard.className = 'popup-card';
+
+                    // Sluitknop
+                    const closeBtn = document.createElement('button');
+                    closeBtn.className = 'popup-close-btn';
+                    closeBtn.textContent = '×';
+
+                    // Afbeelding
+                    const img = document.createElement('img');
+                    img.src = match.image;
+                    img.alt = match.title;
+                    img.className = 'popup-image';
+
+                    // Titel
+                    const h2 = document.createElement('h2');
+                    h2.className = 'popup-title';
+                    h2.textContent = match.title;
+
+                    // Beschrijving
+                    const desc = document.createElement('p');
+                    desc.className = 'popup-description';
+                    desc.textContent = match.description;
+
+                    // Uitklapbare content
+                    let expandBtn = null;
+                    let expandList = null;
 
                     if (match.type === 'ingredients') {
-                        buttonHTML = '<button class="popup-expand-btn">Show Ingredients</button>';
-                        expandableContent = `
-                            <ul class="popup-expand-list hidden">
-                            ${match.ingredients.map(ing => `<li><strong>${ing.name}:</strong> ${ing.description}</li>`).join('')}
-                            </ul>
-                        `;
+                        expandBtn = document.createElement('button');
+                        expandBtn.className = 'popup-expand-btn';
+                        expandBtn.textContent = 'Show Ingredients';
+
+                        expandList = document.createElement('ul');
+                        expandList.className = 'popup-expand-list hidden';
+                        match.ingredients.forEach(ing => {
+                            const li = document.createElement('li');
+                            const strong = document.createElement('strong');
+                            strong.textContent = ing.name + ':';
+                            li.appendChild(strong);
+                            li.appendChild(document.createTextNode(' ' + ing.description));
+                            expandList.appendChild(li);
+                        });
                     } else if (match.type === 'products' || match.type === 'gallery') {
-                        buttonHTML = `<button class="popup-expand-btn">View ${match.type === 'products' ? 'Products' : 'Gallery'}</button>`;
-                        expandableContent = `
-                            <div class="popup-expand-list popup-gallery hidden">
-                            ${match.products.map(p => `<img src="${p}" class="popup-product-image" alt="Product">`).join('')}
-                            </div>
-                        `;
+                        expandBtn = document.createElement('button');
+                        expandBtn.className = 'popup-expand-btn';
+                        expandBtn.textContent = `View ${match.type === 'products' ? 'Products' : 'Gallery'}`;
+
+                        expandList = document.createElement('div');
+                        expandList.className = 'popup-expand-list popup-gallery hidden';
+                        match.products.forEach(p => {
+                            const imgEl = document.createElement('img');
+                            imgEl.src = p;
+                            imgEl.className = 'popup-product-image';
+                            imgEl.alt = 'Product';
+                            expandList.appendChild(imgEl);
+                        });
                     } else if (match.type === 'community') {
-                        expandableContent = `
-                            <div class="popup-expand-list">
-                            ${match.partners.map(p => `<p><a href="${p.link}" target="_blank">${p.name}</a></p>`).join('')}
-                            </div>
-                        `;
+                        expandList = document.createElement('div');
+                        expandList.className = 'popup-expand-list';
+                        match.partners.forEach(p => {
+                            const pEl = document.createElement('p');
+                            const a = document.createElement('a');
+                            a.href = p.link;
+                            a.target = '_blank';
+                            a.textContent = p.name;
+                            pEl.appendChild(a);
+                            expandList.appendChild(pEl);
+                        });
                     }
 
-                    floatingMenuOverlay.innerHTML = `
-                        <div class="popup-card">
-                            <button class="popup-close-btn">&times;</button>
-                            <img src="${match.image}" alt="${match.title}" class="popup-image">
-                            <h2 class="popup-title">${match.title}</h2>
-                            <p class="popup-description">${match.description}</p>
-                            ${buttonHTML}
-                            ${expandableContent}
-                        </div>
-                    `;
+                    // Voeg alles toe aan popupCard
+                    popupCard.appendChild(closeBtn);
+                    popupCard.appendChild(img);
+                    popupCard.appendChild(h2);
+                    popupCard.appendChild(desc);
+                    if (expandBtn) popupCard.appendChild(expandBtn);
+                    if (expandList) popupCard.appendChild(expandList);
 
+                    // Maak overlay leeg en voeg popupCard toe
+                    clearElement(floatingMenuOverlay);
+                    floatingMenuOverlay.appendChild(popupCard);
                     floatingMenuOverlay.classList.remove('hidden');
 
-                    document.querySelector('.popup-close-btn').addEventListener('click', () => {
+                    // Event handlers
+                    closeBtn.addEventListener('click', () => {
                         floatingMenuOverlay.classList.add('hidden');
                         clearElement(floatingMenuOverlay);
                     });
 
-                    const expandBtn = document.querySelector('.popup-expand-btn');
-                    const expandList = document.querySelector('.popup-expand-list');
                     if (expandBtn && expandList) {
                         expandBtn.addEventListener('click', () => {
                             toggleClass(expandList, 'hidden');

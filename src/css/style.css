@@ -1,3 +1,5 @@
+
+
 input {
   border: none;
   padding: 15px;
@@ -360,16 +362,21 @@ body {
   transition: opacity 0.3s ease;
 }
 
-#floating-menu-overlay.hidden {
-  pointer-events: none;
-  opacity: 0;
+
+#floating-menu-overlay.hidden,
+#uniqueMenu-popup-overlay.hidden,
+#popup-overlay.hidden,
+#dynamic-menu-section.hidden,
+.fullscreen-image-overlay.hidden {
+  display: none;
   visibility: hidden;
+  opacity: 0;
+  pointer-events: none;
 }
+
+
 
   /* `!important` is hier nodig om ervoor te zorgen dat deze regel andere 
     `display`-regels overschrijft. Zonder dit kan het gebeuren dat de popup (#floating-menu-overlay) 
     niet verborgen wordt en niet meer kan worden gesloten. */
 
-.hidden {
-  display: none !important;
-}

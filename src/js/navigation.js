@@ -147,11 +147,11 @@ export function setupNavigation() {
 
         function showItem(index) {
             const item = menuItems[index];
-            titleEl.textContent = item.title || '';
+            titleEl.textContent = item.name || '';
             descEl.textContent = item.description || '';
             priceEl.textContent = item.price ? `Price:€ ${item.price}` : '';
             imageEl.src = item.imageName ? `/images/${item.imageName}` : '';
-            imageEl.alt = item.title || 'Menu image';
+            imageEl.alt = item.name || 'Menu image';
             imageEl.style.display = item.imageName ? 'block' : 'none';
 
             // Details

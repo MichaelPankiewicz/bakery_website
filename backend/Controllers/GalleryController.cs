@@ -1,8 +1,8 @@
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
-using bakery_website_backend.Models;
+using BakeryWebsiteBackend.Models;
 
-namespace bakery_website_backend.Controllers
+namespace BakeryWebsiteBackend.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]

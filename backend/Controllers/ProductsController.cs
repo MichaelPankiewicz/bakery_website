@@ -64,6 +64,8 @@ namespace BakeryWebsiteBackend.Controllers
                 await _context.SaveChangesAsync();
 
                 return CreatedAtAction(nameof(GetById), new { id = newProduct.Id }, newProduct);
+                // Vervang anonymous object door strongly typed ProductIdDto
+                return CreatedAtAction(nameof(GetById), new ProductIdDto { Id = newProduct.Id }, newProduct);
             }
             catch (Exception ex)
             {

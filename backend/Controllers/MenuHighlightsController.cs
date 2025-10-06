@@ -1,7 +1,8 @@
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
+using BakeryWebsiteBackend.Models;
 
-namespace bakery_website_backend.Controllers
+namespace BakeryWebsiteBackend.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
@@ -17,31 +18,28 @@ namespace bakery_website_backend.Controllers
         [HttpGet]
         public IActionResult GetMenuHighlights()
         {
-            var menuHighlights = new List<object>
+            var menuHighlights = new List<MenuHighlightDto>
             {
-                // Ingredients highlight
-                new {
-                    Id          = 1,
-                    title       = "Fresh, Local Ingredients:",
-                    description = "We use only the freshest ingredients from nearby farms to ensure top flavor and quality in every bite.",
-                    image       = "/images/ingridients.webp",
-                    type        = "ingredients",
-                    ingredients = new [] {
-                        new { name = "Organic Flour",    description = "Locally milled, full of nutrients." },
-                        new { name = "Raw Honey",         description = "From local apiaries, antioxidant-rich." },
-                        new { name = "Free-Range Eggs",   description = "Collected daily, cage-free." },
-                        new { name = "Seasonal Fruits",   description = "Naturally ripened, high in flavor." }
+                new MenuHighlightDto {
+                    Id = 1,
+                    Title = "Fresh, Local Ingredients:",
+                    Description = "We use only the freshest ingredients from nearby farms to ensure top flavor and quality in every bite.",
+                    Image = "/images/ingridients.webp",
+                    Type = "ingredients",
+                    Ingredients = new List<IngredientDto> {
+                        new IngredientDto { Name = "Organic Flour", Description = "Locally milled, full of nutrients." },
+                        new IngredientDto { Name = "Raw Honey", Description = "From local apiaries, antioxidant-rich." },
+                        new IngredientDto { Name = "Free-Range Eggs", Description = "Collected daily, cage-free." },
+                        new IngredientDto { Name = "Seasonal Fruits", Description = "Naturally ripened, high in flavor." }
                     }
                 },
-
-                // Products highlight
-                new {
-                    Id          = 2,
-                    title       = "Artisan Craftsmanship:",
-                    description = "Each product is handmade using traditional methods passed down through generations.",
-                    image       = "/images/craftsmanship.webp",
-                    type        = "products",
-                    products    = new [] {
+                new MenuHighlightDto {
+                    Id = 2,
+                    Title = "Artisan Craftsmanship:",
+                    Description = "Each product is handmade using traditional methods passed down through generations.",
+                    Image = "/images/craftsmanship.webp",
+                    Type = "products",
+                    Products = new List<string> {
                         "/images/product1.webp", "/images/product2.webp", "/images/product3.webp",
                         "/images/product4.webp", "/images/product5.webp", "/images/product6.webp",
                         "/images/product7.webp", "/images/product8.webp", "/images/product9.webp",
@@ -50,30 +48,26 @@ namespace bakery_website_backend.Controllers
                         "/images/product16.webp"
                     }
                 },
-
-                // Atmosphere highlight
-                new {
-                    Id          = 3,
-                    title       = "Inviting Atmosphere:",
-                    description = "Our cozy café space is designed for relaxation, conversation, and delicious moments.",
-                    image       = "/images/atmosphere.webp",
-                    type        = "gallery",
-                    products    = new [] {
+                new MenuHighlightDto {
+                    Id = 3,
+                    Title = "Inviting Atmosphere:",
+                    Description = "Our cozy café space is designed for relaxation, conversation, and delicious moments.",
+                    Image = "/images/atmosphere.webp",
+                    Type = "gallery",
+                    Products = new List<string> {
                         "/images/interior1.webp", "/images/interior2.webp", "/images/interior3.webp", "/images/interior4.webp"
                     }
                 },
-
-                // Community highlight
-                new {
-                    id          = 4,
-                    title       = "Community–Oriented:",
-                    description = "We support local events and organizations that bring our neighborhood together.",
-                    image       = "/images/community.webp",
-                    type        = "community",
-                    partners    = new [] {
-                        new { name = "Local Farmers Market",   link = "https://farmersmarket.com" },
-                        new { name = "Downtown Art Walk",      link = "https://downtownartwalk.org" },
-                        new { name = "Food For All Charity",   link = "https://foodforall.org" }
+                new MenuHighlightDto {
+                    Id = 4,
+                    Title = "Community–Oriented:",
+                    Description = "We support local events and organizations that bring our neighborhood together.",
+                    Image = "/images/community.webp",
+                    Type = "community",
+                    Partners = new List<PartnerDto> {
+                        new PartnerDto { Name = "Local Farmers Market", Link = "https://farmersmarket.com" },
+                        new PartnerDto { Name = "Downtown Art Walk", Link = "https://downtownartwalk.org" },
+                        new PartnerDto { Name = "Food For All Charity", Link = "https://foodforall.org" }
                     }
                 }
             };

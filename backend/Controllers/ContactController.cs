@@ -1,8 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
-using BakeryApi.Models;
-using bakery_website_backend.Models;
+using BakeryWebsiteBackend.Models;
 
-namespace bakery_website_backend.Controllers
+namespace BakeryWebsiteBackend.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
@@ -71,7 +70,7 @@ namespace bakery_website_backend.Controllers
             {
                 message.Id = _messages.Count > 0 ? _messages.Max(m => m.Id) + 1 : 1;
                 _messages.Add(message);
-                return CreatedAtAction(nameof(GetById), new { id = message.Id }, message);
+                return CreatedAtAction(nameof(GetById), new ContactMessageIdDto { Id = message.Id }, message);
             }
             catch (Exception ex)
             {

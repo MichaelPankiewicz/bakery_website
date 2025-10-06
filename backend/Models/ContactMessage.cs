@@ -1,4 +1,4 @@
-namespace BakeryApi.Models
+namespace BakeryWebsiteBackend.Models
 {
     public class ContactMessage
     {

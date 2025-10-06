@@ -1,5 +1,10 @@
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
+
 namespace BakeryWebsiteBackend.Models
 {
+    
+    [Table("AboutExplore")]
     public class AboutExploreDto
     {
         public int Id { get; set; }

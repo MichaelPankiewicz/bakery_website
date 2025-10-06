@@ -55,6 +55,14 @@ nav {
   align-items: center;
 }
 
+.uniqueMenu-popup-image {
+  width: 400px;
+  max-height: 400px;
+  height: 100%;
+  border-radius: 10%;
+  object-fit: cover;
+}
+
 .nav-link {
   text-decoration: none;
   color: white;

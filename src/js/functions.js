@@ -1,65 +1,86 @@
-// Utility functions, no DOMContentLoaded needed
-const isDevelopment = process.env.NODE_ENV === 'development';
-const baseUrl = isDevelopment ? 'http://localhost:3000' : '/api'; // Centralized base URL logic
+// src/js/functions.js
+// Algemene helpers - gebruikt door crud.js en andere modules
 
-// API helpers
-export function getApiUrl(endpoint) {
-    return `${baseUrl}/${endpoint}`;
+// Kies API base:
+// 1) Als pagina expliciet window.__API_BASE__ heeft (crud.html zet deze) -> gebruik die
+// 2) Anders bij dev (localhost) -> http://localhost:5144/api (pas aan als jouw dotnet op andere poort luistert)
+// 3) In productie -> relative '/api'
+export const isBrowser = typeof window !== 'undefined';
+export const isLocalhost = isBrowser && (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1');
+
+export const API_BASE =
+  (isBrowser && window.__API_BASE__) || (isLocalhost ? 'http://localhost:5144/api' : '/api');
+
+function joinUrl(base, endpoint) {
+  const b = String(base || '').replace(/\/+$/, '');
+  const e = String(endpoint || '').replace(/^\/+/, '');
+  return e ? `${b}/${e}` : b;
 }
 
-export async function fetchJson(endpoint) {
-    const url = getApiUrl(endpoint);
-    const response = await fetch(url);
-    if (!response.ok) {
-        throw new Error(`Failed to fetch from ${endpoint}: ${response.statusText}`);
+export function getApiUrl(endpoint) {
+  return joinUrl(API_BASE, endpoint);
+}
+
+export async function fetchJson(endpoint, options = {}) {
+  const url = getApiUrl(endpoint);
+  try {
+    const res = await fetch(url, options);
+    if (!res.ok) {
+      const body = await res.text().catch(() => '');
+      throw new Error(
+        `Fetch error ${res.status} ${res.statusText} -> ${url}${
+          body ? ' :: ' + body : ''
+        }`
+      );
     }
-    return response.json();
+    if (res.status === 204) return null;
+    return res.json();
+  } catch (err) {
+    console.error('fetchJson error:', err);
+    throw err;
+  }
 }
 
 // DOM helpers
 export function createElementWithClass(tag, className) {
-    const el = document.createElement(tag);
-    if (className) el.className = className;
-    return el;
+  const el = document.createElement(tag);
+  if (className) el.className = className;
+  return el;
 }
 
 export function toggleClass(element, className) {
-    if (element) element.classList.toggle(className);
+  if (element) element.classList.toggle(className);
 }
 
 export function clearElement(element) {
-    if (element) element.innerHTML = '';
+  if (element) element.innerHTML = '';
 }
 
-// Form helpers
 export function validateEmail(email) {
-    return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+  return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
 }
 
 export function validateField(field) {
-    if (!field.value.trim()) {
-        field.classList.add('invalid');
-        return false;
-    }
-    if (field.type === 'email' && !validateEmail(field.value.trim())) {
-        field.classList.add('invalid');
-        return false;
-    }
-    field.classList.remove('invalid');
-    return true;
+  if (!field.value.trim()) {
+    field.classList.add('invalid');
+    return false;
+  }
+  if (field.type === 'email' && !validateEmail(field.value.trim())) {
+    field.classList.add('invalid');
+    return false;
+  }
+  field.classList.remove('invalid');
+  return true;
 }
 
-// Notification helper
 export function showNotification(message) {
-    const notif = document.createElement('div');
-    notif.className = 'custom-notification';
-    notif.textContent = message;
-    document.body.appendChild(notif);
-    setTimeout(() => {
-        notif.classList.add('show');
-    }, 10);
-    setTimeout(() => {
-        notif.classList.remove('show');
-        setTimeout(() => notif.remove(), 300);
-    }, 2500);
+  const notif = document.createElement('div');
+  notif.className = 'custom-notification';
+  notif.textContent = message;
+  document.body.appendChild(notif);
+  setTimeout(() => notif.classList.add('show'), 10);
+  setTimeout(() => {
+    notif.classList.remove('show');
+    setTimeout(() => notif.remove(), 300);
+  }, 2500);
 }

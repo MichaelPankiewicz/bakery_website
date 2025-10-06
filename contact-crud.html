@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Contact CRUD</title>
+  <link rel="stylesheet" href="./src/css/contact-crud.css" />
+</head>
+<body class="contact-crud-page">
+  <h1 class="contact-crud-title">Contact Messages</h1>
+  <div id="contact-list" class="contact-crud-list"></div>
+
+  <script type="module">
+    import { setupContactCRUD } from './src/js/contact-crud.js';
+    setupContactCRUD();
+  </script>
+</body>
+</html>

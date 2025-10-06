@@ -1,0 +1,69 @@
+/* Scoped styling ONLY for contact-crud.html */
+.contact-crud-page {
+  font-family: Arial, sans-serif;
+  background: #fafafa;
+  padding: 20px;
+  min-height: 100vh;
+}
+
+.contact-crud-title {
+  text-align: center;
+  color: #333;
+  margin-bottom: 20px;
+}
+
+.contact-crud-list {
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.contact-crud-item {
+  background: #fff;
+  border: 1px solid #ddd;
+  padding: 15px;
+  margin-bottom: 12px;
+  border-radius: 10px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+}
+
+.contact-crud-item p {
+  margin: 5px 0;
+  color: #444;
+}
+
+.contact-crud-actions {
+  margin-top: 10px;
+}
+
+.contact-crud-actions button {
+  padding: 6px 12px;
+  margin-right: 8px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 0.9rem;
+}
+
+.contact-crud-actions .edit-contact {
+  background: #007bff;
+  color: #fff;
+}
+
+.contact-crud-actions .edit-contact:hover {
+  background: #0062cc;
+}
+
+.contact-crud-actions .delete-contact {
+  background: #dc3545;
+  color: #fff;
+}
+
+.contact-crud-actions .delete-contact:hover {
+  background: #b02a37;
+}
+
+.contact-crud-error {
+  text-align: center;
+  color: red;
+  font-weight: bold;
+}

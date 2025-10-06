@@ -24,6 +24,7 @@ export function setupNavigation() {
                 toggleMenu();
             }
         });
+
         window.addEventListener('scroll', () => {
             if (window.scrollY > 10) {
                 headerScroll.classList.add('scrolled');
@@ -42,50 +43,89 @@ export function setupNavigation() {
 
     uniqueMenuBtn.addEventListener('click', async (event) => {
         event.preventDefault();
-
+        uniquePopupOverlay.innerHTML = ''; // clear previous content
         uniquePopupOverlay.classList.remove('hidden');
 
-        // Carousel state
-        let currentIndex = 0;
-        let menuItems = [];
+        // Create popup card
+        const popupCard = document.createElement('div');
+        popupCard.className = 'uniqueMenu-popup-card';
+        popupCard.setAttribute('role', 'dialog');
+        popupCard.setAttribute('aria-modal', 'true');
+        popupCard.setAttribute('tabindex', '-1');
 
-        // Create popup HTML container
-        uniquePopupOverlay.innerHTML = `
-            <div class="uniqueMenu-popup-card" role="dialog" aria-modal="true" aria-labelledby="uniqueMenu-popup-title" tabindex="-1">
-                <button class="uniqueMenu-popup-close-btn" aria-label="Close popup">&times;</button>
-                <h2 id="uniqueMenu-popup-title" class="uniqueMenu-popup-title"></h2>
-                <img src="" alt="" class="uniqueMenu-popup-image" style="max-width: 100%; height: auto; margin: 1rem 0;">
-                <p class="uniqueMenu-popup-description"></p>
-                <p class="uniqueMenu-popup-price" style="font-weight: bold; margin: 0.5rem 0;"></p>
-                <button class="uniqueMenu-popup-expand-btn">Show Details</button>
-                <ul class="uniqueMenu-popup-expand-list" aria-expanded="false"></ul>
-                <div class="uniqueMenu-carousel-controls" style="margin-top: 1rem;">
-                <button class="uniqueMenu-prev-btn">&larr; Prev</button>
-                <button class="uniqueMenu-next-btn">Next &rarr;</button>
-                </div>
-            </div>
-        `;
+        // Close button
+        const closeBtn = document.createElement('button');
+        closeBtn.className = 'uniqueMenu-popup-close-btn';
+        closeBtn.setAttribute('aria-label', 'Close popup');
+        closeBtn.textContent = '×';
+        popupCard.appendChild(closeBtn);
 
-        const popupCard = uniquePopupOverlay.querySelector('.uniqueMenu-popup-card');
-        const closeBtn = popupCard.querySelector('.uniqueMenu-popup-close-btn');
-        const titleEl = popupCard.querySelector('.uniqueMenu-popup-title');
-        const imageEl = popupCard.querySelector('.uniqueMenu-popup-image');
-        const descEl = popupCard.querySelector('.uniqueMenu-popup-description');
-        const priceEl = popupCard.querySelector('.uniqueMenu-popup-price');
-        const expandBtn = popupCard.querySelector('.uniqueMenu-popup-expand-btn');
-        const expandList = popupCard.querySelector('.uniqueMenu-popup-expand-list');
-        const prevBtn = popupCard.querySelector('.uniqueMenu-prev-btn');
-        const nextBtn = popupCard.querySelector('.uniqueMenu-next-btn');
+        // Title
+        const titleEl = document.createElement('h2');
+        titleEl.className = 'uniqueMenu-popup-title';
+        popupCard.appendChild(titleEl);
 
+        // Image
+        const imageEl = document.createElement('img');
+        imageEl.className = 'uniqueMenu-popup-image';
+        imageEl.style.maxWidth = '100%';
+        imageEl.style.height = 'auto';
+        imageEl.style.margin = '1rem 0';
+        popupCard.appendChild(imageEl);
+
+        // Description
+        const descEl = document.createElement('p');
+        descEl.className = 'uniqueMenu-popup-description';
+        popupCard.appendChild(descEl);
+
+        // Price
+        const priceEl = document.createElement('p');
+        priceEl.className = 'uniqueMenu-popup-price';
+        priceEl.style.fontWeight = 'bold';
+        priceEl.style.margin = '0.5rem 0';
+        popupCard.appendChild(priceEl);
+
+        // Expand button
+        const expandBtn = document.createElement('button');
+        expandBtn.className = 'uniqueMenu-popup-expand-btn';
+        expandBtn.textContent = 'Show Details';
+        popupCard.appendChild(expandBtn);
+
+        // Expand list
+        const expandList = document.createElement('ul');
+        expandList.className = 'uniqueMenu-popup-expand-list';
+        expandList.setAttribute('aria-expanded', 'false');
+        popupCard.appendChild(expandList);
+
+        // Carousel controls
+        const carouselDiv = document.createElement('div');
+        carouselDiv.className = 'uniqueMenu-carousel-controls';
+        carouselDiv.style.marginTop = '1rem';
+
+        const prevBtn = document.createElement('button');
+        prevBtn.className = 'uniqueMenu-prev-btn';
+        prevBtn.textContent = '← Prev';
+        const nextBtn = document.createElement('button');
+        nextBtn.className = 'uniqueMenu-next-btn';
+        nextBtn.textContent = 'Next →';
+
+        carouselDiv.appendChild(prevBtn);
+        carouselDiv.appendChild(nextBtn);
+        popupCard.appendChild(carouselDiv);
+
+        uniquePopupOverlay.appendChild(popupCard);
+
+        // Close handler
         closeBtn.addEventListener('click', () => {
             uniquePopupOverlay.classList.add('hidden');
             uniquePopupOverlay.innerHTML = '';
         });
 
-        try {
-            // Fetch menu items using the centralized fetchJson function
-            menuItems = await fetchJson('topMenu');
+        let menuItems = [];
+        let currentIndex = 0;
 
+        try {
+            menuItems = await fetchJson('Products');
             if (!menuItems.length) {
                 titleEl.textContent = 'No menu data available.';
                 expandBtn.style.display = 'none';
@@ -95,7 +135,7 @@ export function setupNavigation() {
                 nextBtn.style.display = 'none';
                 return;
             }
-        } catch (error) {
+        } catch (err) {
             titleEl.textContent = 'Failed to load menu data.';
             expandBtn.style.display = 'none';
             descEl.textContent = '';
@@ -107,21 +147,31 @@ export function setupNavigation() {
 
         function showItem(index) {
             const item = menuItems[index];
-            titleEl.textContent = item.title || '';
+            titleEl.textContent = item.name || '';
             descEl.textContent = item.description || '';
-            priceEl.textContent = item.price ? `Price: ${item.price}` : '';
-            imageEl.src = item.image || '';
-            imageEl.alt = item.title || 'Menu image';
+            priceEl.textContent = item.price ? `Price:€ ${item.price}` : '';
+            imageEl.src = item.imageName ? `/images/${item.imageName}` : '';
+            imageEl.alt = item.name || 'Menu image';
+            imageEl.style.display = item.imageName ? 'block' : 'none';
 
-            if (item.details && Array.isArray(item.details) && item.details.length) {
+            // Details
+            if (item.details && item.details.trim() !== '') {
                 expandBtn.style.display = 'inline-block';
-                expandList.innerHTML = item.details.map(i => `<li>${i}</li>`).join('');
+                expandList.textContent = ''; // clear previous
+
+                const detailsArray = item.details.split(';').map(d => d.trim()).filter(d => d !== '');
+                detailsArray.forEach(detail => {
+                    const li = document.createElement('li');
+                    li.textContent = detail;
+                    expandList.appendChild(li);
+                });
+
                 expandList.classList.remove('visible');
                 expandBtn.textContent = 'Show Details';
                 expandList.setAttribute('aria-expanded', 'false');
             } else {
                 expandBtn.style.display = 'none';
-                expandList.innerHTML = '';
+                expandList.textContent = '';
             }
         }
 

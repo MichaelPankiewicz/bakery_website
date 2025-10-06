@@ -1,5 +1,8 @@
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using BakeryWebsiteBackend.Models;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace BakeryWebsiteBackend.Controllers
 {
@@ -7,124 +10,108 @@ namespace BakeryWebsiteBackend.Controllers
     [Route("api/[controller]")]
     public class ContactController : ControllerBase
     {
-    private static List<ContactMessage> _messages = new List<ContactMessage>()
-        {
-            // Voorbeeld: nieuwe berichten kunnen hier als dummy worden toegevoegd
-            // new ContactMessage {
-            //     Id      = 1,
-            //     Name    = "Julia Simmons",
-            //     Email   = "julia@example.com",
-            //     Message = "Ik wil graag een taart bestellen voor zaterdag."
-            // }
-        };
+        private readonly BakeryDbContext _context;
 
-        /// <summary>
-        /// Gets all contact messages.
-        /// </summary>
-        /// <returns>List of contact messages.</returns>
+        public ContactController(BakeryDbContext context)
+        {
+            _context = context;
+        }
+
+        // GET: api/Contact
         [HttpGet]
-        public IActionResult GetAll()
+        public async Task<IActionResult> GetAll()
         {
             try
             {
-                return Ok(_messages);
+                var messages = await _context.ContactMessages.ToListAsync();
+                return Ok(messages);
             }
-            catch (Exception ex)
+            catch (System.Exception ex)
             {
                 return StatusCode(500, $"An error occurred while retrieving contact messages: {ex.Message}");
             }
         }
 
-        /// <summary>
-        /// Gets a contact message by ID.
-        /// </summary>
-        /// <param name="id">Message ID.</param>
-        /// <returns>The message if found, otherwise NotFound.</returns>
+        // GET: api/Contact/5
         [HttpGet("{id}")]
-        public IActionResult GetById(int id)
+        public async Task<IActionResult> GetById(int id)
         {
             try
             {
-                var msg = _messages.FirstOrDefault(m => m.Id == id);
+                var msg = await _context.ContactMessages.FindAsync(id);
                 if (msg == null)
-                {
                     return NotFound($"Contact message with ID {id} not found.");
-                }
+
                 return Ok(msg);
             }
-            catch (Exception ex)
+            catch (System.Exception ex)
             {
                 return StatusCode(500, $"An error occurred while retrieving the contact message: {ex.Message}");
             }
         }
 
-        /// <summary>
-        /// Creates a new contact message.
-        /// </summary>
-        /// <param name="message">Message to add.</param>
-        /// <returns>The created message.</returns>
+        // POST: api/Contact
         [HttpPost]
-        public IActionResult Post([FromBody] ContactMessage message)
+        public async Task<IActionResult> Post([FromBody] ContactMessage message)
         {
             try
             {
-                message.Id = _messages.Count > 0 ? _messages.Max(m => m.Id) + 1 : 1;
-                _messages.Add(message);
-                return CreatedAtAction(nameof(GetById), new ContactMessageIdDto { Id = message.Id }, message);
+                if (!ModelState.IsValid)
+                    return BadRequest(ModelState);
+
+                _context.ContactMessages.Add(message);
+                await _context.SaveChangesAsync();
+
+                return CreatedAtAction(nameof(GetById), new { id = message.Id }, message);
             }
-            catch (Exception ex)
+            catch (System.Exception ex)
             {
                 return StatusCode(500, $"An error occurred while creating the contact message: {ex.Message}");
             }
         }
 
-        /// <summary>
-        /// Updates a contact message by ID.
-        /// </summary>
-        /// <param name="id">Message ID.</param>
-        /// <param name="updatedMessage">Updated message data.</param>
-        /// <returns>The updated message if found, otherwise NotFound.</returns>
+        // PUT: api/Contact/5
         [HttpPut("{id}")]
-        public IActionResult Put(int id, [FromBody] ContactMessage updatedMessage)
+        public async Task<IActionResult> Put(int id, [FromBody] ContactMessage updatedMessage)
         {
             try
             {
-                var msg = _messages.FirstOrDefault(m => m.Id == id);
-                if (msg == null) return NotFound($"Contact message with ID {id} not found.");
+                var msg = await _context.ContactMessages.FindAsync(id);
+                if (msg == null)
+                    return NotFound($"Contact message with ID {id} not found.");
 
                 msg.Name = updatedMessage.Name;
                 msg.Email = updatedMessage.Email;
                 msg.Message = updatedMessage.Message;
 
+                await _context.SaveChangesAsync();
                 return Ok(msg);
             }
-            catch (Exception ex)
+            catch (System.Exception ex)
             {
                 return StatusCode(500, $"An error occurred while updating the contact message: {ex.Message}");
             }
         }
 
-        /// <summary>
-        /// Deletes a contact message by ID.
-        /// </summary>
-        /// <param name="id">Message ID.</param>
-        /// <returns>NoContent if deleted, otherwise NotFound.</returns>
+        // DELETE: api/Contact/5
         [HttpDelete("{id}")]
-        public IActionResult Delete(int id)
+        public async Task<IActionResult> Delete(int id)
         {
             try
             {
-                var msg = _messages.FirstOrDefault(m => m.Id == id);
-                if (msg == null) return NotFound($"Contact message with ID {id} not found.");
+                var msg = await _context.ContactMessages.FindAsync(id);
+                if (msg == null)
+                    return NotFound($"Contact message with ID {id} not found.");
 
-                _messages.Remove(msg);
+                _context.ContactMessages.Remove(msg);
+                await _context.SaveChangesAsync();
+
                 return NoContent();
             }
-            catch (Exception ex)
+            catch (System.Exception ex)
             {
                 return StatusCode(500, $"An error occurred while deleting the contact message: {ex.Message}");
             }
         }
     }
-
 }

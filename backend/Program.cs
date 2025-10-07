@@ -5,7 +5,11 @@ using BakeryWebsiteBackend;
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services needed for controllers
-builder.Services.AddControllers();
+builder.Services.AddControllers()
+.AddJsonOptions(options =>
+    {
+        options.JsonSerializerOptions.ReferenceHandler = System.Text.Json.Serialization.ReferenceHandler.IgnoreCycles;
+    });
 
 // Add Swagger
 builder.Services.AddEndpointsApiExplorer();

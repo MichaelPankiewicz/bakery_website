@@ -71,7 +71,7 @@ export function setupMenuCards() {
                         expandList.className = 'popup-expand-list popup-gallery hidden';
                         match.products.forEach(p => {
                             const imgEl = document.createElement('img');
-                            imgEl.src = p;
+                            imgEl.src = p.image;
                             imgEl.className = 'popup-product-image';
                             imgEl.alt = 'Product';
                             expandList.appendChild(imgEl);
